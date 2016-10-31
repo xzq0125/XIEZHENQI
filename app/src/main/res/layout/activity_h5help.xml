@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".business.h5help.H5HelpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_height"
+        android:background="@drawable/bg_toolbar_normal">
+
+        <ImageButton
+            android:id="@+id/h5help_ibtn_back"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_common_press_nomask"
+            android:padding="12dp"
+            android:src="@drawable/ic_evevnt_left"
+            android:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/h5help_ibtn_close"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/h5help_ibtn_back"
+            android:layout_toRightOf="@id/h5help_ibtn_back"
+            android:background="@drawable/bg_common_press_nomask"
+            android:padding="12dp"
+            android:src="@drawable/ic_event_close"
+            android:tint="@color/white"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/h5help_tv_title"
+            style="@style/ToobarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_toEndOf="@+id/h5help_ibtn_close"
+            android:layout_toRightOf="@+id/h5help_ibtn_close"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.xiezhenqi.widget.progresswebview.ProgressWebView
+            android:id="@+id/h5help_web"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#f9f9f9"
+            android:scrollbars="none" />
+
+        <com.xiezhenqi.widget.progressbar.NumberProgressBar
+            android:id="@+id/h5help_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:npb_reachedColor="@color/progress_reached_color"
+            app:npb_textColor="@color/progress_text_color"
+            app:npb_textVisibility="visible"
+            app:npb_unreachedColor="@color/progress_unreached_color" />
+
+    </FrameLayout>
+
+</LinearLayout>

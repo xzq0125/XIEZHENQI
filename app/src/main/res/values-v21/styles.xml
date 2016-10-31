@@ -1,0 +1,6 @@
+<resources>
+
+    <style name="EditTextStyleNoCursorDrawable" parent="Widget.AppCompat.EditText">
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+</resources>

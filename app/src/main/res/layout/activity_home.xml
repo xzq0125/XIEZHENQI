@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:context="com.xiezhenqi.business.home.HomeActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/main_vp_fragments"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/toolbar_height" />
+
+    <com.xiezhenqi.widget.gradienttabview.GradientTabView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/main_gtv_tabs"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_main_tabbar"
+        android:gravity="center"
+        custom:show_icon="true"
+        custom:text_normal_color="#ff999999"
+        custom:text_select_color="#ffff0027"
+        custom:text_size="9sp"
+        custom:text_style="normal" />
+
+</RelativeLayout>

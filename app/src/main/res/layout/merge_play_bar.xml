@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/paly_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/themeColor">
+
+        <com.facebook.drawee.view.SimpleDraweeView xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/paly_bar_iv_head"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            custom:backgroundImage="@color/black"
+            custom:placeholderImage="@drawable/ic_loading_empty"
+            custom:roundAsCircle="true" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/paly_bar_iv_head"
+            android:layout_toLeftOf="@+id/paly_bar_play_container"
+            android:layout_toRightOf="@+id/paly_bar_iv_head"
+            android:layout_toStartOf="@+id/paly_bar_play_container">
+
+            <TextView
+                android:id="@+id/paly_bar_tv_songName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                tools:text="谢谢你的爱" />
+
+            <TextView
+                android:id="@+id/paly_bar_tv_singerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/paly_bar_tv_songName"
+                android:textColor="#ff999999"
+                tools:text="谢霆锋" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/paly_bar_play_container"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/paly_bar_iv_songList"
+            android:layout_toStartOf="@+id/paly_bar_iv_songList">
+
+            <ImageView
+                android:id="@+id/paly_bar_iv_play"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_play"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
+                android:id="@+id/paly_bar_iv_stop"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_stop"
+                android:visibility="gone"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/paly_bar_iv_songList"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/ic_song_list"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+</merge>

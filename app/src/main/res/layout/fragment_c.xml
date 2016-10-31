@@ -1,0 +1,37 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xiezhenqi.business.home.fragments.CFragment">
+
+    <com.xiezhenqi.widget.smarttablayout.SmartTabLayout
+        android:id="@+id/stl"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:gravity="center"
+        android:paddingBottom="4dp"
+        custom:stl_customTabTextLayoutId="@layout/custom_tab_margin"
+        custom:stl_defaultTabTextAllCaps="true"
+        custom:stl_defaultTabTextColor="@color/themeColor"
+        custom:stl_distributeEvenly="true"
+        custom:stl_dividerColor="@color/themeColor"
+        custom:stl_dividerThickness="0dp"
+        custom:stl_indicatorAlwaysInCenter="false"
+        custom:stl_indicatorColor="@color/themeColor"
+        custom:stl_indicatorCornerRadius="0dp"
+        custom:stl_indicatorGravity="bottom"
+        custom:stl_indicatorInterpolation="smart"
+        custom:stl_indicatorThickness="2dp"
+        custom:stl_indicatorWidthSameWithTextWidth="false"
+        custom:stl_indicatorWithoutPadding="false"
+        custom:stl_underlineColor="@color/lineColor_toolbar"
+        custom:stl_underlineThickness="0.1dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_song_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="49dp" />
+
+</FrameLayout>

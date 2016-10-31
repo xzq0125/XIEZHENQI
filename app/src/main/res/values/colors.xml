@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff00ff00</color>
+    <color name="blue">#ff0000ff</color>
+    <color name="white">#ffffffff</color>
+    <color name="black">#ff000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="textColor_toolbar_title">#ffffffff</color>
+    <color name="lineColor_toolbar">#ffcccccc</color>
+
+    <color name="themeColor">#ffff0027</color>
+
+    <color name="common_bg">#ff1d3749</color>
+
+    <color name="ripple_light">#1f000000</color>
+    <color name="ripple_dark">#4dffffff</color>
+
+    <color name="progress_text_color">@color/common_bg</color>
+    <color name="progress_reached_color">@color/common_bg</color>
+    <color name="progress_unreached_color">#ffdddddd</color>
+
+</resources>

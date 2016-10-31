@@ -1,0 +1,14 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="textSize_toolbar_title">15sp</dimen>
+    <dimen name="width_picture">110dp</dimen>
+    <dimen name="width_main_tasty_card">170dp</dimen>
+    <dimen name="height_main_tasty_pic">130dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="common_item_marginTop">10dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="toolbar_height">45dp</dimen>
+</resources>
