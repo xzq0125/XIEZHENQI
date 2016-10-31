@@ -2,7 +2,6 @@ package com.xiezhenqi.request;
 
 
 import com.google.gson.reflect.TypeToken;
-import com.xiezhenqi.entity.lyric.LyricDto;
 import com.xiezhenqi.entity.ResponseDtoEntity;
 import com.xiezhenqi.entity.musicpavilion.MusicPavilionDto;
 import com.xiezhenqi.entity.search.SearchSongDto;
@@ -27,18 +26,6 @@ public class RequestFactory {
         urlMaker.addUrlData("keyword", keyword);
         urlMaker.addUrlData("page", page);
         return new RequestHelper(urlMaker, new TypeToken<ResponseDtoEntity<SearchSongDto>>() {
-        });
-    }
-
-    /**
-     * 获取歌词
-     *
-     * @return 请求
-     */
-    public static RequestHelper getLyric(int musicId) {
-        RequestUrlBuilder urlMaker = new RequestUrlBuilder(ADDRESS_GET_LYRIC);
-        urlMaker.addUrlData("musicId", musicId);
-        return new RequestHelper(urlMaker, new TypeToken<ResponseDtoEntity<LyricDto>>() {
         });
     }
 
