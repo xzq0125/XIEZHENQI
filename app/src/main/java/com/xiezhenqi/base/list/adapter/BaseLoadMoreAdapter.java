@@ -44,7 +44,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
         return inflater;
     }
 
-    public ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = getLayoutInflater(parent.getContext());
         View itemView;
         switch (viewType) {
