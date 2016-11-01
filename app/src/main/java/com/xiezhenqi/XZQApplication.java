@@ -42,7 +42,7 @@ public class XZQApplication extends Application {
     }
 
     /**
-     * 应用内部广播接收器
+     * 应用内部广播接收器mLocalReceiver
      */
     private final BroadcastReceiver mLocalReceiver = new BroadcastReceiver() {
 
