@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
+import com.xiezhenqi.business.account.ShareDialog;
 import com.xiezhenqi.business.h5help.H5HelpActivity;
 import com.xiezhenqi.utils.ToastUtils;
 
@@ -51,7 +52,7 @@ public class DFragment extends BaseFragment {
                 ToastUtils.showToast(getActivity(), "消息");
                 break;
             case R.id.account_tv_share:
-                ToastUtils.showToast(getActivity(), "分享给好友");
+                new ShareDialog(getActivity()).show();
                 break;
             case R.id.account_tv_suggest:
                 H5HelpActivity.start(getActivity(), "https://www.baidu.com");
