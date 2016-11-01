@@ -64,7 +64,7 @@ public class RefreshLayoutHeader extends FrameLayout implements RefreshLayout.Re
     public void complete() {
         loading.normal();
         tvOk.setVisibility(VISIBLE);
-        AnimatorUtils.alpha(tvOk, 0.5f, 1f, 500);
+        AnimatorUtils.alpha(tvOk, 0.5f, 1f, 0);
     }
 
     @Override

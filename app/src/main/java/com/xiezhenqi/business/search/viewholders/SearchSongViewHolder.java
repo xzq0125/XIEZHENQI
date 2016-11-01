@@ -1,10 +1,10 @@
 package com.xiezhenqi.business.search.viewholders;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
+import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.entity.search.SearchSongDto;
 import com.xiezhenqi.utils.StringUtils;
 
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
  * Created by Tse on 2016/10/20.
  */
 
-public class SearchSongViewHolder extends RecyclerView.ViewHolder {
+public class SearchSongViewHolder extends BaseLoadMoreViewHolder {
 
     @Bind(R.id.item_search_songName)
     TextView tvSongName;
@@ -25,10 +25,9 @@ public class SearchSongViewHolder extends RecyclerView.ViewHolder {
     @Bind(R.id.item_search_special)
     TextView tvSpecial;
 
-    public SearchSongViewHolder(View itemView, boolean isNormalView) {
+    public SearchSongViewHolder(View itemView) {
         super(itemView);
-        if (isNormalView)
-            ButterKnife.bind(this, itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     public void setData(SearchSongDto.PageBean.ContentListBean data) {

@@ -1,7 +1,6 @@
 package com.xiezhenqi.business.search.adapters;
 
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
@@ -21,8 +20,8 @@ public class SearchSongAdapter extends BaseLoadMoreAdapter<SearchSongDto.PageBea
     }
 
     @Override
-    public SearchSongViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isNormalView, View itemView) {
-        return new SearchSongViewHolder(itemView, isNormalView);
+    public SearchSongViewHolder onCreateNormalViewHolder(View itemView) {
+        return new SearchSongViewHolder(itemView);
     }
 
     @Override

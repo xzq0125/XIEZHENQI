@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
+import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -22,7 +22,7 @@ import java.util.List;
  * Created by sean on 2016/9/26.
  */
 @SuppressWarnings("all")
-public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends RecyclerView.ViewHolder>
+public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreViewHolder>
         extends RecyclerView.Adapter<ViewHolder>
         implements StateFrameLayout.OnStateClickListener {
 
@@ -44,8 +44,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends RecyclerView.
         return inflater;
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateNormalViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = getLayoutInflater(parent.getContext());
         View itemView;
         switch (viewType) {
@@ -57,7 +56,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends RecyclerView.
                     itemView.setOnClickListener(onClickListener);
                 if (itemLongClickListeners != null)
                     itemView.setOnLongClickListener(onLongClickListener);
-                break;
+                return onCreateNormalViewHolder(itemView);
 
             case TYPE_FOOTER:
                 itemView = inflater.inflate(getFooterLayoutId(), parent, false);
@@ -65,15 +64,24 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends RecyclerView.
                 sflLoadMore.setStateDrawables(new MaterialLoadingProgressDrawable(sflLoadMore),
                         ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_loading_error), null);
                 sflLoadMore.setOnStateClickListener(this);
-                break;
+                return onCreateFooterViewHolder(itemView);
         }
-        return onCreateViewHolder(parent, viewType, viewType == TYPE_NORMAL, itemView);
     }
 
-    public abstract ViewHolder onCreateViewHolder(ViewGroup parent, int viewType, boolean isNormalView, View itemView);
+    public abstract ViewHolder onCreateNormalViewHolder(View itemView);
+
+    ViewHolder onCreateFooterViewHolder(View itemView) {
+        return (ViewHolder) new LoadMoreViewHolder(itemView);
+    }
+
+    class LoadMoreViewHolder extends BaseLoadMoreViewHolder {
+        public LoadMoreViewHolder(View itemView) {
+            super(itemView);
+        }
+    }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(BaseLoadMoreViewHolder holder, int position) {
         //Do nothing
     }
 
