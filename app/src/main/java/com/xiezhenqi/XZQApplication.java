@@ -14,7 +14,7 @@ import com.xiezhenqi.utils.StringUtils;
 import java.io.File;
 
 /**
- * XZQApplicationApplication
+ * XZQApplication
  * Created by Tse on 2016/9/11.
  */
 public class XZQApplication extends Application {
