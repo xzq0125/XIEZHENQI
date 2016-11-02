@@ -36,7 +36,8 @@ public class DFragment extends BaseFragment {
         ButterKnife.bind(this, getView());
     }
 
-    @OnClick({R.id.account_tv_more,
+    @OnClick({
+            R.id.account_rl_head,
             R.id.account_llyt_order,
             R.id.account_llyt_coupon,
             R.id.account_llyt_message,
@@ -44,8 +45,8 @@ public class DFragment extends BaseFragment {
             R.id.account_tv_suggest})
     public void OnClick(View v) {
         switch (v.getId()) {
-            case R.id.account_tv_more:
-                MoreActivity.start(getActivity());
+            case R.id.account_rl_head:
+                ToastUtils.showToast(getActivity(), "用户信息");
                 break;
             case R.id.account_llyt_order:
                 ToastUtils.showToast(getActivity(), "我的订单");
@@ -54,7 +55,7 @@ public class DFragment extends BaseFragment {
                 ToastUtils.showToast(getActivity(), "米星券");
                 break;
             case R.id.account_llyt_message:
-                ToastUtils.showToast(getActivity(), "消息");
+                MoreActivity.start(getActivity());
                 break;
             case R.id.account_tv_share:
                 new ShareDialog(getActivity()).show();

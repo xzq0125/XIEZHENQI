@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -63,8 +64,8 @@ public class H5HelpActivity extends BaseActivity implements View.OnClickListener
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
         webSettings.setLoadsImagesAutomatically(true);  //支持自动加载图片
         webSettings.setDisplayZoomControls(false);  //关闭放大缩小按钮
-        webH5Help.loadUrl(url);//目标url
         webH5Help.setWebViewClient(new MyWebViewClient());
+        webH5Help.loadUrl(url);//目标url
     }
 
     @Override
@@ -91,8 +92,8 @@ public class H5HelpActivity extends BaseActivity implements View.OnClickListener
     // 监听 所有点击的链接，如果拦截到我们需要的，就跳转到相对应的页面。
     private class MyWebViewClient extends WebViewClient {
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return super.shouldOverrideUrlLoading(view, url);
+        public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+            return super.shouldOverrideUrlLoading(view, request);
         }
 
         @SuppressLint("SetJavaScriptEnabled")
@@ -124,7 +125,7 @@ public class H5HelpActivity extends BaseActivity implements View.OnClickListener
     public static void start(Context context, String url) {
         if (context != null && !StringUtils.isNullOrEmpty(url))
             context.startActivity(new Intent(context, H5HelpActivity.class)
-                    .putExtra(H5HelpActivity.EXTRA_URL, url));
+                    .putExtra(EXTRA_URL, url));
     }
 
 }

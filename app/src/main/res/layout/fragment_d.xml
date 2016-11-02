@@ -1,295 +1,309 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff0f0f2"
+    android:orientation="vertical"
     tools:context="com.xiezhenqi.business.home.fragments.DFragment">
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/account_flyt_changemode">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/account_rl_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/bg_common_press"
+            android:paddingBottom="20dp"
+            android:paddingTop="20dp">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white">
+            <ImageView
+                android:id="@+id/account_siv_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_loading_empty"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/account_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/account_siv_head"
+                android:layout_toRightOf="@+id/account_siv_head"
+                android:text="不是九天"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableEnd="@drawable/ic_common_into"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_common_into"
+                android:gravity="center"
+                android:paddingEnd="20dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="20dp"
+                android:paddingStart="5dp"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:divider="@drawable/divider_common_horizontal"
+        android:dividerPadding="20dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <LinearLayout
+            android:id="@+id/account_llyt_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_common_press"
+            android:minHeight="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
 
                 <ImageView
-                    android:id="@+id/account_siv_head"
-                    android:layout_width="84dp"
-                    android:layout_height="84dp"
-                    android:layout_marginBottom="35dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="35dp"
-                    android:src="@drawable/ic_loading_empty" />
-
-                <TextView
-                    android:id="@+id/account_tv_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:padding="20dp"
-                    android:text="更多" />
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_account_order"
+                    tools:ignore="ContentDescription" />
 
-            </RelativeLayout>
+                <View
+                    android:id="@+id/account_v_order_point"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_has_order" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="#fff0f0f2" />
+            </FrameLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:divider="@drawable/divider_common_horizontal"
-                android:dividerPadding="20dp"
-                android:orientation="vertical"
-                android:showDividers="middle">
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:text="我的订单"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
 
-                <LinearLayout
-                    android:id="@+id/account_llyt_order"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_common_press"
-                    android:minHeight="50dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/ic_account_order" />
-
-                        <View
-                            android:id="@+id/account_v_order_point"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_has_order" />
-
-                    </FrameLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="1dp"
-                        android:paddingRight="1dp"
-                        android:text="我的订单"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/account_tv_order_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:drawableEnd="@drawable/ic_common_into"
-                        android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_common_into"
-                        android:gravity="center"
-                        android:paddingEnd="6dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="6dp"
-                        android:paddingStart="5dp"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/account_llyt_coupon"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_common_press"
-                    android:minHeight="50dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/ic_account_coupon" />
-
-                        <View
-                            android:id="@+id/account_v_coupon_point"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_has_order" />
-
-                    </FrameLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="1dp"
-                        android:paddingRight="1dp"
-                        android:text="米星券"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/account_tv_coupon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:drawableEnd="@drawable/ic_common_into"
-                        android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_common_into"
-                        android:gravity="center"
-                        android:paddingEnd="6dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="6dp"
-                        android:paddingStart="5dp"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/account_llyt_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_common_press"
-                    android:minHeight="50dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp">
-
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="50dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:src="@drawable/ic_account_message" />
-
-                        <View
-                            android:id="@+id/account_v_message_point"
-                            android:layout_width="8dp"
-                            android:layout_height="8dp"
-                            android:layout_gravity="end"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/bg_has_order" />
-
-                    </FrameLayout>
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="1dp"
-                        android:paddingRight="1dp"
-                        android:text="消息"
-                        android:textColor="#ff333333"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/account_tv_message"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:drawableEnd="@drawable/ic_common_into"
-                        android:drawablePadding="5dp"
-                        android:drawableRight="@drawable/ic_common_into"
-                        android:gravity="center"
-                        android:paddingEnd="6dp"
-                        android:paddingLeft="5dp"
-                        android:paddingRight="6dp"
-                        android:paddingStart="5dp"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="#fff0f0f2" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/account_tv_order_count"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:divider="@drawable/divider_common_horizontal"
-                android:dividerPadding="20dp"
-                android:orientation="vertical"
-                android:showDividers="middle">
-
-                <TextView
-                    android:id="@+id/account_tv_share"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/bg_common_press"
-                    android:drawableEnd="@drawable/ic_common_into"
-                    android:drawableLeft="@drawable/ic_account_share"
-                    android:drawablePadding="6dp"
-                    android:drawableRight="@drawable/ic_common_into"
-                    android:drawableStart="@drawable/ic_account_share"
-                    android:gravity="center_vertical"
-                    android:minHeight="50dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="分享给好友"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/account_tv_suggest"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/bg_common_press"
-                    android:drawableEnd="@drawable/ic_common_into"
-                    android:drawableLeft="@drawable/ic_account_suggest"
-                    android:drawablePadding="6dp"
-                    android:drawableRight="@drawable/ic_common_into"
-                    android:drawableStart="@drawable/ic_account_suggest"
-                    android:gravity="center_vertical"
-                    android:minHeight="50dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="帮助"
-                    android:textColor="#ff333333"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-
+                android:layout_gravity="center_vertical"
+                android:drawableEnd="@drawable/ic_common_into"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_common_into"
+                android:gravity="center"
+                android:paddingEnd="6dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="6dp"
+                android:paddingStart="5dp"
+                android:textSize="16sp" />
         </LinearLayout>
-    </ScrollView>
 
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/account_llyt_coupon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_common_press"
+            android:minHeight="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_account_coupon"
+                    tools:ignore="ContentDescription" />
+
+                <View
+                    android:id="@+id/account_v_coupon_point"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_has_order" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:text="米星券"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/account_tv_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableEnd="@drawable/ic_common_into"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_common_into"
+                android:gravity="center"
+                android:paddingEnd="6dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="6dp"
+                android:paddingStart="5dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/account_llyt_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_common_press"
+            android:minHeight="50dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/ic_account_message"
+                    tools:ignore="ContentDescription" />
+
+                <View
+                    android:id="@+id/account_v_message_point"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_has_order" />
+
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:text="更多消息"
+                android:textColor="#ff333333"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/account_tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:drawableEnd="@drawable/ic_common_into"
+                android:drawablePadding="5dp"
+                android:drawableRight="@drawable/ic_common_into"
+                android:gravity="center"
+                android:paddingEnd="6dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="6dp"
+                android:paddingStart="5dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:divider="@drawable/divider_common_horizontal"
+        android:dividerPadding="20dp"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/account_tv_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_common_press"
+            android:drawableEnd="@drawable/ic_common_into"
+            android:drawableLeft="@drawable/ic_account_share"
+            android:drawablePadding="6dp"
+            android:drawableRight="@drawable/ic_common_into"
+            android:drawableStart="@drawable/ic_account_share"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="分享给好友"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/account_tv_suggest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/bg_common_press"
+            android:drawableEnd="@drawable/ic_common_into"
+            android:drawableLeft="@drawable/ic_account_suggest"
+            android:drawablePadding="6dp"
+            android:drawableRight="@drawable/ic_common_into"
+            android:drawableStart="@drawable/ic_account_suggest"
+            android:gravity="center_vertical"
+            android:minHeight="50dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="帮助"
+            android:textColor="#ff333333"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -14,7 +14,7 @@ public class ToastUtils {
     /**
      * 默认位置的toast
      */
-    private static Toast mToast;
+    private static Toast mDefaultToast;
 
     /**
      * 顶部位置的toast
@@ -33,12 +33,12 @@ public class ToastUtils {
      * @param text    文本
      */
     public static void showToast(Context context, CharSequence text) {
-        if (mToast == null) {
-            mToast = Toast.makeText(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
+        if (mDefaultToast == null) {
+            mDefaultToast = Toast.makeText(context.getApplicationContext(), text, Toast.LENGTH_SHORT);
         } else {
-            mToast.setText(text);
+            mDefaultToast.setText(text);
         }
-        mToast.show();
+        mDefaultToast.show();
     }
 
     /**
@@ -48,12 +48,12 @@ public class ToastUtils {
      * @param resId   文本资源ID
      */
     public static void showToast(Context context, @StringRes int resId) {
-        if (mTopToast == null) {
-            mTopToast = Toast.makeText(context.getApplicationContext(), resId, Toast.LENGTH_SHORT);
+        if (mDefaultToast == null) {
+            mDefaultToast = Toast.makeText(context.getApplicationContext(), resId, Toast.LENGTH_SHORT);
         } else {
-            mTopToast.setText(resId);
+            mDefaultToast.setText(resId);
         }
-        mTopToast.show();
+        mDefaultToast.show();
     }
 
     /**

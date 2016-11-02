@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BroadcastActivity;
 import com.xiezhenqi.business.home.adapters.HomeFragmentPagerAdapter;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.gradienttabview.GradientTabView;
 
 import butterknife.Bind;
@@ -40,4 +41,23 @@ public class HomeActivity extends BroadcastActivity {
         Intent starter = new Intent(context, HomeActivity.class);
         context.startActivity(starter);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (canFinish)
+            super.onBackPressed();
+        else {
+            canFinish = true;
+            ToastUtils.showToast(this, "再按一次退出~");
+            vpFragments.postDelayed(mCancelFinishTask, 2000);
+        }
+    }
+
+    private boolean canFinish = false;
+    private final Runnable mCancelFinishTask = new Runnable() {
+        @Override
+        public void run() {
+            canFinish = false;
+        }
+    };
 }
