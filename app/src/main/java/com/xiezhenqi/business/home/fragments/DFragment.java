@@ -13,6 +13,7 @@ import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
 import com.xiezhenqi.business.account.ShareDialog;
 import com.xiezhenqi.business.h5help.H5HelpActivity;
+import com.xiezhenqi.business.more.MoreActivity;
 import com.xiezhenqi.utils.ToastUtils;
 
 import butterknife.ButterKnife;
@@ -35,13 +36,17 @@ public class DFragment extends BaseFragment {
         ButterKnife.bind(this, getView());
     }
 
-    @OnClick({R.id.account_llyt_order,
+    @OnClick({R.id.account_tv_more,
+            R.id.account_llyt_order,
             R.id.account_llyt_coupon,
             R.id.account_llyt_message,
             R.id.account_tv_share,
             R.id.account_tv_suggest})
     public void OnClick(View v) {
         switch (v.getId()) {
+            case R.id.account_tv_more:
+                MoreActivity.start(getActivity());
+                break;
             case R.id.account_llyt_order:
                 ToastUtils.showToast(getActivity(), "我的订单");
                 break;

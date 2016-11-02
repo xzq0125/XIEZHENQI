@@ -27,7 +27,9 @@
         </activity>
         <activity android:name=".business.home.HomeActivity" />
         <activity android:name=".business.h5help.H5HelpActivity" />
-        <activity android:name=".business.search.SearchActivity"></activity>
+        <activity android:name=".business.search.SearchActivity" />
+        <activity android:name=".business.more.MoreActivity" />
+        <activity android:name=".business.more.date.DateActivity"></activity>
     </application>
 
 </manifest>
