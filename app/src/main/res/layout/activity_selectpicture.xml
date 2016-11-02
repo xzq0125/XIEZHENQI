@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".base.selectpic.BaseSelectPicActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/select_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_toolbar_normal">
+
+        <TextView
+            android:id="@+id/select_tv_title"
+            style="@style/ToobarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="选取图片"
+            tools:ignore="HardcodedText" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <GridView
+        android:id="@+id/select_gv_pictures"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff4f4f4"
+        android:cacheColorHint="@color/transparent"
+        android:columnWidth="110dp"
+        android:horizontalSpacing="8dp"
+        android:listSelector="@color/transparent"
+        android:numColumns="auto_fit"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp" />
+
+</LinearLayout>
