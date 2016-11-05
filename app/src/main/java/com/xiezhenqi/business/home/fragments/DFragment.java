@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
-import com.xiezhenqi.base.selectpic.BaseSelectPicActivity;
+import com.xiezhenqi.business.selectpic.BaseSelectPicActivity;
 import com.xiezhenqi.business.account.ShareDialog;
 import com.xiezhenqi.business.h5help.H5HelpActivity;
 import com.xiezhenqi.business.more.MoreActivity;
