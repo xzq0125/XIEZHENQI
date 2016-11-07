@@ -1,4 +1,4 @@
-package com.xiezhenqi.base.selectpic;
+package com.xiezhenqi.business.selectpic;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -16,8 +16,8 @@ import android.widget.GridView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
-import com.xiezhenqi.base.crop.Crop;
-import com.xiezhenqi.base.selectpic.adapters.ImageAdapter;
+import com.xiezhenqi.business.crop.Crop;
+import com.xiezhenqi.business.selectpic.adapters.ImageAdapter;
 import com.xiezhenqi.utils.FileManager;
 import com.xiezhenqi.utils.ToastUtils;
 

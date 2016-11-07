@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.xiezhenqi.base.crop;
+package com.xiezhenqi.business.crop;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;

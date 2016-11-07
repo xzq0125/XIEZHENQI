@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context=".base.crop.CropImageActivity">
+    tools:context=".business.crop.CropImageActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/crop_toolbar"
@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.xiezhenqi.base.crop.CropImageView
+        <com.xiezhenqi.business.crop.CropImageView
             android:id="@+id/crop_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"

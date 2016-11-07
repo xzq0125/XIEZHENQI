@@ -1,4 +1,4 @@
-package com.xiezhenqi.base.selectpic.adapters;
+package com.xiezhenqi.business.selectpic.adapters;
 
 import android.view.View;
 import android.view.ViewGroup;
