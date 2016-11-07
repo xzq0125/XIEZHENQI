@@ -11,7 +11,7 @@
         <item name="colorControlNormal">@color/themeColor</item>
         <item name="colorControlHighlight">@color/ripple_dark</item>
 
-        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeBackground">?attr/colorPrimary</item>
         <item name="actionButtonStyle">@style/ActionButtonStyle</item>

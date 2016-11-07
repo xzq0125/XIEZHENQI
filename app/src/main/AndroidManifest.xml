@@ -16,6 +16,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${channelValue}" />
+
         <activity
             android:name=".WelcomeActivity"
             android:theme="@style/WelcomeTheme">
@@ -29,9 +34,10 @@
         <activity android:name=".business.h5help.H5HelpActivity" />
         <activity android:name=".business.search.SearchActivity" />
         <activity android:name=".business.more.MoreActivity" />
-        <activity android:name=".business.more.date.DateActivity"></activity>
-        <activity android:name=".base.selectpic.BaseSelectPicActivity"></activity>
-        <activity android:name=".base.crop.CropImageActivity"></activity>
+        <activity android:name=".business.more.date.DateActivity" />
+        <activity android:name=".base.selectpic.BaseSelectPicActivity" />
+        <activity android:name=".base.crop.CropImageActivity" />
+        <activity android:name=".business.more.ndk.NDKActivity"></activity>
     </application>
 
 </manifest>

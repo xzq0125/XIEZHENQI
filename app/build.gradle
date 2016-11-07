@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Release {
+            keyAlias 'xzq_xzq'
+            keyPassword '123456'
+            storeFile file('../xzq_app.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.3"
     defaultConfig {
@@ -10,17 +18,33 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.Release
     }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.Release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        amarket {
+            return true
+        }
+        anzhi {
+            return true
+        }
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [channelValue: name]
+    }
+
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/xUtils-2.6.14.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
@@ -31,5 +55,4 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.8.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
-
 }
