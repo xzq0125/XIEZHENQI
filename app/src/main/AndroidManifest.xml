@@ -35,8 +35,8 @@
         <activity android:name=".business.search.SearchActivity" />
         <activity android:name=".business.more.MoreActivity" />
         <activity android:name=".business.more.date.DateActivity" />
-        <activity android:name=".base.selectpic.BaseSelectPicActivity" />
-        <activity android:name=".base.crop.CropImageActivity" />
+        <activity android:name=".business.selectpic.BaseSelectPicActivity" />
+        <activity android:name=".business.crop.CropImageActivity" />
         <activity android:name=".business.more.ndk.NDKActivity"></activity>
     </application>
 
