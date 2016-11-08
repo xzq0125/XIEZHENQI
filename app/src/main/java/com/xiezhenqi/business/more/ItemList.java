@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.xiezhenqi.business.more.date.DateActivity;
+import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.ndk.NDKActivity;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class ItemList {
     private void initItemCount() {
         itemList.add(new Item("DateActivity", DateActivity.class));
         itemList.add(new Item("NDKActivity", NDKActivity.class));
+        itemList.add(new Item("DragActivity", DragActivity.class));
     }
 
 }

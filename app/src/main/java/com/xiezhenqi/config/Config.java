@@ -25,4 +25,6 @@ public final class Config {
     public static final String ENCODING_UTF = "UTF-8";
 
     public static final String UC_SIGN = "709ec01514ae4d4a954d17bd406bd594";
+
+    public static final String FILENAME_CROP_PIC = "Pic";
 }

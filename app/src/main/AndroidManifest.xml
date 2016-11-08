@@ -16,7 +16,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="${channelValue}" />
@@ -37,7 +36,8 @@
         <activity android:name=".business.more.date.DateActivity" />
         <activity android:name=".business.selectpic.BaseSelectPicActivity" />
         <activity android:name=".business.crop.CropImageActivity" />
-        <activity android:name=".business.more.ndk.NDKActivity"></activity>
+        <activity android:name=".business.more.ndk.NDKActivity" />
+        <activity android:name=".business.more.drag.DragActivity"></activity>
     </application>
 
 </manifest>

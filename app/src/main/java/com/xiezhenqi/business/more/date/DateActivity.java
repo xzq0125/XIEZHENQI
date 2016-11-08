@@ -22,7 +22,7 @@ public class DateActivity extends BaseActivity {
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
-        setSupportActionBar(R.id.toolbar);
+        setSupportActionBar(R.id.tool_bar);
         ButterKnife.bind(this);
         tvTitle.setText(getIntent().getStringExtra("title"));
     }

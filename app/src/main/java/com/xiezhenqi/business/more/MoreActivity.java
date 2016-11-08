@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
@@ -19,6 +20,8 @@ import butterknife.ButterKnife;
 
 public class MoreActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
+    @Bind(android.R.id.title)
+    TextView tvTitle;
     @Bind(android.R.id.list)
     ListView listView;
     private SimpleAdapter adapter;
@@ -30,8 +33,9 @@ public class MoreActivity extends BaseActivity implements AdapterView.OnItemClic
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
-        setSupportActionBar(R.id.more_toolbar);
+        setSupportActionBar(R.id.tool_bar);
         ButterKnife.bind(this);
+        tvTitle.setText("更多");
 
         adapter = new SimpleAdapter(this, new ItemList().init(),
                 android.R.layout.simple_list_item_1, new String[]{"title"}, new int[]{android.R.id.text1});
