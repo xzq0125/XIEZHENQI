@@ -37,7 +37,8 @@
         <activity android:name=".business.selectpic.BaseSelectPicActivity" />
         <activity android:name=".business.crop.CropImageActivity" />
         <activity android:name=".business.more.ndk.NDKActivity" />
-        <activity android:name=".business.more.drag.DragActivity"></activity>
+        <activity android:name=".business.more.drag.DragActivity" />
+        <activity android:name=".business.more.order.OrderActivity"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.xiezhenqi.business.more.date.DateActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.ndk.NDKActivity;
+import com.xiezhenqi.business.more.order.OrderActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +56,7 @@ public class ItemList {
         itemList.add(new Item("DateActivity", DateActivity.class));
         itemList.add(new Item("NDKActivity", NDKActivity.class));
         itemList.add(new Item("DragActivity", DragActivity.class));
+        itemList.add(new Item("OrderActivity", OrderActivity.class));
     }
 
 }
