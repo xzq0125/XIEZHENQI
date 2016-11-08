@@ -87,10 +87,6 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position, List<Object> payloads) {
-        onConvert(holder, position, payloads);
-    }
-
-    public void onConvert(ViewHolder holder, int position, List<Object> payload) {
         if (hasNext && position == getItemCount() - 1) {
             sflLoadMore.normal();
             sflLoadMore.loading();
@@ -98,6 +94,10 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
                 loadMoreCallback.onAutoLoadMore(sflLoadMore, getDataAt(mData.size() - 1));
             return;
         }
+        onConvert(holder, position, payloads);
+    }
+
+    public void onConvert(ViewHolder holder, int position, List<Object> payload) {
         onConvert(holder, position);
     }
 
@@ -184,7 +184,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
             loadMoreCallback.onReloadClick(layout);
     }
 
-    private View.OnClickListener onClickListener = new View.OnClickListener() {
+    private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             onItemClick(v);
@@ -204,7 +204,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
         }
     }
 
-    private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             return onItemLongClick(v);

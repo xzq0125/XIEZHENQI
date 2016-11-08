@@ -15,6 +15,9 @@ public class NDKActivity extends BaseActivity {
     @Bind(android.R.id.text1)
     TextView tvText;
 
+    @Bind(android.R.id.title)
+    TextView tvTitle;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_ndk;
@@ -22,6 +25,8 @@ public class NDKActivity extends BaseActivity {
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
+        setSupportActionBar(R.id.tool_bar);
         ButterKnife.bind(this);
+        tvTitle.setText(getIntent().getStringExtra("title"));
     }
 }
