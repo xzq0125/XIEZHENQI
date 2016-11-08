@@ -12,6 +12,7 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.list.activity.BaseListActivity;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.callback.SimpleItemDragCallback;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
@@ -22,7 +23,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapter.OnItemLongClickListener {
+public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapter.OnItemLongClickListener, BaseLoadMoreAdapter.OnItemClickListener {
 
     private final MyAdapter mAdapter = new MyAdapter(null);
     private ItemTouchHelper mItemTouchHelper;
@@ -40,6 +41,7 @@ public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapte
         this.container = container;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter);
+        mAdapter.addOnItemClickListener(this);
         mAdapter.addOnItemLongClickListener(this);
         recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
         mItemTouchHelper = new ItemTouchHelper(new SimpleItemDragCallback(mAdapter));
@@ -58,6 +60,11 @@ public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapte
     public void onItemLongClick(Object dto, int position) {
         container.setEnabled(false);
         mItemTouchHelper.startDrag(recyclerView.findViewHolderForAdapterPosition(position));
+    }
+
+    @Override
+    public void onItemClick(Object dto, int position) {
+        ToastUtils.showToast(this, "position = " + position);
     }
 
     class MyAdapter extends BaseLoadMoreAdapter<String, MyViewHolder> implements SimpleItemDragCallback.OnItemMovedAdapter {
