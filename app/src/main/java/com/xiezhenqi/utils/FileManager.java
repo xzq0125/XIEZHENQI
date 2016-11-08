@@ -171,10 +171,7 @@ public class FileManager {
      * @return 头像裁剪文件
      */
     public static File getCropHeadFile(Context context) {
-        //return new File(getCropCache(context), Config.FILENAME_CROP_HEAD);
-        File file = getCropCache(context);
-        long len = file.list().length;
-        return new File(file, len + 1 + "");
+        return new File(getCropCache(context), Config.FILENAME_CROP_PIC);
     }
 
     /**
