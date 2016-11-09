@@ -76,7 +76,7 @@
                 android:background="@drawable/bg_common_btn_ok"
                 android:minHeight="50dp"
                 android:text="完成"
-                android:textColor="@color/themeColor"
+                android:textColor="#ff333333"
                 android:textSize="15sp"
                 tools:ignore="HardcodedText" />
 

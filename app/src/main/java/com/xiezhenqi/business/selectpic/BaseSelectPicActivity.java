@@ -35,7 +35,7 @@ public class BaseSelectPicActivity extends BaseActivity implements
 
     private static final String EXTRA_WIDTH = "width";
     private static final String EXTRA_HEIGHT = "height";
-    private static final String EXTRA_PATH = "pic_path";
+    private static final String EXTRA_URI = "pic_uri";
     private static final int REQUEST_CAMERA = 999;
     private BaseSelectPicActivity me = this;
     private ImageAdapter mAdapter;
@@ -104,7 +104,7 @@ public class BaseSelectPicActivity extends BaseActivity implements
             }
         } else if (requestCode == Crop.REQUEST_CROP) {//截图返回
             if (resultCode == RESULT_OK) {
-                handlePhoto(Crop.getOutput(data).getPath());
+                handlePhoto(Crop.getOutput(data));
             } else if (resultCode == Crop.RESULT_ERROR) {
                 ToastUtils.showToast(me, "图片解析出错");
             }
@@ -145,10 +145,10 @@ public class BaseSelectPicActivity extends BaseActivity implements
     /**
      * 处理图片
      *
-     * @param photoPath 图片路径
+     * @param uri 图片路径
      */
-    protected void handlePhoto(String photoPath) {
-        setResult(RESULT_OK, new Intent().putExtra(EXTRA_PATH, photoPath));
+    protected void handlePhoto(Uri uri) {
+        setResult(RESULT_OK, new Intent().putExtra(EXTRA_URI, uri));
         finish();
     }
 
@@ -158,8 +158,8 @@ public class BaseSelectPicActivity extends BaseActivity implements
      * @param intent setResult返回的intent
      * @return 图片路径
      */
-    public static String getPath(Intent intent) {
-        return intent.getStringExtra(EXTRA_PATH);
+    public static Uri getUri(Intent intent) {
+        return intent.getParcelableExtra(EXTRA_URI);
     }
 
     /**

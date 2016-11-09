@@ -1,22 +1,27 @@
 package com.xiezhenqi.business.home.fragments;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
-import com.xiezhenqi.business.selectpic.BaseSelectPicActivity;
 import com.xiezhenqi.business.account.ShareDialog;
 import com.xiezhenqi.business.h5help.H5HelpActivity;
 import com.xiezhenqi.business.more.MoreActivity;
+import com.xiezhenqi.business.selectpic.BaseSelectPicActivity;
 import com.xiezhenqi.utils.ToastUtils;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,6 +31,9 @@ import butterknife.OnClick;
  */
 
 public class DFragment extends BaseFragment {
+
+    @Bind(R.id.account_siv_head)
+    ImageView ivHead;
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,7 +55,7 @@ public class DFragment extends BaseFragment {
     public void OnClick(View v) {
         switch (v.getId()) {
             case R.id.account_rl_head:
-                BaseSelectPicActivity.start(getActivity(),0);
+                startActivityForResult(new Intent(getActivity(), BaseSelectPicActivity.class), 0);
                 break;
             case R.id.account_llyt_order:
                 ToastUtils.showToast(getActivity(), "我的订单");
@@ -66,6 +74,16 @@ public class DFragment extends BaseFragment {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            Uri uri = BaseSelectPicActivity.getUri(data);
+            ivHead.setImageBitmap(null);
+            ivHead.setImageURI(uri);
         }
     }
 
