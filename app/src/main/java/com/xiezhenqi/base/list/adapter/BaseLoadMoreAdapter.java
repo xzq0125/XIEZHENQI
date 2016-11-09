@@ -130,17 +130,17 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
         return mData == null || mData.isEmpty();
     }
 
-    protected Data getDataAt(int index) {
+    public Data getDataAt(int index) {
         if (!checkIndex(index))
             return null;
         return mData.get(index);
     }
 
-    protected boolean checkIndex(int index) {
+    public boolean checkIndex(int index) {
         return mData != null && index >= 0 && index < mData.size();
     }
 
-    protected int indexOf(Data data) {
+    public int indexOf(Data data) {
         if (mData == null)
             return -1;
         return mData.indexOf(data);

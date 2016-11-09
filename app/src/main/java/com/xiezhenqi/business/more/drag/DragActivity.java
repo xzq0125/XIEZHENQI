@@ -64,7 +64,7 @@ public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapte
 
     @Override
     public void onItemClick(Object dto, int position) {
-        ToastUtils.showToast(this, "position = " + position);
+        ToastUtils.showToast(this, "长按item拖拽 position = " + position);
     }
 
     class MyAdapter extends BaseLoadMoreAdapter<String, MyViewHolder> implements SimpleItemDragCallback.OnItemMovedAdapter {

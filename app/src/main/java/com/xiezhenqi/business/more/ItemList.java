@@ -3,7 +3,7 @@ package com.xiezhenqi.business.more;
 import android.content.Context;
 import android.content.Intent;
 
-import com.xiezhenqi.business.more.date.DateActivity;
+import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.ndk.NDKActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
@@ -53,9 +53,9 @@ public class ItemList {
     }
 
     private void initItemCount() {
-        itemList.add(new Item("DateActivity", DateActivity.class));
+        itemList.add(new Item("上下文RecyclerView", ContextMenuRecyclerViewActivity.class));
         itemList.add(new Item("NDKActivity", NDKActivity.class));
-        itemList.add(new Item("DragActivity", DragActivity.class));
+        itemList.add(new Item("Drag(拖拽)Activity", DragActivity.class));
         itemList.add(new Item("OrderActivity", OrderActivity.class));
     }
 

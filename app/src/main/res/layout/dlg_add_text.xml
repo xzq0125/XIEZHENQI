@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null">
+
+    <LinearLayout
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_add_text_dlg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dat_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_add_text_title_dlg"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ff333333"
+            android:textSize="16sp"
+            tools:text="标题" />
+
+        <EditText
+            android:id="@+id/dat_edt_text"
+            style="@style/EditTextStyleNoCursorDrawable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_add_text_edittext"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textColorHint="#ffcccccc"
+            android:textSize="15sp"
+            android:visibility="visible"
+            tools:hint="请输入" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_marginTop="20dp"
+            android:background="#ff999999" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dat_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_common_press"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                tools:text="取消" />
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="#ff999999" />
+
+            <TextView
+                android:id="@+id/dat_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_common_press"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#ff333333"
+                android:textSize="14sp"
+                tools:text="确定" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -28,6 +28,8 @@
     <string name="search_content_hint">请输入歌手名/歌名</string>
     <string name="search_cd_back_top">回到顶部</string>
     <string name="search_toast">请输入搜索内容</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
     <!--SearchSongActivity end-->
 
     <string-array name="singer_list">

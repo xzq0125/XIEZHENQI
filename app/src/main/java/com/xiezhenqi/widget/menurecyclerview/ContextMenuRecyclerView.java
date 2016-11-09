@@ -33,14 +33,18 @@ public class ContextMenuRecyclerView extends RecyclerView {
 
     @Override
     public boolean showContextMenuForChild(View originalView) {
-        if (originalView.getTag() instanceof RecyclerItem) {
-            mContextMenuInfo.mRecycleItem = (RecyclerItem) originalView.getTag();
+        if (originalView.getTag(originalView.getId()) instanceof RecyclerItem) {
+            mContextMenuInfo.mRecycleItem = (RecyclerItem) originalView.getTag(originalView.getId());
         }
         return super.showContextMenuForChild(originalView);
     }
 
     public static class RecyclerItem {
-        private final Object item;
+
+        private Object item = null;
+
+        public RecyclerItem() {
+        }
 
         public RecyclerItem(Object item) {
             this.item = item;
@@ -48,6 +52,11 @@ public class ContextMenuRecyclerView extends RecyclerView {
 
         public Object getItem() {
             return item;
+        }
+
+        public RecyclerItem setItem(Object item) {
+            this.item = item;
+            return this;
         }
     }
 
