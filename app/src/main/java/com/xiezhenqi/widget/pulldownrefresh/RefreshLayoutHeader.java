@@ -78,7 +78,7 @@ public class RefreshLayoutHeader extends FrameLayout implements RefreshLayout.Re
                 if (isUpward)
                     return;
                 isUpward = true;
-                ObjectAnimator rotation = ObjectAnimator.ofFloat(ivArrow, "rotation", 0, 180);
+                ObjectAnimator rotation = ObjectAnimator.ofFloat(ivArrow, "rotation", 0, -180);
                 rotation.setDuration(300);
                 rotation.start();
             } else {
