@@ -41,8 +41,8 @@ public class NumberProgressBar extends ProgressBar {
     private boolean mDrawText = true;
     private int mTextPaddingStart = dp2px(DEFAULT_PADDING);//text padding start
     private int mTextPaddingEnd = dp2px(DEFAULT_PADDING);//text padding end
-    private int mOrientation = 0;//进度条方向
-    private int mDrawOrientation = 0;//进度条Draw方向
+    private int mOrientation = 0;//进度条方向(默认横向)
+    private int mDrawOrientation = 0;//进度条Draw方向(默认向上)
 
     private int mRealLength;//真正的长度
     private String mTotalString = "%";
@@ -151,7 +151,11 @@ public class NumberProgressBar extends ProgressBar {
         if (mOrientation == 0) {
             drawHorizontal(canvas);
         } else {
-            drawVertical(canvas);
+            if (mDrawOrientation == 0) {
+                drawVerticalUp(canvas);
+            } else {
+                drawVerticalDown(canvas);
+            }
         }
     }
 
@@ -208,7 +212,7 @@ public class NumberProgressBar extends ProgressBar {
         canvas.restore();
     }
 
-    private void drawVertical(Canvas canvas) {
+    private void drawVerticalDown(Canvas canvas) {
         canvas.save();
 
         canvas.translate(0, getPaddingTop());
@@ -252,6 +256,55 @@ public class NumberProgressBar extends ProgressBar {
             mPaint.setColor(mUnreachedColor);
             mPaint.setStrokeWidth(mUnreachedThickness);
             canvas.drawLine(lineX, start, lineX, mRealLength, mPaint);
+        }
+
+        canvas.restore();
+    }
+
+    private void drawVerticalUp(Canvas canvas) {
+        canvas.save();
+
+        canvas.translate(0, -getPaddingBottom());
+
+        float percent = getProgress() * 1.0f / getMax();
+        float progressPosY = (int) (mRealLength * (1 - percent));
+        String text = getProgress() + mTotalString;
+
+        float textWidth = getTextWidth(text);
+        float textHeight = getTextHeight();
+        int textPaddingStart = mDrawText ? mTextPaddingStart : 0;
+        int textPaddingEnd = mDrawText ? mTextPaddingEnd : 0;
+
+        int width = getMeasuredWidth();
+        int lineX = width / 2;
+
+        boolean drawUnreached = true;
+        if (progressPosY - textHeight < 0) {
+            progressPosY = progressPosY + textHeight;
+            drawUnreached = false;
+        }
+
+        // draw reached bar
+        float endY = progressPosY + textPaddingEnd;
+        if (endY > 0) {
+            mPaint.setColor(mReachedColor);
+            mPaint.setStrokeWidth(mReachedThickness);
+            canvas.drawLine(lineX, mRealLength, lineX, endY, mPaint);
+        }
+
+        // draw progress bar
+        // measure text bound
+        if (mDrawText) {
+            mPaint.setColor(mTextColor);
+            canvas.drawText(text, (width - textWidth) / 2, progressPosY, mPaint);
+        }
+
+        // draw unreached bar
+        if (mDrawUnreachedBar && drawUnreached) {
+            float start = progressPosY - textPaddingStart - textHeight;
+            mPaint.setColor(mUnreachedColor);
+            mPaint.setStrokeWidth(mUnreachedThickness);
+            canvas.drawLine(lineX, start, lineX, 0, mPaint);
         }
 
         canvas.restore();

@@ -7,14 +7,26 @@
     android:layout_height="match_parent"
     tools:context="com.xiezhenqi.business.more.progress.ProgressBarActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:onClick="onButtonClick"
+        android:text="开始" />
+
     <com.xiezhenqi.widget.progressbar.NumberProgressBar
         android:id="@+id/progress1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="50dp"
-        android:background="@color/white"
         android:visibility="visible"
+        app:npb_drawDirection="up"
         app:npb_drawText="true"
         app:npb_drawUnreachedBar="true"
         app:npb_orientation="vertical"
@@ -27,13 +39,11 @@
         app:npb_unreachedColor="@color/lineColor_toolbar"
         app:npb_unreachedThickness="4dp" />
 
-    <Button
+    <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:onClick="onButtonClick"
-        android:text="开始" />
+        android:text="指数" />
 
 </RelativeLayout>
