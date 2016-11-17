@@ -45,6 +45,7 @@ public class NumberProgressBar extends ProgressBar {
     private int mDrawOrientation = 0;//进度条方向
 
     private int mRealLength;//真正的长度
+    private String mTotalString = "%";
 
     private final Paint mPaint = new Paint();//draw line and text
 
@@ -66,7 +67,10 @@ public class NumberProgressBar extends ProgressBar {
         mUnreachedThickness = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_unreachedThickness, mUnreachedThickness);
         mDrawUnreachedBar = a.getBoolean(R.styleable.NumberProgressBar_npb_drawUnreachedBar, mDrawUnreachedBar);
 
-        mTextColor = a.getColor(R.styleable.NumberProgressBar_npb_textColor, mTextColor);
+        mTextColor = mReachedColor;
+        if (a.hasValue(R.styleable.NumberProgressBar_npb_textColor)) {
+            mTextColor = a.getColor(R.styleable.NumberProgressBar_npb_textColor, mTextColor);
+        }
         mTextSize = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textSize, mTextSize);
         mTextPaddingStart = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingStart, mTextPaddingStart);
         mTextPaddingEnd = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingEnd, mTextPaddingEnd);
@@ -74,6 +78,9 @@ public class NumberProgressBar extends ProgressBar {
 
         mOrientation = a.getInt(R.styleable.NumberProgressBar_npb_orientation, mOrientation);
         mDrawOrientation = a.getInt(R.styleable.NumberProgressBar_npb_drawDirection, mDrawOrientation);
+        String totalString = a.getString(R.styleable.NumberProgressBar_npb_totalString);
+        if (totalString != null)
+            mTotalString = totalString;
 
         a.recycle();
 
@@ -105,7 +112,7 @@ public class NumberProgressBar extends ProgressBar {
         if (specMode == MeasureSpec.EXACTLY) {
             width = specSize;
         } else {
-            float textWidth = getTextWidth("100%");
+            float textWidth = getTextWidth("100" + mTotalString);
             width = (int) (getPaddingLeft() + getPaddingRight() +
                     Math.max(Math.max(mReachedThickness, mUnreachedThickness), textWidth) + 0.5f);
             if (specMode == MeasureSpec.AT_MOST) {
@@ -149,7 +156,7 @@ public class NumberProgressBar extends ProgressBar {
     }
 
     private float getTextHeight() {
-        return Math.abs(mDrawText ? (mPaint.descent() - mPaint.ascent()) : 0);
+        return Math.abs(mDrawText ? (mPaint.descent() + mPaint.ascent()) : 0);
     }
 
     private void drawHorizontal(Canvas canvas) {
@@ -159,10 +166,10 @@ public class NumberProgressBar extends ProgressBar {
 
         float percent = getProgress() * 1.0f / getMax();
         float progressPosX = (int) (mRealLength * percent);
-        String text = getProgress() + "%";
+        String text = getProgress() + mTotalString;
 
         float textWidth = getTextWidth(text);
-        float textHeight = mPaint.descent() + mPaint.ascent();
+        float textHeight = getTextHeight();
         int textPaddingStart = mDrawText ? mTextPaddingStart : 0;
         int textPaddingEnd = mDrawText ? mTextPaddingEnd : 0;
 
@@ -183,7 +190,7 @@ public class NumberProgressBar extends ProgressBar {
         // measure text bound
         if (mDrawText) {
             mPaint.setColor(mTextColor);
-            canvas.drawText(text, progressPosX, -textHeight + 3, mPaint);
+            canvas.drawText(text, progressPosX, textHeight + 3, mPaint);
         }
 
         // draw unreached bar
@@ -204,7 +211,7 @@ public class NumberProgressBar extends ProgressBar {
 
         float percent = getProgress() * 1.0f / getMax();
         float progressPosY = (int) (mRealLength * percent);
-        String text = getProgress() + "%";
+        String text = getProgress() + mTotalString;
 
         float textWidth = getTextWidth(text);
         float textHeight = getTextHeight();

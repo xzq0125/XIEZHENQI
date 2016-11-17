@@ -58,6 +58,7 @@
         <attr name="npb_drawUnreachedBar" format="boolean" />
 
         <attr name="npb_drawText" format="boolean" />
+        <attr name="npb_totalString" format="string" />
 
         <attr name="npb_orientation" format="enum">
             <enum name="horizontal" value="0" />

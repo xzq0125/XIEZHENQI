@@ -12,16 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:background="@color/white"
         android:visibility="visible"
+        app:npb_drawText="true"
         app:npb_drawUnreachedBar="true"
-        app:npb_orientation="horizontal"
-        app:npb_reachedThickness="3dp"
-        app:npb_textPaddingEnd="0dp"
-        app:npb_textPaddingStart="0dp"
+        app:npb_orientation="vertical"
+        app:npb_reachedColor="@color/themeColor"
+        app:npb_reachedThickness="4dp"
+        app:npb_textColor="@color/themeColor"
+        app:npb_textPaddingEnd="5dp"
+        app:npb_textPaddingStart="5dp"
         app:npb_textSize="10sp"
-        app:npb_unreachedThickness="3dp" />
+        app:npb_unreachedColor="@color/lineColor_toolbar"
+        app:npb_unreachedThickness="4dp" />
 
     <Button
         android:layout_width="wrap_content"
