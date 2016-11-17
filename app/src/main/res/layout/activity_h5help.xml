@@ -66,9 +66,17 @@
             android:id="@+id/h5help_progress_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:npb_drawText="true"
+            app:npb_drawUnreachedBar="true"
+            app:npb_orientation="horizontal"
             app:npb_reachedColor="@color/progress_reached_color"
+            app:npb_reachedThickness="4dp"
             app:npb_textColor="@color/progress_text_color"
-            app:npb_unreachedColor="@color/progress_unreached_color" />
+            app:npb_textPaddingEnd="5dp"
+            app:npb_textPaddingStart="5dp"
+            app:npb_textSize="10sp"
+            app:npb_unreachedColor="@color/progress_unreached_color"
+            app:npb_unreachedThickness="4dp" />
 
     </FrameLayout>
 

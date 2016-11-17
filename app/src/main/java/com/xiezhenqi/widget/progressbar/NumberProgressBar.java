@@ -42,12 +42,16 @@ public class NumberProgressBar extends ProgressBar {
     private int mTextPaddingStart = dp2px(DEFAULT_PADDING);//text padding start
     private int mTextPaddingEnd = dp2px(DEFAULT_PADDING);//text padding end
     private int mOrientation = 0;//进度条方向
-    private int mDrawOrientation = 0;//进度条方向
+    private int mDrawOrientation = 0;//进度条Draw方向
 
     private int mRealLength;//真正的长度
     private String mTotalString = "%";
 
     private final Paint mPaint = new Paint();//draw line and text
+
+    public NumberProgressBar(Context context) {
+        this(context, null);
+    }
 
     public NumberProgressBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -133,7 +137,7 @@ public class NumberProgressBar extends ProgressBar {
         } else {
             float textHeight = getTextHeight();
             height = (int) (getPaddingTop() + getPaddingBottom() +
-                    Math.max(Math.max(mReachedThickness, mUnreachedThickness), textHeight) + 0.5f);
+                    Math.max(Math.max(mReachedThickness, mUnreachedThickness), textHeight + 3) + 0.5f);
             if (specMode == MeasureSpec.AT_MOST) {
                 height = Math.min(specSize, height);
             }
