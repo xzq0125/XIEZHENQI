@@ -60,12 +60,12 @@ public class NumberProgressBar2 extends ProgressBar {
         mReachedColor = a.getColor(R.styleable.NumberProgressBar_npb_reachedColor, mReachedColor);
         mUnreachedColor = a.getColor(R.styleable.NumberProgressBar_npb_unreachedColor, mUnreachedColor);
 
-        mReachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_reachedHeight, mReachedWidth);
-        mUnreachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_unreachedHeight, mUnreachedWidth);
+        mReachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_reachedThickness, mReachedWidth);
+        mUnreachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_unreachedThickness, mUnreachedWidth);
 
         mTextColor = a.getColor(R.styleable.NumberProgressBar_npb_textColor, mTextColor);
         mTextSize = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textSize, mTextSize);
-        mTextVisibility = a.getInt(R.styleable.NumberProgressBar_npb_textVisibility, mTextVisibility);
+        mTextVisibility = a.getInt(R.styleable.NumberProgressBar_npb_drawText, mTextVisibility);
         mTextPaddingStart = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingStart, mTextPaddingStart);
         mTextPaddingEnd = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingEnd, mTextPaddingEnd);
         a.recycle();

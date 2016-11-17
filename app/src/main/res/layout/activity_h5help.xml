@@ -68,7 +68,6 @@
             android:layout_height="wrap_content"
             app:npb_reachedColor="@color/progress_reached_color"
             app:npb_textColor="@color/progress_text_color"
-            app:npb_textVisibility="visible"
             app:npb_unreachedColor="@color/progress_unreached_color" />
 
     </FrameLayout>
