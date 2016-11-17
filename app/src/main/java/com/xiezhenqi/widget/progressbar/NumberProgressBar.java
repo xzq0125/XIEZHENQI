@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.widget.ProgressBar;
@@ -79,6 +80,7 @@ public class NumberProgressBar extends ProgressBar {
         mTextPaddingStart = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingStart, mTextPaddingStart);
         mTextPaddingEnd = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingEnd, mTextPaddingEnd);
         mDrawText = a.getBoolean(R.styleable.NumberProgressBar_npb_drawText, mDrawText);
+        int textStyle = a.getInt(R.styleable.NumberProgressBar_npb_textStyle, Typeface.NORMAL);
 
         mOrientation = a.getInt(R.styleable.NumberProgressBar_npb_orientation, mOrientation);
         mDrawOrientation = a.getInt(R.styleable.NumberProgressBar_npb_drawDirection, mDrawOrientation);
@@ -91,6 +93,23 @@ public class NumberProgressBar extends ProgressBar {
         mPaint.setTextSize(mTextSize);
         mPaint.setColor(mTextColor);
         mPaint.setAntiAlias(true);
+        setTextStyle(mPaint, textStyle);
+    }
+
+    private void setTextStyle(Paint paint, int textStyle) {
+        switch (textStyle) {
+            default:
+                break;
+            case 1:
+                paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD));
+                break;
+            case 2:
+                paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.ITALIC));
+                break;
+            case 3:
+                paint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD_ITALIC));
+                break;
+        }
     }
 
     @Override

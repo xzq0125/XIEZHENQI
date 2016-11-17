@@ -28,11 +28,11 @@
     </declare-styleable>
 
     <declare-styleable name="GradientTabView">
-        <attr name="text_size" format="dimension"></attr>
-        <attr name="text_select_color" format="color"></attr>
-        <attr name="text_normal_color" format="color"></attr>
-        <attr name="item_padding" format="dimension"></attr>
-        <attr name="show_icon" format="boolean"></attr>
+        <attr name="text_size" format="dimension" />
+        <attr name="text_select_color" format="color" />
+        <attr name="text_normal_color" format="color" />
+        <attr name="item_padding" format="dimension" />
+        <attr name="show_icon" format="boolean" />
         <attr name="text_style" format="enum">
             <enum name="normal" value="0" />
             <enum name="bold" value="1" />
@@ -69,7 +69,12 @@
             <enum name="up" value="0" />
             <enum name="down" value="1" />
         </attr>
-
+        <attr name="npb_textStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="bold" value="1" />
+            <enum name="italic" value="2" />
+            <enum name="bold_italic" value="3" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="stl_SmartTabLayout">

@@ -18,7 +18,7 @@
 
     <com.xiezhenqi.widget.progressbar.NumberProgressBar
         android:id="@+id/progress1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/text"
         android:layout_alignParentLeft="true"
@@ -36,6 +36,7 @@
         app:npb_textPaddingEnd="5dp"
         app:npb_textPaddingStart="5dp"
         app:npb_textSize="10sp"
+        app:npb_textStyle="bold_italic"
         app:npb_unreachedColor="@color/lineColor_toolbar"
         app:npb_unreachedThickness="4dp" />
 
