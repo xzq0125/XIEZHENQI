@@ -7,6 +7,7 @@ import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.ndk.NDKActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
+import com.xiezhenqi.business.more.progress.ProgressBarActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ public class ItemList {
         itemList.add(new Item("NDKActivity", NDKActivity.class));
         itemList.add(new Item("Drag(拖拽)Activity", DragActivity.class));
         itemList.add(new Item("OrderActivity", OrderActivity.class));
+        itemList.add(new Item("ProgressBarActivity", ProgressBarActivity.class));
     }
 
 }

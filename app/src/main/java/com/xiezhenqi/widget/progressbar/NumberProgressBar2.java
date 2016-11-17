@@ -20,8 +20,8 @@ public class NumberProgressBar2 extends ProgressBar {
     private static final int DEFAULT_REACHED_COLOR = 0xff3498d8;
     private static final int DEFAULT_UNREACHED_COLOR = 0xffdddddd;
 
-    private static final int DEFAULT_REACHED_HEIGHT = 4;//dp
-    private static final int DEFAULT_UNREACHED_HEIGHT = 3;//dp
+    private static final int DEFAULT_REACHED_WIDTH = 4;//dp
+    private static final int DEFAULT_UNREACHED_WIDTH = 3;//dp
 
     private static final int DEFAULT_TEXT_SIZE = 10;//sp
     private static final int DEFAULT_TEXT_COLOR = DEFAULT_REACHED_COLOR;
@@ -31,8 +31,8 @@ public class NumberProgressBar2 extends ProgressBar {
     private int mReachedColor = DEFAULT_REACHED_COLOR;//到达颜色
     private int mUnreachedColor = DEFAULT_UNREACHED_COLOR;//未到达颜色
 
-    private int mReachedHeight = dp2px(DEFAULT_REACHED_HEIGHT);//到达高度
-    private int mUnreachedHeight = dp2px(DEFAULT_UNREACHED_HEIGHT);//未到达高度
+    private int mReachedWidth = dp2px(DEFAULT_REACHED_WIDTH);//到达宽度
+    private int mUnreachedWidth = dp2px(DEFAULT_UNREACHED_WIDTH);//未到达宽度
 
     private int mTextColor = DEFAULT_TEXT_COLOR;//文本颜色
     private int mTextSize = sp2px(DEFAULT_TEXT_SIZE);//文本大小
@@ -40,8 +40,9 @@ public class NumberProgressBar2 extends ProgressBar {
     private int mTextVisibility = VISIBLE;//文本的可见性（默认可见）
     private int mTextPaddingStart = dp2px(DEFAULT_PADDING);//text padding left
     private int mTextPaddingEnd = dp2px(DEFAULT_PADDING);//text padding right
-    private float mRealWidth;//真正的宽度
+    private float mRealHeight;//真正的高度
     private boolean mIfNeedShowText = true;//是否需要显示文本
+    private boolean drawUnreachedBar = false;//是否需要显示文本
 
     private final Paint mPaint = new Paint();//draw line and text
 
@@ -59,8 +60,8 @@ public class NumberProgressBar2 extends ProgressBar {
         mReachedColor = a.getColor(R.styleable.NumberProgressBar_npb_reachedColor, mReachedColor);
         mUnreachedColor = a.getColor(R.styleable.NumberProgressBar_npb_unreachedColor, mUnreachedColor);
 
-        mReachedHeight = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_reachedHeight, mReachedHeight);
-        mUnreachedHeight = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_unreachedHeight, mUnreachedHeight);
+        mReachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_reachedHeight, mReachedWidth);
+        mUnreachedWidth = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_unreachedHeight, mUnreachedWidth);
 
         mTextColor = a.getColor(R.styleable.NumberProgressBar_npb_textColor, mTextColor);
         mTextSize = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textSize, mTextSize);
@@ -79,72 +80,77 @@ public class NumberProgressBar2 extends ProgressBar {
 
     @Override
     protected synchronized void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width = MeasureSpec.getSize(widthMeasureSpec);
-        int height = measureHeight(heightMeasureSpec);
+        int width = measureWidth(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
         setMeasuredDimension(width, height);
-        mRealWidth = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
-
+        mRealHeight = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
     }
 
-    private int measureHeight(int heightMeasureSpec) {
-        int height;
-        int specMode = MeasureSpec.getMode(heightMeasureSpec);
-        int specSize = MeasureSpec.getSize(heightMeasureSpec);
+
+    private int measureWidth(int widthMeasureSpec) {
+        int width;
+        int specMode = MeasureSpec.getMode(widthMeasureSpec);
+        int specSize = MeasureSpec.getSize(widthMeasureSpec);
 
         if (specMode == MeasureSpec.EXACTLY) {
-            height = specSize;
+            width = specSize;
         } else {
-            float textHeight = (mPaint.descent() - mPaint.ascent());
-            height = (int) (getPaddingTop() + getPaddingBottom() +
-                    Math.max(Math.max(mReachedHeight, mUnreachedHeight), Math.abs(textHeight)) + 0.5f);
+            float textWidth = (int) (mPaint.measureText("100%") + 0.5f);
+            width = (int) (getPaddingLeft() + getPaddingRight() +
+                    Math.max(Math.max(mReachedWidth, mUnreachedWidth), Math.abs(textWidth)) + 0.5f);
             if (specMode == MeasureSpec.AT_MOST) {
-                height = Math.min(specSize, height);
+                width = Math.min(specSize, width);
             }
         }
 
-        return height;
+        return width;
     }
+
 
     @Override
     protected synchronized void onDraw(Canvas canvas) {
 
         canvas.save();
 
-        canvas.translate(getPaddingLeft(), 0);
+        canvas.translate(0, getPaddingTop());
 
-        float radio = getProgress() * 1.0f / getMax();
-        float progressPosX = (int) (mRealWidth * radio);
+        float percent = getProgress() * 1.0f / getMax();
+        float progressPosY = (int) (mRealHeight * percent);
         String text = getProgress() + "%";
 
-        float textWidth = mIfNeedShowText ? mPaint.measureText(text) : 0;
-        float textHeight = mPaint.descent() + mPaint.ascent();
+        float textWidth = (mIfNeedShowText ? (int) (mPaint.measureText(text) + 0.5f) : 0);
+        float textHeight = (mIfNeedShowText ? Math.abs(mPaint.descent() - mPaint.ascent()) : 0);
+
+        int width = getMeasuredWidth();
+        int lineX = width / 2;
 
         boolean drawUnreached = true;
-        if (progressPosX + textWidth > mRealWidth) {
-            progressPosX = mRealWidth - textWidth;
+        if (progressPosY + textHeight > mRealHeight) {
+            progressPosY = mRealHeight - textHeight;
             drawUnreached = false;
         }
 
         // draw reached bar
-        float endX = progressPosX - (mIfNeedShowText ? mTextPaddingStart : 0);
-        if (endX > 0) {
+        float endY = progressPosY - (mIfNeedShowText ? mTextPaddingStart : 0);
+        if (endY > 0) {
             mPaint.setColor(mReachedColor);
-            mPaint.setStrokeWidth(mReachedHeight);
-            canvas.drawLine(0, 0, endX, 0, mPaint);
+            mPaint.setStrokeWidth(mReachedWidth);
+            canvas.drawLine(lineX, 0, lineX, endY, mPaint);
         }
+
         // draw progress bar
         // measure text bound
         if (mIfNeedShowText) {
             mPaint.setColor(mTextColor);
-            canvas.drawText(text, progressPosX, -textHeight, mPaint);
+            canvas.drawText(text, (width - textWidth) / 2, progressPosY + (textHeight + mTextPaddingEnd) / 2, mPaint);
         }
 
         // draw unreached bar
-        if (drawUnreached) {
-            float start = progressPosX + (mIfNeedShowText ? mTextPaddingEnd : 0) + textWidth;
+        if (drawUnreachedBar && drawUnreached) {
+            float start = progressPosY + (mIfNeedShowText ? mTextPaddingEnd : 0) + (mIfNeedShowText ? textHeight : 0);
             mPaint.setColor(mUnreachedColor);
-            mPaint.setStrokeWidth(mUnreachedHeight);
-            canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
+            mPaint.setStrokeWidth(mUnreachedWidth);
+            canvas.drawLine(lineX, start, lineX, mRealHeight, mPaint);
         }
 
         canvas.restore();
@@ -168,7 +174,7 @@ public class NumberProgressBar2 extends ProgressBar {
      * @param spValue sp
      * @return px
      */
-    private int sp2px(float spValue) {
+    private static int sp2px(float spValue) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue,
                 Resources.getSystem().getDisplayMetrics()) + 0.5f);
     }
