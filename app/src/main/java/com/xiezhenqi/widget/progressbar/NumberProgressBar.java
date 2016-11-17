@@ -1,6 +1,7 @@
 package com.xiezhenqi.widget.progressbar;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -22,27 +23,27 @@ public class NumberProgressBar extends ProgressBar {
     private static final int DEFAULT_REACHED_HEIGHT = 4;//dp
     private static final int DEFAULT_UNREACHED_HEIGHT = 3;//dp
 
-    private static final int DEFAULT_TEXT_SZIE = 10;//sp
+    private static final int DEFAULT_TEXT_SIZE = 10;//sp
     private static final int DEFAULT_TEXT_COLOR = DEFAULT_REACHED_COLOR;
 
     private static final int DEFAULT_PADDING = 5;//dp
 
-    private int mReachedColor = DEFAULT_REACHED_COLOR;
-    private int mUnreachedColor = DEFAULT_UNREACHED_COLOR;
+    private int mReachedColor = DEFAULT_REACHED_COLOR;//到达颜色
+    private int mUnreachedColor = DEFAULT_UNREACHED_COLOR;//未到达颜色
 
-    private int mReachedHeight = dp2px(DEFAULT_REACHED_HEIGHT);
-    private int mUnreachedHeight = dp2px(DEFAULT_UNREACHED_HEIGHT);
+    private int mReachedHeight = dp2px(DEFAULT_REACHED_HEIGHT);//到达高度
+    private int mUnreachedHeight = dp2px(DEFAULT_UNREACHED_HEIGHT);//未到达高度
 
-    private int mTextColor = DEFAULT_TEXT_COLOR;
-    private int mTextSize = sp2px(DEFAULT_TEXT_SZIE);
+    private int mTextColor = DEFAULT_TEXT_COLOR;//文本颜色
+    private int mTextSize = sp2px(DEFAULT_TEXT_SIZE);//文本大小
 
-    private int mTextVisibility = VISIBLE;
-    private int mTextPaddingStart = dp2px(DEFAULT_PADDING);
-    private int mTextPaddingEnd = dp2px(DEFAULT_PADDING);
+    private int mTextVisibility = VISIBLE;//文本的可见性（默认可见）
+    private int mTextPaddingStart = dp2px(DEFAULT_PADDING);//text padding left
+    private int mTextPaddingEnd = dp2px(DEFAULT_PADDING);//text padding right
+    private float mRealWidth;//真正的宽度
+    private boolean mIfNeedShowText = true;//是否需要显示文本
 
-    private final Paint mPaint = new Paint();
-    private float mRealWidth;
-    private boolean mIfDrawText = true;
+    private final Paint mPaint = new Paint();//draw line and text
 
     public NumberProgressBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -51,9 +52,6 @@ public class NumberProgressBar extends ProgressBar {
     public NumberProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
-        mPaint.setTextSize(mTextSize);
-        mPaint.setColor(mTextColor);
-        mPaint.setAntiAlias(true);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -67,13 +65,15 @@ public class NumberProgressBar extends ProgressBar {
         mTextColor = a.getColor(R.styleable.NumberProgressBar_npb_textColor, mTextColor);
         mTextSize = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textSize, mTextSize);
         mTextVisibility = a.getInt(R.styleable.NumberProgressBar_npb_textVisibility, mTextVisibility);
-
         mTextPaddingStart = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingStart, mTextPaddingStart);
         mTextPaddingEnd = a.getDimensionPixelSize(R.styleable.NumberProgressBar_npb_textPaddingEnd, mTextPaddingEnd);
         a.recycle();
 
-        mIfDrawText = mTextVisibility == VISIBLE;
+        mIfNeedShowText = mTextVisibility == VISIBLE;
 
+        mPaint.setTextSize(mTextSize);
+        mPaint.setColor(mTextColor);
+        mPaint.setAntiAlias(true);
     }
 
 
@@ -116,7 +116,7 @@ public class NumberProgressBar extends ProgressBar {
         float progressPosX = (int) (mRealWidth * radio);
         String text = getProgress() + "%";
 
-        float textWidth = mIfDrawText ? mPaint.measureText(text) : 0;
+        float textWidth = mIfNeedShowText ? mPaint.measureText(text) : 0;
         float textHeight = mPaint.descent() + mPaint.ascent();
 
         boolean drawUnreached = true;
@@ -126,7 +126,7 @@ public class NumberProgressBar extends ProgressBar {
         }
 
         // draw reached bar
-        float endX = progressPosX - (mIfDrawText ? mTextPaddingStart : 0);
+        float endX = progressPosX - (mIfNeedShowText ? mTextPaddingStart : 0);
         if (endX > 0) {
             mPaint.setColor(mReachedColor);
             mPaint.setStrokeWidth(mReachedHeight);
@@ -134,14 +134,14 @@ public class NumberProgressBar extends ProgressBar {
         }
         // draw progress bar
         // measure text bound
-        if (mIfDrawText) {
+        if (mIfNeedShowText) {
             mPaint.setColor(mTextColor);
             canvas.drawText(text, progressPosX, -textHeight, mPaint);
         }
 
         // draw unreached bar
         if (drawUnreached) {
-            float start = progressPosX + (mIfDrawText ? mTextPaddingEnd : 0) + textWidth;
+            float start = progressPosX + (mIfNeedShowText ? mTextPaddingEnd : 0) + textWidth;
             mPaint.setColor(mUnreachedColor);
             mPaint.setStrokeWidth(mUnreachedHeight);
             canvas.drawLine(start, 0, mRealWidth, 0, mPaint);
@@ -157,9 +157,9 @@ public class NumberProgressBar extends ProgressBar {
      * @param dpValue dp
      * @return px
      */
-    private int dp2px(float dpValue) {
+    private static int dp2px(float dpValue) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue,
-                getResources().getDisplayMetrics()) + 0.5f);
+                Resources.getSystem().getDisplayMetrics()) + 0.5f);
     }
 
     /**
@@ -170,7 +170,7 @@ public class NumberProgressBar extends ProgressBar {
      */
     private int sp2px(float spValue) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, spValue,
-                getResources().getDisplayMetrics()) + 0.5f);
+                Resources.getSystem().getDisplayMetrics()) + 0.5f);
     }
 }
 
