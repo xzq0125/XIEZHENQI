@@ -284,7 +284,7 @@ public class NumberProgressBar extends ProgressBar {
     private void drawVerticalUp(Canvas canvas) {
         canvas.save();
 
-        canvas.translate(0, -getPaddingBottom());
+        canvas.translate(0, getPaddingTop());
 
         float percent = getProgress() * 1.0f / getMax();
         float progressPosY = (int) (mRealLength * (1 - percent));

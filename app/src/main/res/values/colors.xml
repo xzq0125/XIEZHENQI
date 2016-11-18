@@ -21,8 +21,8 @@
     <color name="ripple_light">#1f000000</color>
     <color name="ripple_dark">#4dffffff</color>
 
-    <color name="progress_text_color">@color/common_bg</color>
-    <color name="progress_reached_color">@color/common_bg</color>
+    <color name="progress_text_color">@color/themeColor</color>
+    <color name="progress_reached_color">@color/themeColor</color>
     <color name="progress_unreached_color">#ffdddddd</color>
 
 </resources>
