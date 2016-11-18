@@ -45,6 +45,7 @@ public class NumberProgressBar extends ProgressBar {
     private int mOrientation = 0;//进度条方向(默认横向)
     private int mDrawOrientation = 0;//进度条Draw方向(默认向上)
 
+    private int mTopOffset = 3;//3px
     private int mRealLength;//真正的长度
     private String mTotalString = "%";
 
@@ -156,7 +157,7 @@ public class NumberProgressBar extends ProgressBar {
         } else {
             float textHeight = getTextHeight();
             height = (int) (getPaddingTop() + getPaddingBottom() +
-                    Math.max(Math.max(mReachedThickness, mUnreachedThickness), textHeight + 3) + 0.5f);
+                    Math.max(Math.max(mReachedThickness, mUnreachedThickness), textHeight + mTopOffset) + 0.5f);
             if (specMode == MeasureSpec.AT_MOST) {
                 height = Math.min(specSize, height);
             }
@@ -217,7 +218,7 @@ public class NumberProgressBar extends ProgressBar {
         // measure text bound
         if (mDrawText) {
             mPaint.setColor(mTextColor);
-            canvas.drawText(text, progressPosX, textHeight + 3, mPaint);
+            canvas.drawText(text, progressPosX, textHeight + mTopOffset, mPaint);
         }
 
         // draw unreached bar
@@ -327,6 +328,15 @@ public class NumberProgressBar extends ProgressBar {
         }
 
         canvas.restore();
+    }
+
+    /**
+     * 设置文本顶部偏移量,横向进度条才有效
+     *
+     * @param mTopOffset 偏移量(单位px)
+     */
+    public void setTopOffset(int mTopOffset) {
+        this.mTopOffset = mTopOffset;
     }
 
     /**
