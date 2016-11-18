@@ -90,7 +90,8 @@
                     android:layout_height="8dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_has_order" />
+                    android:background="@drawable/bg_has_order"
+                    android:visibility="gone" />
 
             </FrameLayout>
 
@@ -119,8 +120,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="6dp"
                 android:paddingStart="5dp"
-                android:text="11"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="11" />
         </LinearLayout>
 
         <LinearLayout
@@ -151,7 +152,8 @@
                     android:layout_height="8dp"
                     android:layout_gravity="end"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_has_order" />
+                    android:background="@drawable/bg_has_order"
+                    android:visibility="gone" />
 
             </FrameLayout>
 
@@ -180,8 +182,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="6dp"
                 android:paddingStart="5dp"
-                android:text="8"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="8" />
         </LinearLayout>
 
         <LinearLayout
@@ -242,8 +244,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="6dp"
                 android:paddingStart="5dp"
-                android:text="11"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:text="5" />
         </LinearLayout>
 
     </LinearLayout>
