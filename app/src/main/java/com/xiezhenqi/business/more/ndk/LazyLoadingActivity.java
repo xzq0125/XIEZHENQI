@@ -16,7 +16,7 @@ import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class NDKActivity extends BaseActivity implements SmartTabLayout.TabProvider {
+public class LazyLoadingActivity extends BaseActivity implements SmartTabLayout.TabProvider {
 
     @Bind(android.R.id.title)
     TextView tvTitle;
@@ -29,7 +29,7 @@ public class NDKActivity extends BaseActivity implements SmartTabLayout.TabProvi
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_ndk;
+        return R.layout.activity_lazy_loading;
     }
 
     @Override

@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
-import com.xiezhenqi.business.more.ndk.NDKActivity;
+import com.xiezhenqi.business.more.ndk.LazyLoadingActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
 
@@ -55,7 +55,7 @@ public class ItemList {
 
     private void initItemCount() {
         itemList.add(new Item("上下文RecyclerView", ContextMenuRecyclerViewActivity.class));
-        itemList.add(new Item("NDKActivity", NDKActivity.class));
+        itemList.add(new Item("Fragment懒加载", LazyLoadingActivity.class));
         itemList.add(new Item("Drag(拖拽)Activity", DragActivity.class));
         itemList.add(new Item("OrderActivity", OrderActivity.class));
         itemList.add(new Item("ProgressBarActivity", ProgressBarActivity.class));
