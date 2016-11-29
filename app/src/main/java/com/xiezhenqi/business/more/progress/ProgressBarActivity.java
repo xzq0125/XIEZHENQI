@@ -14,6 +14,9 @@ import butterknife.ButterKnife;
 
 public class ProgressBarActivity extends BaseActivity implements Runnable {
 
+    @Bind(android.R.id.title)
+    TextView tvTitle;
+
     @Bind(R.id.progress1)
     NumberProgressBar progressBar;
 
@@ -24,7 +27,9 @@ public class ProgressBarActivity extends BaseActivity implements Runnable {
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
+        setSupportActionBar(R.id.tool_bar);
         ButterKnife.bind(this);
+        tvTitle.setText(getIntent().getStringExtra("title"));
         progressBar.setMax(100);
     }
 

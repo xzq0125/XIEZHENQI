@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_ndk"
     android:layout_width="match_parent"
@@ -8,12 +10,38 @@
 
     <include layout="@layout/merge_toolbar" />
 
-    <TextView
-        android:id="@android:id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="33sp"
-        tools:text="显示内容" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <com.xiezhenqi.widget.smarttablayout.SmartTabLayout
+            android:id="@+id/stl"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_tab_view"
+            custom:stl_distributeEvenly="true"
+            custom:stl_dividerColor="@color/transparent"
+            custom:stl_dividerThickness="0dp"
+            custom:stl_indicatorColor="@color/themeColor"
+            custom:stl_indicatorCornerRadius="5dp"
+            custom:stl_indicatorGravity="center"
+            custom:stl_indicatorInterpolation="smart"
+            custom:stl_indicatorThickness="35dp"
+            custom:stl_indicatorWidthSameWithTextWidth="false"
+            custom:stl_underlineColor="@color/transparent"
+            custom:stl_underlineThickness="0dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>

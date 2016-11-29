@@ -1,42 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_progress_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xiezhenqi.business.more.progress.ProgressBarActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:onClick="onButtonClick"
-        android:text="开始" />
+    <include layout="@layout/merge_toolbar" />
 
-    <com.xiezhenqi.widget.progressbar.NumberProgressBar
-        android:id="@+id/progress1"
+    <RelativeLayout
+        android:id="@+id/activity_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:visibility="visible"
-        app:npb_drawDirection="up"
-        app:npb_drawText="true"
-        app:npb_drawUnreachedBar="true"
-        app:npb_orientation="horizontal"
-        app:npb_reachedColor="@color/themeColor"
-        app:npb_reachedThickness="4dp"
-        app:npb_textColor="@color/themeColor"
-        app:npb_textPaddingEnd="5dp"
-        app:npb_textPaddingStart="5dp"
-        app:npb_textSize="10sp"
-        app:npb_textStyle="bold_italic"
-        app:npb_unreachedColor="@color/lineColor_toolbar"
-        app:npb_unreachedThickness="4dp" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:onClick="onButtonClick"
+            android:text="开始"
+            tools:ignore="HardcodedText" />
+
+        <com.xiezhenqi.widget.progressbar.NumberProgressBar
+            android:id="@+id/progress1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"
+            android:visibility="visible"
+            app:npb_drawDirection="up"
+            app:npb_drawText="true"
+            app:npb_drawUnreachedBar="true"
+            app:npb_orientation="horizontal"
+            app:npb_reachedColor="@color/themeColor"
+            app:npb_reachedThickness="4dp"
+            app:npb_textColor="@color/themeColor"
+            app:npb_textPaddingEnd="5dp"
+            app:npb_textPaddingStart="5dp"
+            app:npb_textSize="10sp"
+            app:npb_textStyle="bold_italic"
+            app:npb_unreachedColor="@color/lineColor_toolbar"
+            app:npb_unreachedThickness="4dp" />
+
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>
