@@ -1,4 +1,4 @@
-package com.xiezhenqi.business.more.ndk;
+package com.xiezhenqi.business.more.lazyload;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
-import com.xiezhenqi.business.home.adapters.HomeFragmentPagerAdapter;
 import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 
 import butterknife.Bind;
@@ -37,10 +36,9 @@ public class LazyLoadingActivity extends BaseActivity implements SmartTabLayout.
         setSupportActionBar(R.id.tool_bar);
         ButterKnife.bind(this);
         tvTitle.setText(getIntent().getStringExtra("title"));
-        HomeFragmentPagerAdapter fragmentPagerAdapter = new HomeFragmentPagerAdapter(getSupportFragmentManager());
-        fragmentPagerAdapter.getItem(0);
+        LazyFragmentPagerAdapter fragmentPagerAdapter = new LazyFragmentPagerAdapter(getSupportFragmentManager());
         vpFragments.setAdapter(fragmentPagerAdapter);
-        vpFragments.setOffscreenPageLimit(3);
+        vpFragments.setOffscreenPageLimit(2);
         stl.setCustomTabView(this);
         stl.setViewPager(vpFragments);
     }
@@ -51,7 +49,7 @@ public class LazyLoadingActivity extends BaseActivity implements SmartTabLayout.
         TextView tabTitleView = (TextView) tabView.findViewById(R.id.tv_tab);
         TextView tabCount = (TextView) tabView.findViewById(R.id.tv_count);
         tabTitleView.setText(adapter.getPageTitle(position));
-        tabCount.setText("99");
+        tabCount.setText("5");
         return tabView;
     }
 }

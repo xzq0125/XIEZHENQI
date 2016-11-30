@@ -5,7 +5,7 @@ import android.content.Intent;
 
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
-import com.xiezhenqi.business.more.ndk.LazyLoadingActivity;
+import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
 

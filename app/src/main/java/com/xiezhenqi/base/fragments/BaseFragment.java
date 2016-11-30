@@ -95,6 +95,7 @@ public abstract class BaseFragment extends Fragment {
      * @param id The id to search for.
      * @return The view that has the given id in the hierarchy or null
      */
+    @SuppressWarnings("unchecked")
     public <T extends View> T findViewById(@IdRes int id) {
         if (getView() == null) {
             throw new IllegalStateException("Fragment " + this

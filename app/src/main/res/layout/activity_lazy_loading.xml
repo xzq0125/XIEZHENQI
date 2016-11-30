@@ -6,7 +6,7 @@
     android:id="@+id/activity_ndk"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiezhenqi.business.more.ndk.LazyLoadingActivity">
+    tools:context="com.xiezhenqi.business.more.lazyload.LazyLoadingActivity">
 
     <include layout="@layout/merge_toolbar" />
 
@@ -30,7 +30,7 @@
             custom:stl_indicatorColor="@color/themeColor"
             custom:stl_indicatorCornerRadius="5dp"
             custom:stl_indicatorGravity="center"
-            custom:stl_indicatorInterpolation="smart"
+            custom:stl_indicatorInterpolation="linear"
             custom:stl_indicatorThickness="35dp"
             custom:stl_indicatorWidthSameWithTextWidth="false"
             custom:stl_underlineColor="@color/transparent"
