@@ -19,7 +19,6 @@ package com.xiezhenqi.widget.smarttablayout;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -637,32 +636,6 @@ public class SmartTabLayout extends HorizontalScrollView {
             }
         }
 
-    }
-
-    /**
-     * 双色合成
-     *
-     * @param normalColor   普通颜色
-     * @param selectedColor 选中颜色
-     * @param offset        偏移值
-     * @return 合成色
-     */
-    @SuppressWarnings("unused")
-    protected int getColor(int normalColor, int selectedColor, float offset) {
-        int normalAlpha = Color.alpha(normalColor);
-        int normalRed = Color.red(normalColor);
-        int normalGreen = Color.green(normalColor);
-        int normalBlue = Color.blue(normalColor);
-        int selectedAlpha = Color.alpha(selectedColor);
-        int selectedRed = Color.red(selectedColor);
-        int selectedGreen = Color.green(selectedColor);
-        int selectedBlue = Color.blue(selectedColor);
-        int a = (int) Math.ceil((selectedAlpha - normalAlpha) * offset);
-        int r = (int) Math.ceil((selectedRed - normalRed) * offset);
-        int g = (int) Math.ceil((selectedGreen - normalGreen) * offset);
-        int b = (int) Math.ceil((selectedBlue - normalBlue) * offset);
-        return Color.argb(normalAlpha + a, normalRed + r, normalGreen + g,
-                normalBlue + b);
     }
 
     private class InternalTabClickListener implements OnClickListener {
