@@ -38,7 +38,7 @@ public class LazyLoadingActivity extends BaseActivity implements SmartTabLayout.
         tvTitle.setText(getIntent().getStringExtra("title"));
         LazyFragmentPagerAdapter fragmentPagerAdapter = new LazyFragmentPagerAdapter(getSupportFragmentManager());
         vpFragments.setAdapter(fragmentPagerAdapter);
-        vpFragments.setOffscreenPageLimit(2);
+        vpFragments.setOffscreenPageLimit(fragmentPagerAdapter.getCount() - 1);
         stl.setCustomTabView(this);
         stl.setViewPager(vpFragments);
     }
