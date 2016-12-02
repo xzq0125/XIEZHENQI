@@ -40,7 +40,10 @@
         <activity android:name=".business.more.lazyload.LazyLoadingActivity" />
         <activity android:name=".business.more.drag.DragActivity" />
         <activity android:name=".business.more.order.OrderActivity" />
-        <activity android:name=".business.more.progress.ProgressBarActivity"></activity>
+        <activity android:name=".business.more.progress.ProgressBarActivity" />
+        <activity
+            android:name=".business.more.mazing.IDActivity"
+            android:theme="@style/AppBaseTheme"></activity>
     </application>
 
 </manifest>

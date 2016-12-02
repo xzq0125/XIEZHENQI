@@ -40,7 +40,8 @@ android {
     productFlavors.all {
         flavor -> flavor.manifestPlaceholders = [channelValue: name]
     }
-
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 }
 
 dependencies {
@@ -55,4 +56,6 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.8.1'
     compile 'com.android.support:design:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
+    compile 'am.widget:replacelayout:1.1.0'
+    compile 'am.widget:gradienttabstrip:24.2.1.1'
 }
