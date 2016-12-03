@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
+        android:paddingBottom="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -37,7 +38,8 @@
                     android:layout_height="wrap_content"
                     android:text="不是小冷"
                     android:textColor="@color/black"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/tv_intro"
@@ -46,7 +48,8 @@
                     android:layout_below="@id/tv_name"
                     android:text="活在米星就是生活方式"
                     android:textColor="#ff666666"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
 
                 <ImageView
                     android:layout_width="100dp"
@@ -55,9 +58,10 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"
+                    tools:ignore="ContentDescription" />
 
-                <am.widget.gradienttabstrip.GradientTabStrip
+                <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
                     android:id="@+id/gts"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,58 +75,34 @@
                     app:gtsTagMinHeight="15dp"
                     app:gtsTagMinWidth="15dp"
                     app:gtsTagPaddingLeft="2dp"
-                    app:gtsTagPaddingRight="2dp" />
+                    app:gtsTagPaddingRight="2dp"
+                    tools:ignore="SmallSp" />
 
             </RelativeLayout>
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/toolBar"
+                android:id="@id/tool_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
                 android:layout_below="@id/tv_intro"
                 android:background="@color/transparent"
                 app:layout_collapseMode="pin">
 
-                <LinearLayout
+                <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
+                    android:id="@+id/gts2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_tasty"
-                        android:gravity="center"
-                        android:text="体验"
-                        android:textColor="#ff666666"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_star"
-                        android:gravity="center"
-                        android:text="推荐"
-                        android:textColor="#ff666666"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:drawableTop="@drawable/ic_like"
-                        android:gravity="center"
-                        android:text="喜欢"
-                        android:textColor="#ff666666"
-                        android:textSize="11sp" />
-
-                </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/tv_intro"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/tc_custom_tab"
+                    android:textSize="14sp"
+                    app:gtsDrawablePadding="5dp"
+                    app:gtsMinItemWidth="50dp"
+                    app:gtsTagMargin="5dp"
+                    app:gtsTagMinHeight="15dp"
+                    app:gtsTagMinWidth="15dp"
+                    app:gtsTagPaddingLeft="2dp"
+                    app:gtsTagPaddingRight="2dp" />
 
             </android.support.v7.widget.Toolbar>
 

@@ -11,17 +11,17 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
+import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.utils.LogUtils;
 
 import am.widget.basetabstrip.BaseTabStrip;
-import am.widget.gradienttabstrip.GradientTabStrip;
 import am.widget.replacelayout.ReplaceLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, BaseTabStrip.OnChangeListener {
+public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
 
     @Bind(R.id.vp)
     ViewPager vpId;
@@ -29,11 +29,14 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
     @Bind(R.id.app_bar)
     AppBarLayout appBarLayout;
 
-    @Bind(R.id.toolBar)
+    @Bind(R.id.tool_bar)
     Toolbar toolbar;
 
     @Bind(R.id.gts)
-    GradientTabStrip gtsTabs;
+    GradientTabStrip2 gtsTabs;
+
+    @Bind(R.id.gts2)
+    GradientTabStrip2 gtsTabs2;
 
     @Bind(R.id.rl)
     ReplaceLayout rlTitles;
@@ -43,24 +46,32 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
         return R.layout.activity_id;
     }
 
+    MainFragmentPagerAdapter mPagerAdapter;
+
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
         appBarLayout.addOnOffsetChangedListener(this);
 
         TitleViewManager mTitleViewManager = new IDTitleViewManager();
-        MainFragmentPagerAdapter mPagerAdapter = new IDFragmentPagerAdapter(getSupportFragmentManager(),
-                mTitleViewManager, getIntent().getBundleExtra("data"));
         mTitleViewManager.initManager(this, rlTitles);
-        gtsTabs.addOnChangeListener(this);
-        gtsTabs.bindViewPager(vpId);
+
+        mPagerAdapter = new IDFragmentPagerAdapter(getSupportFragmentManager(), mTitleViewManager, getIntent().getBundleExtra("data"));
+
         rlTitles.setAdapter(mPagerAdapter);
         vpId.setOffscreenPageLimit(3);
         vpId.setAdapter(mPagerAdapter);
-        gtsTabs.setAdapter(mPagerAdapter);
         vpId.addOnPageChangeListener(mPagerAdapter);
+
+        gtsTabs.addOnChangeListener(gtsTabsListener);
+        gtsTabs.bindViewPager(vpId);
+        gtsTabs.setAdapter(mPagerAdapter);
         gtsTabs.setOnItemClickListener(mPagerAdapter);
-        vpId.setCurrentItem(0);
+
+        gtsTabs2.addOnChangeListener(gtsTabs2Listener);
+        gtsTabs2.bindViewPager(vpId);
+        gtsTabs2.setAdapter(mPagerAdapter);
+        gtsTabs2.setOnItemClickListener(mPagerAdapter);
     }
 
     @Override
@@ -74,19 +85,43 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
 
     }
 
-    @Override
-    public void jumpTo(int correct) {
-        rlTitles.moveTo(correct);
-    }
+    private BaseTabStrip.OnChangeListener gtsTabsListener = new BaseTabStrip.OnChangeListener() {
+        @Override
+        public void jumpTo(int correct) {
+            rlTitles.moveTo(correct);
+            gtsTabs2.jumpTo(correct);
+        }
 
-    @Override
-    public void gotoLeft(int correct, int next, float offset) {
-        rlTitles.moveLeft(correct, offset);
-    }
+        @Override
+        public void gotoLeft(int correct, int next, float offset) {
+            rlTitles.moveLeft(correct, offset);
+            gtsTabs2.gotoLeft(correct, next, offset);
+        }
 
-    @Override
-    public void gotoRight(int correct, int next, float offset) {
-        rlTitles.moveRight(correct, offset);
-    }
+        @Override
+        public void gotoRight(int correct, int next, float offset) {
+            rlTitles.moveRight(correct, offset);
+            gtsTabs2.gotoRight(correct, next, offset);
+        }
+    };
 
+    private BaseTabStrip.OnChangeListener gtsTabs2Listener = new BaseTabStrip.OnChangeListener() {
+        @Override
+        public void jumpTo(int correct) {
+            rlTitles.moveTo(correct);
+            gtsTabs.jumpTo(correct);
+        }
+
+        @Override
+        public void gotoLeft(int correct, int next, float offset) {
+            rlTitles.moveLeft(correct, offset);
+            gtsTabs.gotoLeft(correct, next, offset);
+        }
+
+        @Override
+        public void gotoRight(int correct, int next, float offset) {
+            rlTitles.moveRight(correct, offset);
+            gtsTabs.gotoRight(correct, next, offset);
+        }
+    };
 }
