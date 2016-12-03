@@ -76,6 +76,7 @@ public class IDTitleViewManager extends TitleViewManager implements View.OnClick
     public void onSelected(ViewGroup replace, int position, int count,
                            IDFragmentPagerAdapter.PagerType type) {
         boolean shouldGone = position == count - 1;
+        shouldGone = false;
         View child = getReplaceView(type);
         if (child != null) {
             child.setAlpha(1);
