@@ -61,31 +61,14 @@ public class IDTitleViewManager extends TitleViewManager implements View.OnClick
         if (nextV != null) {
             nextV.setAlpha(1F - offset);
         }
-        replace.setVisibility(View.VISIBLE);
-        boolean isGotoHide = correct == count - 2 && next == count - 1;
-        boolean isGotoShow = correct == count - 1 && next == count - 2;
-        if (isGotoHide) {
-            replace.setAlpha(offset);
-        }
-        if (isGotoShow) {
-            replace.setAlpha(1F - offset);
-        }
     }
 
     @Override
     public void onSelected(ViewGroup replace, int position, int count,
                            IDFragmentPagerAdapter.PagerType type) {
-        boolean shouldGone = position == count - 1;
-        shouldGone = false;
         View child = getReplaceView(type);
         if (child != null) {
             child.setAlpha(1);
-        }
-        if (shouldGone) {
-            replace.setVisibility(View.GONE);
-        } else {
-            replace.setAlpha(1);
-            replace.setVisibility(View.VISIBLE);
         }
     }
 
