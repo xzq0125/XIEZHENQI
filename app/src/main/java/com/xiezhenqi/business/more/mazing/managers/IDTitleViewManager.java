@@ -6,31 +6,23 @@ import android.content.IntentFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
+import com.xiezhenqi.utils.ToastUtils;
 
 public class IDTitleViewManager extends TitleViewManager implements View.OnClickListener {
 
-    private final IDTitleViewManager me = this;
     private Context mContext;
-
     private View mTastyTitle;
-    private TextView tvLocation;
-
-    private View mNewTitle;
-
-    private View mWishTitle;
+    private View mStarTitle;
+    private View mLikeTitle;
 
     public void initManager(Context context, ViewGroup replaceView) {
         mContext = context;
-        initTastyTitle(replaceView);
-    }
-
-    private void initTastyTitle(ViewGroup replaceView) {
-        mTastyTitle = LayoutInflater.from(mContext)
-                .inflate(R.layout.item_id_title, replaceView, false);
+        mTastyTitle = LayoutInflater.from(mContext).inflate(R.layout.item_id_title, replaceView, false);
+        mStarTitle = LayoutInflater.from(mContext).inflate(R.layout.item_id_title, replaceView, false);
+        mLikeTitle = LayoutInflater.from(mContext).inflate(R.layout.item_id_title, replaceView, false);
     }
 
     @Override
@@ -49,9 +41,9 @@ public class IDTitleViewManager extends TitleViewManager implements View.OnClick
             case TASTY:
                 return mTastyTitle;
             case STAR:
-                return mNewTitle;
+                return mStarTitle;
             case LIKE:
-                return mWishTitle;
+                return mLikeTitle;
             default:
                 return null;
         }
@@ -98,6 +90,6 @@ public class IDTitleViewManager extends TitleViewManager implements View.OnClick
 
     @Override
     public void onClick(View v) {
-
+        ToastUtils.showToast(mContext, v.toString());
     }
 }

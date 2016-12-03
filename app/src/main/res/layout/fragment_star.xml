@@ -2,12 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xiezhenqi.business.home.fragments.CFragment">
+    tools:context="com.xiezhenqi.business.more.mazing.fragments.StarFragment">
 
-    <android.support.v4.view.ViewPager
+    <com.xiezhenqi.widget.WrapContentHeightViewPager
         android:id="@+id/vp_star"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="35dp" />
+        android:layout_marginTop="0dp" />
 
 </FrameLayout>

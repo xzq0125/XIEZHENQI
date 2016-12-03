@@ -4,10 +4,15 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
+import com.xiezhenqi.business.more.mazing.adapters.FragmentListAdapter;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * TastyFragment
@@ -16,6 +21,9 @@ import com.xiezhenqi.R;
 
 public class LikeFragment extends MainFragment {
 
+    @Bind(R.id.vp_like)
+    ViewPager vpLike;
+
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return R.layout.fragment_like;
@@ -23,7 +31,9 @@ public class LikeFragment extends MainFragment {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-
+        ButterKnife.bind(this, getView());
+        FragmentListAdapter adapter = new FragmentListAdapter(getFragmentManager());
+        vpLike.setAdapter(adapter);
     }
 
     public static CharSequence getPageTitle(Context context) {
@@ -36,5 +46,11 @@ public class LikeFragment extends MainFragment {
 
     public static Drawable getSelectedDrawable(Context context) {
         return ContextCompat.getDrawable(context, R.drawable.ic_main_manager_selected);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

@@ -59,13 +59,13 @@
                 <am.widget.gradienttabstrip.GradientTabStrip
                     android:id="@+id/gts"
                     android:layout_width="wrap_content"
-                    android:layout_height="?attr/actionBarSize"
+                    android:layout_height="wrap_content"
                     android:layout_below="@id/tv_intro"
-                    android:layout_gravity="bottom"
-                    android:background="@drawable/bg_main_tabbar"
+                    android:layout_marginTop="10dp"
                     android:textColor="@color/tc_custom_tab"
-                    android:textSize="11sp"
+                    android:textSize="9sp"
                     app:gtsDrawablePadding="5dp"
+                    app:gtsMinItemWidth="50dp"
                     app:gtsTagMargin="5dp"
                     app:gtsTagMinHeight="15dp"
                     app:gtsTagMinWidth="15dp"
@@ -134,23 +134,6 @@
             android:background="#faffffff"
             android:clickable="true" />
 
-        <com.xiezhenqi.widget.smarttablayout.SmartTabLayout
-            android:id="@+id/stl"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/bg_tab_view"
-            custom:stl_distributeEvenly="true"
-            custom:stl_dividerColor="@color/transparent"
-            custom:stl_dividerThickness="0dp"
-            custom:stl_indicatorColor="@color/themeColor"
-            custom:stl_indicatorCornerRadius="5dp"
-            custom:stl_indicatorGravity="center"
-            custom:stl_indicatorInterpolation="linear"
-            custom:stl_indicatorThickness="35dp"
-            custom:stl_indicatorWidthSameWithTextWidth="false"
-            custom:stl_underlineColor="@color/transparent"
-            custom:stl_underlineThickness="0dp" />
     </android.support.design.widget.AppBarLayout>
 
     <com.xiezhenqi.widget.MyNestedScrollView

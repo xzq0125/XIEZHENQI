@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.business.more.mazing.fragments.LikeFragment;
 import com.xiezhenqi.business.more.mazing.fragments.MainFragment;
 import com.xiezhenqi.business.more.mazing.fragments.StarFragment;
@@ -88,6 +89,19 @@ public class IDFragmentPagerAdapter extends MainFragmentPagerAdapter {
                 return StarFragment.getSelectedDrawable(context);
             case LIKE:
                 return LikeFragment.getSelectedDrawable(context);
+        }
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        switch (positionToType(position)) {
+            default:
+            case TASTY:
+                return TastyFragment.getPageTitle(XZQApplication.getContext());
+            case STAR:
+                return StarFragment.getPageTitle(XZQApplication.getContext());
+            case LIKE:
+                return LikeFragment.getPageTitle(XZQApplication.getContext());
         }
     }
 

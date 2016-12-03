@@ -3,20 +3,11 @@ package com.xiezhenqi.business.more.mazing;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
@@ -39,17 +30,11 @@ public class IDActivity extends BaseActivity implements SmartTabLayout.TabProvid
     @Bind(R.id.vp)
     ViewPager vpId;
 
-    @Bind(R.id.stl)
-    SmartTabLayout stlId;
-
     @Bind(R.id.app_bar)
     AppBarLayout appBarLayout;
 
     @Bind(R.id.toolBar)
     Toolbar toolbar;
-
-    @Bind(R.id.tab)
-    ViewGroup viewGroup;
 
     @Bind(R.id.gts)
     GradientTabStrip gtsTabs;
@@ -68,9 +53,6 @@ public class IDActivity extends BaseActivity implements SmartTabLayout.TabProvid
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this);
-
-        stlId.setCustomTabView(this);
-        stlId.setViewPager(vpId);
         appBarLayout.addOnOffsetChangedListener(this);
 
         mTitleViewManager = new IDTitleViewManager();
@@ -79,10 +61,12 @@ public class IDActivity extends BaseActivity implements SmartTabLayout.TabProvid
         gtsTabs.addOnChangeListener(this);
         gtsTabs.bindViewPager(vpId);
         rlTitles.setAdapter(mPagerAdapter);
-        vpId.setOffscreenPageLimit(mPagerAdapter.getCount() - 1);
+        vpId.setOffscreenPageLimit(3);
         vpId.setAdapter(mPagerAdapter);
         gtsTabs.setAdapter(mPagerAdapter);
         vpId.addOnPageChangeListener(mPagerAdapter);
+        gtsTabs.setOnItemClickListener(mPagerAdapter);
+        vpId.setCurrentItem(0);
     }
 
 
@@ -101,10 +85,8 @@ public class IDActivity extends BaseActivity implements SmartTabLayout.TabProvid
         LogUtils.debug("WISH", "verticalOffset = " + verticalOffset);
         if (verticalOffset == 0) {
             toolbar.setVisibility(View.GONE);
-            viewGroup.setVisibility(View.VISIBLE);
         } else {
             toolbar.setVisibility(View.VISIBLE);
-            viewGroup.setVisibility(View.GONE);
         }
 
     }
@@ -124,84 +106,4 @@ public class IDActivity extends BaseActivity implements SmartTabLayout.TabProvid
         rlTitles.moveRight(correct, offset);
     }
 
-    public static class MyAdapter extends FragmentStatePagerAdapter {
-        private static final int NUM_ITEMS = 4;
-
-        public MyAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_ITEMS;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return ArrayListFragment.newInstance(position);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "Page " + (position + 1);
-        }
-    }
-
-    public static class ArrayListFragment extends ListFragment {
-        int mNum;
-
-        /**
-         * Create a new instance of CountingFragment, providing "num"
-         * as an argument.
-         */
-        static ArrayListFragment newInstance(int num) {
-            ArrayListFragment f = new ArrayListFragment();
-
-            // Supply num input as an argument.
-            Bundle args = new Bundle();
-            args.putInt("num", num + 1);
-            f.setArguments(args);
-
-            return f;
-        }
-
-        /**
-         * When creating, retrieve this instance's number from its arguments.
-         */
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mNum = getArguments() != null ? getArguments().getInt("num") : 1;
-        }
-
-        /**
-         * The Fragment's UI is just a simple text view showing its
-         * instance number.
-         */
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            View v = inflater.inflate(R.layout.fragment_pager_list, container, false);
-
-            return v;
-        }
-
-        @Override
-        public void onActivityCreated(Bundle savedInstanceState) {
-            super.onActivityCreated(savedInstanceState);
-            AbsListView.LayoutParams params = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, AbsListView.LayoutParams.WRAP_CONTENT);
-
-            TextView textView = new TextView(getActivity());
-            textView.setPadding(16, 16, 16, 16);
-            textView.setText("Fragment#" + mNum);
-            textView.setLayoutParams(params);
-            getListView().addHeaderView(textView);
-            setListAdapter(new ArrayAdapter<String>(getActivity(),
-                    android.R.layout.simple_list_item_1, getActivity().getResources().getStringArray(R.array.song_name_list)));
-        }
-
-        @Override
-        public void onListItemClick(ListView l, View v, int position, long id) {
-            Log.i("FragmentList", "Item clicked: " + id);
-        }
-    }
 }
