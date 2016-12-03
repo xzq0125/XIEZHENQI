@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
-import com.xiezhenqi.business.more.mazing.adapters.FragmentListAdapter;
+import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
 import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 
@@ -38,7 +38,7 @@ public class TastyFragment extends MainFragment implements SmartTabLayout.TabPro
     @Override
     protected void initViews(Bundle savedInstanceState) {
         ButterKnife.bind(this, getView());
-        FragmentListAdapter adapter = new FragmentListAdapter(getFragmentManager());
+        RVFragmentAdapter adapter = new RVFragmentAdapter(getFragmentManager());
         vpTasty.setAdapter(adapter);
         if (stl != null)
             stl.setViewPager(vpTasty);
