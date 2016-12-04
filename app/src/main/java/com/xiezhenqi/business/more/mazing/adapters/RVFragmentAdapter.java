@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * RVFragmentAdapter
  * Created by Tse on 2016/12/3.
@@ -13,10 +16,14 @@ import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 
 public class RVFragmentAdapter extends FragmentPagerAdapter {
 
-    private static final int NUM_ITEMS = 2;
+    private Map<String, RVFragments> fragmentsMap = new HashMap<>();
 
-    public RVFragmentAdapter(FragmentManager fm) {
+    private static final int NUM_ITEMS = 2;
+    private String fragmentName;
+
+    public RVFragmentAdapter(FragmentManager fm, String fragmentName) {
         super(fm);
+        this.fragmentName = fragmentName;
     }
 
     @Override
@@ -26,11 +33,17 @@ public class RVFragmentAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return new RVFragments();
+        RVFragments fragments = new RVFragments();
+        fragmentsMap.put(getPageTitle(position).toString(), fragments);
+        return fragments;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "哈哈";
+        return fragmentName + (position + 1);
+    }
+
+    public RVFragments getFragmentsByTabName(String tabName) {
+        return fragmentsMap.get(tabName);
     }
 }

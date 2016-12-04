@@ -50,4 +50,10 @@ public abstract class LazyLoadFragment extends BroadcastFragment {
      * 子类加载数据
      */
     protected abstract void loadData();
+
+    /**
+     * 子类刷新数据
+     */
+    public void refreshData() {
+    }
 }

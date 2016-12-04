@@ -534,9 +534,10 @@ public class SmartTabLayout extends HorizontalScrollView {
         /**
          * Called when a tab is clicked.
          *
+         * @param v        The view that was clicked.
          * @param position tab's position
          */
-        void onTabClicked(int position);
+        void onTabClicked(View v, int position);
     }
 
     /**
@@ -645,7 +646,7 @@ public class SmartTabLayout extends HorizontalScrollView {
 
                 if (v == tabStrip.getChildAt(i)) {
                     if (onTabClickListener != null) {
-                        onTabClickListener.onTabClicked(i);
+                        onTabClickListener.onTabClicked(v, i);
                     }
                     viewPager.setCurrentItem(i);
                     return;

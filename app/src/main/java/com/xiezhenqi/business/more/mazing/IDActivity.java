@@ -1,29 +1,39 @@
 package com.xiezhenqi.business.more.mazing;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.xiezhenqi.R;
-import com.xiezhenqi.base.activitys.BaseActivity;
+import com.xiezhenqi.base.activitys.BroadcastActivity;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
+import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
+import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.utils.LogUtils;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
+
+import java.util.List;
 
 import am.widget.basetabstrip.BaseTabStrip;
 import am.widget.replacelayout.ReplaceLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener {
+public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener {
 
     @Bind(R.id.vp)
     ViewPager vpId;
@@ -145,7 +155,58 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
             @Override
             public void run() {
                 pullDownRefresh.refreshComplete();
+                isRefresh = false;
             }
         }, 500);
+
+        if (tabName == null)
+            return;
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+
+        if (fragments == null)
+            return;
+
+        for (Fragment fragment : fragments) {
+
+            if (fragment.getView() instanceof ViewPager) {
+                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
+                RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
+                if (rvf != null) {
+                    rvf.refreshData();
+                    ToastUtils.showToast(this, "刷新" + tabName + "页面");
+                    return;
+                }
+            }
+        }
+
+    }
+
+    @Override
+    protected void onAddAction(IntentFilter filter) {
+        super.onAddAction(filter);
+        filter.addAction("update");
+    }
+
+    private String tabName;
+    private boolean isRefresh = false;
+
+    @Override
+    protected void onLocalBroadcastReceive(Context context, Intent intent) {
+        super.onLocalBroadcastReceive(context, intent);
+
+        if ("update".equals(intent.getAction())) {
+
+            if (isRefresh)
+                return;
+
+            isRefresh = true;
+            pullDownRefresh.autoRefresh(0);
+            tabName = intent.getStringExtra("title");
+
+        } else if ("loadData".equals(intent.getAction())) {
+            pullDownRefresh.autoRefresh();
+        }
     }
 }

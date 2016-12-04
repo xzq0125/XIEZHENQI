@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.fragments.LazyLoadFragment;
+import com.xiezhenqi.business.search.SearchActivity;
 import com.xiezhenqi.business.songlist.SongAdapter;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
  * Created by Tse on 2016/12/3.
  */
 
-public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolderClickListener {
+public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolderClickListener, Runnable {
 
     @Bind(R.id.rv)
     RecyclerView rv;
@@ -45,9 +46,13 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
 
     @Override
     protected void loadData() {
-        List<String> list =
-                Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
-        songAdapter.setData(list);
+        refreshData();
+    }
+
+    @Override
+    public void refreshData() {
+        songAdapter.setData(null);
+        rv.postDelayed(this, 500);
     }
 
     @Override
@@ -58,6 +63,12 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
 
     @Override
     public void onItemClick(String s, int pos) {
+        SearchActivity.start(getActivity(), s);
+    }
 
+    @Override
+    public void run() {
+        List<String> list = Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
+        songAdapter.setData(list);
     }
 }

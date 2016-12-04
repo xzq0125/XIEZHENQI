@@ -3,14 +3,14 @@ package com.xiezhenqi.business.more.mazing.fragments;
 import android.os.Bundle;
 import android.view.View;
 
-import com.xiezhenqi.base.fragments.BaseFragment;
+import com.xiezhenqi.base.fragments.LazyLoadFragment;
 
 
 /**
  * 主页Fragment
  * Created by Alex on 2015/11/18.
  */
-public abstract class MainFragment extends BaseFragment {
+public abstract class MainFragment extends LazyLoadFragment {
 
     public static final String EXTRA_FIRST_POSITION = "first_position";
     public static final String EXTRA_POSITION = "position";
