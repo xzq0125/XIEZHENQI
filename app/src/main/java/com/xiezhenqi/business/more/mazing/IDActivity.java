@@ -11,18 +11,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BroadcastActivity;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
-import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
-import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.utils.LogUtils;
-import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
@@ -152,27 +150,53 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     @Override
     public void onRefresh() {
 
-        if (tabName == null)
-            return;
-
+//        if (tabName == null)
+//            return;
+//
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        List<Fragment> fragments = fragmentManager.getFragments();
+//
+//        if (fragments == null)
+//            return;
+//
+//        for (Fragment fragment : fragments) {
+//
+//            if (fragment.getView() instanceof ViewPager) {
+//                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
+//                if (pagerAdapter != null) {
+//                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
+//                    if (rvf != null) {
+//                        rvf.refreshData();
+//                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
+//                        return;
+//                    }
+//                }
+//            }
+//        }
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
-
-        if (fragments == null)
-            return;
-
         for (Fragment fragment : fragments) {
+            if (fragment.getView() instanceof ViewPager
+                    && fragment.getUserVisibleHint()) {
 
-            if (fragment.getView() instanceof ViewPager) {
-                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
-                if (pagerAdapter != null) {
-                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
-                    if (rvf != null) {
-                        rvf.refreshData();
-                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
-                        return;
-                    }
+
+                ViewGroup childView = (ViewGroup) fragment.getView();
+                for (int i = 0; i < childView.getChildCount(); i++) {
+                    LogUtils.debug("WISH", childView.getChildAt(i).toString());
                 }
+
+//                FragmentManager childFragmentManager = fragment.getChildFragmentManager();
+//                List<Fragment> childFragments = childFragmentManager.getFragments();
+//                if (childFragments == null)
+//                    continue;
+//
+//                for (Fragment childFragment : fragments)
+//
+//                    if (childFragment.getUserVisibleHint()) {
+//                        RVFragments rvf = (RVFragments) childFragment;
+//                        rvf.refreshData();
+//                        return;
+//                    }
             }
         }
 
@@ -195,8 +219,8 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
         if ("update".equals(intent.getAction())) {
 
-            if (isRefresh)
-                return;
+//            if (isRefresh)
+//                return;
 
             isRefresh = true;
             pullDownRefresh.autoRefresh(0);

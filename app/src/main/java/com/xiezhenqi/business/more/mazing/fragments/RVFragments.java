@@ -12,6 +12,7 @@ import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.LazyLoadFragment;
 import com.xiezhenqi.business.search.SearchActivity;
 import com.xiezhenqi.business.songlist.SongAdapter;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
 import java.util.Arrays;
@@ -48,6 +49,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
 
     @Override
     protected void loadData() {
+        XZQApplication.sendLocalBroadcast("update");
         refreshData();
     }
 
@@ -73,6 +75,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
         List<String> list = Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
         loadData = true;
         XZQApplication.sendLocalBroadcast("refreshComplete");
+        ToastUtils.showToast(this.getActivity(), this.toString());
         songAdapter.setData(list);
     }
 
