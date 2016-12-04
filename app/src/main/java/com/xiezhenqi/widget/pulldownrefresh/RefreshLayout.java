@@ -131,6 +131,8 @@ public class RefreshLayout extends ViewGroup {
         postDelayed(mDelayToSetComplete, 500);
     }
 
+    private boolean isIgnoreTouch;
+
     private final Runnable mDelayToSetComplete = new Runnable() {
         @Override
         public void run() {
@@ -141,7 +143,7 @@ public class RefreshLayout extends ViewGroup {
             } else {
                 // waiting for a time to show refreshView completed state.
                 // at next touch event, remove this runnable
-                if (!isTouch) {
+                if (isIgnoreTouch || !isTouch) {
                     postDelayed(delayToScrollTopRunnable, SHOW_COMPLETED_TIME);
                 }
             }
@@ -162,6 +164,10 @@ public class RefreshLayout extends ViewGroup {
             return;
         }
         postDelayed(autoRefreshRunnable, duration);
+    }
+
+    public void setIsIgnoreTouch(boolean isIgnoreTouch) {
+        this.isIgnoreTouch = isIgnoreTouch;
     }
 
     @Override

@@ -1,133 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiezhenqi.widget.pulldownrefresh.RefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_ndk"
+    android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.xiezhenqi.business.more.mazing.IDActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbarCollapse"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/toolbarCollapse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:statusBarScrim="@android:color/transparent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:gravity="center"
+                    app:layout_collapseMode="parallax">
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="不是小冷"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/tv_intro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_name"
+                        android:text="活在米星就是生活方式"
+                        android:textColor="#ff666666"
+                        android:textSize="14sp"
+                        tools:ignore="HardcodedText" />
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:src="@mipmap/ic_launcher"
+                        tools:ignore="ContentDescription" />
+
+                    <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
+                        android:id="@+id/gts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_intro"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/tc_custom_tab"
+                        android:textSize="9sp"
+                        app:gtsDrawablePadding="5dp"
+                        app:gtsMinItemWidth="50dp"
+                        app:gtsTagMargin="5dp"
+                        app:gtsTagMinHeight="15dp"
+                        app:gtsTagMinWidth="15dp"
+                        app:gtsTagPaddingLeft="2dp"
+                        app:gtsTagPaddingRight="2dp"
+                        tools:ignore="SmallSp" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@id/tool_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_below="@id/tv_intro"
+                    android:background="@color/transparent"
+                    app:layout_collapseMode="pin">
+
+                    <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
+                        android:id="@+id/gts2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/tv_intro"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/tc_custom_tab"
+                        android:textSize="14sp"
+                        app:gtsDrawablePadding="5dp"
+                        app:gtsMinItemWidth="50dp"
+                        app:gtsTagMargin="5dp"
+                        app:gtsTagMinHeight="15dp"
+                        app:gtsTagMinWidth="15dp"
+                        app:gtsTagPaddingLeft="2dp"
+                        app:gtsTagPaddingRight="2dp" />
+
+                </android.support.v7.widget.Toolbar>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+            <am.widget.replacelayout.ReplaceLayout
+                android:id="@+id/rl"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="#faffffff"
+                android:clickable="true" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="@color/white"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@android:color/transparent">
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <RelativeLayout
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:gravity="center"
-                app:layout_collapseMode="parallax">
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="不是小冷"
-                    android:textColor="@color/black"
-                    android:textSize="24sp"
-                    tools:ignore="HardcodedText" />
+    </android.support.design.widget.CoordinatorLayout>
 
-                <TextView
-                    android:id="@+id/tv_intro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
-                    android:text="活在米星就是生活方式"
-                    android:textColor="#ff666666"
-                    android:textSize="14sp"
-                    tools:ignore="HardcodedText" />
-
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:src="@mipmap/ic_launcher"
-                    tools:ignore="ContentDescription" />
-
-                <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
-                    android:id="@+id/gts"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_intro"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/tc_custom_tab"
-                    android:textSize="9sp"
-                    app:gtsDrawablePadding="5dp"
-                    app:gtsMinItemWidth="50dp"
-                    app:gtsTagMargin="5dp"
-                    app:gtsTagMinHeight="15dp"
-                    app:gtsTagMinWidth="15dp"
-                    app:gtsTagPaddingLeft="2dp"
-                    app:gtsTagPaddingRight="2dp"
-                    tools:ignore="SmallSp" />
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.Toolbar
-                android:id="@id/tool_bar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:layout_below="@id/tv_intro"
-                android:background="@color/transparent"
-                app:layout_collapseMode="pin">
-
-                <com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2
-                    android:id="@+id/gts2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/tv_intro"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginRight="15dp"
-                    android:textColor="@color/tc_custom_tab"
-                    android:textSize="14sp"
-                    app:gtsDrawablePadding="5dp"
-                    app:gtsMinItemWidth="50dp"
-                    app:gtsTagMargin="5dp"
-                    app:gtsTagMinHeight="15dp"
-                    app:gtsTagMinWidth="15dp"
-                    app:gtsTagPaddingLeft="2dp"
-                    app:gtsTagPaddingRight="2dp" />
-
-            </android.support.v7.widget.Toolbar>
-
-        </android.support.design.widget.CollapsingToolbarLayout>
-
-        <am.widget.replacelayout.ReplaceLayout
-            android:id="@+id/rl"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:background="#faffffff"
-            android:clickable="true" />
-
-    </android.support.design.widget.AppBarLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-</android.support.design.widget.CoordinatorLayout>
+</com.xiezhenqi.widget.pulldownrefresh.RefreshLayout>

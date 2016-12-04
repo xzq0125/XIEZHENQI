@@ -15,13 +15,15 @@ import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.utils.LogUtils;
+import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
+import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
 import am.widget.basetabstrip.BaseTabStrip;
 import am.widget.replacelayout.ReplaceLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
+public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener {
 
     @Bind(R.id.vp)
     ViewPager vpId;
@@ -40,6 +42,9 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
 
     @Bind(R.id.rl)
     ReplaceLayout rlTitles;
+
+    @Bind(R.id.refresh)
+    RefreshLayout pullDownRefresh;
 
     @Override
     protected int getLayoutId() {
@@ -72,6 +77,13 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
         gtsTabs2.bindViewPager(vpId);
         gtsTabs2.setAdapter(mPagerAdapter);
         gtsTabs2.setOnItemClickListener(mPagerAdapter);
+
+        RefreshLayoutHeader header = new RefreshLayoutHeader(this);
+        pullDownRefresh.addOnRefreshListener(header);
+        pullDownRefresh.addOnRefreshListener(this);
+        pullDownRefresh.setRefreshHeader(header);
+        pullDownRefresh.setIsIgnoreTouch(true);
+        pullDownRefresh.autoRefresh();
     }
 
     @Override
@@ -79,10 +91,11 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
         LogUtils.debug("WISH", "verticalOffset = " + verticalOffset);
         if (verticalOffset == 0) {
             toolbar.setVisibility(View.GONE);
+            pullDownRefresh.setEnabled(true);
         } else {
             toolbar.setVisibility(View.VISIBLE);
+            pullDownRefresh.setEnabled(false);
         }
-
     }
 
     private BaseTabStrip.OnChangeListener gtsTabsListener = new BaseTabStrip.OnChangeListener() {
@@ -124,4 +137,14 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
             gtsTabs.gotoRight(correct, next, offset);
         }
     };
+
+    @Override
+    public void onRefresh() {
+        pullDownRefresh.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                pullDownRefresh.refreshComplete();
+            }
+        }, 500);
+    }
 }
