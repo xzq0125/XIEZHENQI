@@ -35,6 +35,7 @@ public class LikeFragment extends MainFragment implements
     @Bind(R.id.vp_like)
     ViewPager vpLike;
     private SmartTabLayout stl;
+    private RVFragmentAdapter adapter;
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -89,21 +90,30 @@ public class LikeFragment extends MainFragment implements
 
     @Override
     public void onTabClicked(View v, int position) {
+        TextView textView = (TextView) v.findViewById(R.id.tv_tab);
+        String tabName = textView.getText().toString();
         if (v.isSelected()) {
-            TextView textView = (TextView) v.findViewById(R.id.tv_tab);
-            String tabName = textView.getText().toString();
             View child = vpLike.getChildAt(vpLike.getCurrentItem());
             if (child instanceof RecyclerView)
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
             XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
+        } else if (adapter != null) {
+            RVFragments fragment = adapter.getFragmentsByTabName(tabName);
+            if (fragment != null) {
+                if (fragment.isLoadData())
+                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("updateTab"));
+                else
+                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
+            }
         }
     }
 
     @Override
     protected void loadData() {
-        RVFragmentAdapter adapter = new RVFragmentAdapter(getFragmentManager(), "喜欢");
+        adapter = new RVFragmentAdapter(getFragmentManager(), "喜欢");
         vpLike.setAdapter(adapter);
         if (stl != null)
             stl.setViewPager(vpLike);
+        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", "喜欢1").setAction("update"));
     }
 }

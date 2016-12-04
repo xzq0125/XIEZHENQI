@@ -35,6 +35,7 @@ public class TastyFragment extends MainFragment implements
     @Bind(R.id.vp_tasty)
     ViewPager vpTasty;
     private SmartTabLayout stl;
+    private RVFragmentAdapter pagerAdapter;
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -88,21 +89,30 @@ public class TastyFragment extends MainFragment implements
 
     @Override
     public void onTabClicked(View v, int position) {
+        TextView textView = (TextView) v.findViewById(R.id.tv_tab);
+        String tabName = textView.getText().toString();
         if (v.isSelected()) {
-            TextView textView = (TextView) v.findViewById(R.id.tv_tab);
-            String tabName = textView.getText().toString();
             View child = vpTasty.getChildAt(vpTasty.getCurrentItem());
             if (child instanceof RecyclerView)
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
             XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
+        } else if (pagerAdapter != null) {
+            RVFragments fragment = pagerAdapter.getFragmentsByTabName(tabName);
+            if (fragment != null) {
+                if (fragment.isLoadData())
+                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("updateTab"));
+                else
+                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
+            }
         }
     }
 
     @Override
     protected void loadData() {
-        RVFragmentAdapter adapter = new RVFragmentAdapter(getFragmentManager(), "体验");
-        vpTasty.setAdapter(adapter);
+        pagerAdapter = new RVFragmentAdapter(getFragmentManager(), "体验");
+        vpTasty.setAdapter(pagerAdapter);
         if (stl != null)
             stl.setViewPager(vpTasty);
+        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", "体验1").setAction("update"));
     }
 }

@@ -94,7 +94,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         pullDownRefresh.setRefreshHeader(header);
         pullDownRefresh.setIsIgnoreTouch(true);
         pullDownRefresh.setSlopRate(5);
-        pullDownRefresh.autoRefresh();
+        //pullDownRefresh.autoRefresh();
     }
 
     @Override
@@ -151,13 +151,6 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
     @Override
     public void onRefresh() {
-        pullDownRefresh.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                pullDownRefresh.refreshComplete();
-                isRefresh = false;
-            }
-        }, 500);
 
         if (tabName == null)
             return;
@@ -172,11 +165,13 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
             if (fragment.getView() instanceof ViewPager) {
                 RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
-                RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
-                if (rvf != null) {
-                    rvf.refreshData();
-                    ToastUtils.showToast(this, "刷新" + tabName + "页面");
-                    return;
+                if (pagerAdapter != null) {
+                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
+                    if (rvf != null) {
+                        rvf.refreshData();
+                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
+                        return;
+                    }
                 }
             }
         }
@@ -187,6 +182,8 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     protected void onAddAction(IntentFilter filter) {
         super.onAddAction(filter);
         filter.addAction("update");
+        filter.addAction("updateTab");
+        filter.addAction("refreshComplete");
     }
 
     private String tabName;
@@ -205,8 +202,11 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
             pullDownRefresh.autoRefresh(0);
             tabName = intent.getStringExtra("title");
 
-        } else if ("loadData".equals(intent.getAction())) {
-            pullDownRefresh.autoRefresh();
+        } else if ("refreshComplete".equals(intent.getAction())) {
+            isRefresh = false;
+            pullDownRefresh.refreshComplete();
+        } else if ("updateTab".equals(intent.getAction())) {
+            tabName = intent.getStringExtra("title");
         }
     }
 }

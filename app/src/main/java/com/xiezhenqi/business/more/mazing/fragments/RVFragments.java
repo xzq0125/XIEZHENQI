@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
+import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.LazyLoadFragment;
 import com.xiezhenqi.business.search.SearchActivity;
 import com.xiezhenqi.business.songlist.SongAdapter;
@@ -29,6 +30,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Bind(R.id.rv)
     RecyclerView rv;
     private SongAdapter songAdapter;
+    private boolean loadData = false;
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +71,12 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Override
     public void run() {
         List<String> list = Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
+        loadData = true;
+        XZQApplication.sendLocalBroadcast("refreshComplete");
         songAdapter.setData(list);
+    }
+
+    public boolean isLoadData() {
+        return loadData;
     }
 }
