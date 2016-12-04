@@ -58,6 +58,8 @@ public class RefreshLayout extends ViewGroup {
     private State state = State.RESET;
     private boolean isAutoRefresh;
     private List<OnRefreshListener> listeners;
+    private boolean isIgnoreTouch;
+    private float slopRate = 1;
 
 
     // 刷新成功，显示500ms成功状态再滚动回顶部
@@ -131,8 +133,6 @@ public class RefreshLayout extends ViewGroup {
         postDelayed(mDelayToSetComplete, 500);
     }
 
-    private boolean isIgnoreTouch;
-
     private final Runnable mDelayToSetComplete = new Runnable() {
         @Override
         public void run() {
@@ -166,8 +166,22 @@ public class RefreshLayout extends ViewGroup {
         postDelayed(autoRefreshRunnable, duration);
     }
 
+    /**
+     * 设置回滚到顶部的时候是否忽略手指触摸
+     *
+     * @param isIgnoreTouch true表示忽略
+     */
     public void setIsIgnoreTouch(boolean isIgnoreTouch) {
         this.isIgnoreTouch = isIgnoreTouch;
+    }
+
+    /**
+     * 设置溢出比率
+     *
+     * @param slopRate 溢出比率,默认值是1
+     */
+    public void setSlopRate(float slopRate) {
+        this.slopRate = slopRate;
     }
 
     @Override
@@ -282,7 +296,7 @@ public class RefreshLayout extends ViewGroup {
                 float offsetY = yDiff * DRAG_RATE;
                 lastMotionY = y;
 
-                if (!mIsBeginDragged && Math.abs(y - initDownY) > touchSlop) {
+                if (!mIsBeginDragged && Math.abs(y - initDownY) > touchSlop * slopRate) {
                     mIsBeginDragged = true;
                 }
                 if (mIsBeginDragged) {

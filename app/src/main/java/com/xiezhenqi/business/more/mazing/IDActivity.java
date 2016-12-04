@@ -83,6 +83,7 @@ public class IDActivity extends BaseActivity implements AppBarLayout.OnOffsetCha
         pullDownRefresh.addOnRefreshListener(this);
         pullDownRefresh.setRefreshHeader(header);
         pullDownRefresh.setIsIgnoreTouch(true);
+        pullDownRefresh.setSlopRate(5);
         pullDownRefresh.autoRefresh();
     }
 
