@@ -48,7 +48,17 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
 
     @Override
     protected void loadData() {
-        XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_START);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            rv.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_START);
+                }
+            }, 500);
+        } else {
+            XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_START);
+        }
     }
 
     @Override

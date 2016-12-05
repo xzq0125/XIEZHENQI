@@ -152,14 +152,17 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
     private void getCurrTabName(int position) {
         ViewGroup viewGroup = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
-        ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
-        for (int i = 0; i < childGroup.getChildCount(); i++) {
-            if (childGroup.getChildAt(i).isSelected()) {
-                View child = childGroup.getChildAt(i);
-                if (child instanceof ViewGroup) {
-                    ViewGroup group = (ViewGroup) child;
-                    TextView tvTabName = (TextView) group.getChildAt(0);
-                    currTabName = tvTabName.getText().toString();
+        if (viewGroup != null && viewGroup.getChildCount() > 0) {
+            ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
+            int childCount = childGroup == null ? 0 : childGroup.getChildCount();
+            for (int i = 0; i < childCount; i++) {
+                if (childGroup.getChildAt(i).isSelected()) {
+                    View child = childGroup.getChildAt(i);
+                    if (child instanceof ViewGroup) {
+                        ViewGroup group = (ViewGroup) child;
+                        TextView tvTabName = (TextView) group.getChildAt(0);
+                        currTabName = tvTabName.getText().toString();
+                    }
                 }
             }
         }

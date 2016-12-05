@@ -1,5 +1,6 @@
 package com.xiezhenqi.business.more.mazing.adapters;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,7 +18,6 @@ import java.util.Map;
 public class RVFragmentAdapter extends FragmentPagerAdapter {
 
     private Map<String, RVFragments> fragmentsMap = new HashMap<>();
-
     private static final int NUM_ITEMS = 2;
     private String fragmentName;
 
@@ -35,6 +35,10 @@ public class RVFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         RVFragments fragments = new RVFragments();
         fragmentsMap.put(getPageTitle(position).toString(), fragments);
+        if ("体验1".equals(getPageTitle(position).toString())) {
+            Bundle bundle = new Bundle();
+            fragments.setArguments(bundle);
+        }
         return fragments;
     }
 
