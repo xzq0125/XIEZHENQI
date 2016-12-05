@@ -24,6 +24,7 @@ import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
+import com.xiezhenqi.business.more.mazing.managers.ToolbarMoveAnimator;
 import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
@@ -54,6 +55,9 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     RefreshLayout pullDownRefresh;
     private MainFragmentPagerAdapter mPagerAdapter;
     private String currTabName;
+    private ToolbarMoveAnimator toolbarMoveAnimator;
+    private int toolbarHeight;
+    private boolean isToolbarVisible;
 
     @Override
     protected int getLayoutId() {
@@ -91,16 +95,25 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         pullDownRefresh.setRefreshHeader(header);
         pullDownRefresh.setIsIgnoreTouch(true);
         pullDownRefresh.setSlopRate(5);
+        toolbarMoveAnimator = new ToolbarMoveAnimator(toolbar);
+        toolbar.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        if (verticalOffset == 0) {
-            toolbar.setVisibility(View.GONE);
-            pullDownRefresh.setEnabled(true);
+        pullDownRefresh.setEnabled(verticalOffset == 0);
+
+        float translationY = toolbar.getTranslationY();
+        if (toolbarHeight <= 0)
+            toolbarHeight = toolbar.getMeasuredHeight();
+        if (-verticalOffset < 200) {
+            toolbarMoveAnimator.moveUp(translationY, -toolbarHeight);
         } else {
-            toolbar.setVisibility(View.VISIBLE);
-            pullDownRefresh.setEnabled(false);
+            toolbarMoveAnimator.moveDown(translationY, 0);
+            if (!isToolbarVisible) {
+                isToolbarVisible = true;
+                toolbar.setVisibility(View.VISIBLE);
+            }
         }
     }
 
