@@ -100,7 +100,7 @@ public class TastyFragment extends MainFragment implements
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
             RVFragments fragment = pagerAdapter.getFragmentsByTabName(tabName);
             XZQApplication.sendLocalBroadcast("update");
-            fragment.refreshData();
+            //fragment.refreshData();
         }
     }
 

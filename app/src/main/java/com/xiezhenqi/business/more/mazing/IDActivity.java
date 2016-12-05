@@ -223,7 +223,6 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
             isRefresh = true;
             pullDownRefresh.autoRefresh(0);
-            //tabName = intent.getStringExtra("title");
 
         } else if ("refreshComplete".equals(intent.getAction())) {
             isRefresh = false;

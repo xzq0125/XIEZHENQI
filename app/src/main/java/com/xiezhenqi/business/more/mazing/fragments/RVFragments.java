@@ -21,7 +21,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
- * ArrayListFragment
+ * RVFragments
  * Created by Tse on 2016/12/3.
  */
 
@@ -30,7 +30,6 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Bind(R.id.rv)
     RecyclerView rv;
     private SongAdapter songAdapter;
-    private boolean loadData = false;
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,12 +70,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Override
     public void run() {
         List<String> list = Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
-        loadData = true;
         XZQApplication.sendLocalBroadcast("refreshComplete");
         songAdapter.setData(list);
-    }
-
-    public boolean isLoadData() {
-        return loadData;
     }
 }

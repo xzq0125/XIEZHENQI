@@ -101,7 +101,7 @@ public class LikeFragment extends MainFragment implements
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
             RVFragments fragment = adapter.getFragmentsByTabName(tabName);
             XZQApplication.sendLocalBroadcast("update");
-            fragment.refreshData();
+            //fragment.refreshData();
         }
     }
 
