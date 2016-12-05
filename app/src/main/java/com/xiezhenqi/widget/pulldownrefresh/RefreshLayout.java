@@ -280,7 +280,8 @@ public class RefreshLayout extends ViewGroup {
                 currentTargetOffsetTop = target.getTop();
                 initDownY = lastMotionY = ev.getY(0);
                 autoScroll.stop();
-                removeCallbacks(delayToScrollTopRunnable);
+                if (!isIgnoreTouch)
+                    removeCallbacks(delayToScrollTopRunnable);
                 removeCallbacks(autoRefreshRunnable);
                 super.dispatchTouchEvent(ev);
                 return true;    // return true，否则可能接受不到move和up事件
