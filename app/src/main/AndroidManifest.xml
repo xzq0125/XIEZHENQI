@@ -43,7 +43,8 @@
         <activity android:name=".business.more.progress.ProgressBarActivity" />
         <activity
             android:name=".business.more.mazing.IDActivity"
-            android:theme="@style/AppBaseTheme"></activity>
+            android:theme="@style/AppBaseTheme" />
+        <activity android:name=".business.more.watermark.WatermarkActivity"></activity>
     </application>
 
 </manifest>

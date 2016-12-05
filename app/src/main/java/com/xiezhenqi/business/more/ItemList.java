@@ -9,6 +9,7 @@ import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
+import com.xiezhenqi.business.more.watermark.WatermarkActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +62,7 @@ public class ItemList {
         itemList.add(new Item("OrderActivity", OrderActivity.class));
         itemList.add(new Item("ProgressBarActivity", ProgressBarActivity.class));
         itemList.add(new Item("IDActivity", IDActivity.class));
+        itemList.add(new Item("WatermarkActivity", WatermarkActivity.class));
     }
 
 }
