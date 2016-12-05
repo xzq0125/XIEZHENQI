@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BroadcastActivity;
+import com.xiezhenqi.business.more.mazing.action.LocalAction;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
@@ -23,7 +24,6 @@ import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
-import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
@@ -37,33 +37,28 @@ import butterknife.ButterKnife;
 
 public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener {
 
+    private static final String EXTRA_TAB_NAME = "extra_tab_name";
     @Bind(R.id.vp)
     ViewPager vpId;
-
     @Bind(R.id.app_bar)
     AppBarLayout appBarLayout;
-
     @Bind(R.id.tool_bar)
     Toolbar toolbar;
-
     @Bind(R.id.gts)
     GradientTabStrip2 gtsTabs;
-
     @Bind(R.id.gts2)
     GradientTabStrip2 gtsTabs2;
-
     @Bind(R.id.rl)
     ReplaceLayout rlTitles;
-
     @Bind(R.id.refresh)
     RefreshLayout pullDownRefresh;
+    private MainFragmentPagerAdapter mPagerAdapter;
+    private String currTabName;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_id;
     }
-
-    MainFragmentPagerAdapter mPagerAdapter;
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
@@ -96,12 +91,10 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         pullDownRefresh.setRefreshHeader(header);
         pullDownRefresh.setIsIgnoreTouch(true);
         pullDownRefresh.setSlopRate(5);
-        //pullDownRefresh.autoRefresh();
     }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-        LogUtils.debug("WISH", "verticalOffset = " + verticalOffset);
         if (verticalOffset == 0) {
             toolbar.setVisibility(View.GONE);
             pullDownRefresh.setEnabled(true);
@@ -116,21 +109,21 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs2.jumpTo(correct);
-            getTabName(correct);
+            getCurrTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs2.gotoLeft(correct, next, offset);
-            getTabName(next);
+            getCurrTabName(next);
         }
 
         @Override
         public void gotoRight(int correct, int next, float offset) {
             rlTitles.moveRight(correct, offset);
             gtsTabs2.gotoRight(correct, next, offset);
-            getTabName(next);
+            getCurrTabName(next);
         }
     };
 
@@ -139,25 +132,25 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs.jumpTo(correct);
-            getTabName(correct);
+            getCurrTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs.gotoLeft(correct, next, offset);
-            getTabName(next);
+            getCurrTabName(next);
         }
 
         @Override
         public void gotoRight(int correct, int next, float offset) {
             rlTitles.moveRight(correct, offset);
             gtsTabs.gotoRight(correct, next, offset);
-            getTabName(next);
+            getCurrTabName(next);
         }
     };
 
-    private void getTabName(int position) {
+    private void getCurrTabName(int position) {
         ViewGroup viewGroup = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
         ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
         for (int i = 0; i < childGroup.getChildCount(); i++) {
@@ -166,7 +159,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
                 if (child instanceof ViewGroup) {
                     ViewGroup group = (ViewGroup) child;
                     TextView tvTabName = (TextView) group.getChildAt(0);
-                    tabName = tvTabName.getText().toString();
+                    currTabName = tvTabName.getText().toString();
                 }
             }
         }
@@ -175,7 +168,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     @Override
     public void onRefresh() {
 
-        if (tabName == null)
+        if (currTabName == null)
             return;
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -189,10 +182,10 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
             if (fragment.getView() instanceof ViewPager && fragment.getUserVisibleHint()) {
                 RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
                 if (pagerAdapter != null) {
-                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
+                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(currTabName);
                     if (rvf != null) {
                         rvf.refreshData();
-                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
+                        ToastUtils.showToast(this, "刷新" + currTabName + "页面");
                         return;
                     }
                 }
@@ -204,31 +197,25 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     @Override
     protected void onAddAction(IntentFilter filter) {
         super.onAddAction(filter);
-        filter.addAction("update");
-        filter.addAction("updateTab");
-        filter.addAction("refreshComplete");
+        filter.addAction(LocalAction.ACTION_REFRESH_START);
+        filter.addAction(LocalAction.ACTION_REFRESH_COMPLETE);
+        filter.addAction(LocalAction.ACTION_UPDATE_TAB_NAME);
     }
-
-    private String tabName;
-    private boolean isRefresh = false;
 
     @Override
     protected void onLocalBroadcastReceive(Context context, Intent intent) {
-        super.onLocalBroadcastReceive(context, intent);
+        final String action = intent.getAction();
 
-        if ("update".equals(intent.getAction())) {
-
-//            if (isRefresh)
-//                return;
-
-            isRefresh = true;
+        if (LocalAction.ACTION_REFRESH_START.equals(action)) {
             pullDownRefresh.autoRefresh(0);
-
-        } else if ("refreshComplete".equals(intent.getAction())) {
-            isRefresh = false;
+        } else if (LocalAction.ACTION_REFRESH_COMPLETE.equals(action)) {
             pullDownRefresh.refreshComplete();
-        } else if ("updateTab".equals(intent.getAction())) {
-            tabName = intent.getStringExtra("title");
+        } else if (LocalAction.ACTION_UPDATE_TAB_NAME.equals(action)) {
+            currTabName = intent.getStringExtra(EXTRA_TAB_NAME);
         }
+    }
+
+    public static Intent getIntent(String tabName) {
+        return new Intent(LocalAction.ACTION_UPDATE_TAB_NAME).putExtra(EXTRA_TAB_NAME, tabName);
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.LazyLoadFragment;
+import com.xiezhenqi.business.more.mazing.action.LocalAction;
 import com.xiezhenqi.business.search.SearchActivity;
 import com.xiezhenqi.business.songlist.SongAdapter;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
@@ -47,7 +48,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
 
     @Override
     protected void loadData() {
-        XZQApplication.sendLocalBroadcast("update");
+        XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_START);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Override
     public void run() {
         List<String> list = Arrays.asList(getActivity().getResources().getStringArray(R.array.song_name_list));
-        XZQApplication.sendLocalBroadcast("refreshComplete");
+        XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_COMPLETE);
         songAdapter.setData(list);
     }
 }

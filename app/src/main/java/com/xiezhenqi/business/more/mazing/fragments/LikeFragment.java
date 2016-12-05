@@ -1,7 +1,6 @@
 package com.xiezhenqi.business.more.mazing.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -16,6 +15,8 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
+import com.xiezhenqi.business.more.mazing.IDActivity;
+import com.xiezhenqi.business.more.mazing.action.LocalAction;
 import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
 import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.RecyclerViewUtils;
@@ -94,22 +95,18 @@ public class LikeFragment extends MainFragment implements
 
     @Override
     public void onTabClicked(View v, int position) {
-        String tabName = sparseArray.get(position);
         if (v.isSelected()) {
             View child = vpLike.getChildAt(vpLike.getCurrentItem());
             if (child instanceof RecyclerView)
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
-            RVFragments fragment = adapter.getFragmentsByTabName(tabName);
-            XZQApplication.sendLocalBroadcast("update");
-            //fragment.refreshData();
+            XZQApplication.sendLocalBroadcast(LocalAction.ACTION_REFRESH_START);
         }
     }
 
     @Override
     public void onTabSelected(View v, int position) {
-        TextView textView = (TextView) v.findViewById(R.id.tv_tab);
-        String tabName = textView.getText().toString();
-        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("updateTab"));
+        String tabName = sparseArray.get(position);
+        XZQApplication.sendLocalBroadcast(IDActivity.getIntent(tabName));
     }
 
     @Override
@@ -118,6 +115,7 @@ public class LikeFragment extends MainFragment implements
         vpLike.setAdapter(adapter);
         if (stl != null)
             stl.setViewPager(vpLike);
-        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", sparseArray.get(0)).setAction("updateTab"));
+        String tabName = sparseArray.get(0);
+        XZQApplication.sendLocalBroadcast(IDActivity.getIntent(tabName));
     }
 }
