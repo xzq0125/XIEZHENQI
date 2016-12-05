@@ -538,6 +538,14 @@ public class SmartTabLayout extends HorizontalScrollView {
          * @param position tab's position
          */
         void onTabClicked(View v, int position);
+
+        /**
+         * Called when a tab is clicked.
+         *
+         * @param v        The view that was selected.
+         * @param position tab's position
+         */
+        void onTabSelected(View v, int position);
     }
 
     /**
@@ -630,6 +638,8 @@ public class SmartTabLayout extends HorizontalScrollView {
 
             for (int i = 0, size = tabStrip.getChildCount(); i < size; i++) {
                 tabStrip.getChildAt(i).setSelected(position == i);
+                if (position == i)
+                    onTabClickListener.onTabSelected(tabStrip.getChildAt(i), position);
             }
 
             if (viewPagerPageChangeListener != null) {

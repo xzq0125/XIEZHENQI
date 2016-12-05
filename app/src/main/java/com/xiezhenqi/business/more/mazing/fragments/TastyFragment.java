@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,7 @@ public class TastyFragment extends MainFragment implements
     ViewPager vpTasty;
     private SmartTabLayout stl;
     private RVFragmentAdapter pagerAdapter;
+    private SparseArray<String> sparseArray = new SparseArray<>();
 
     @Override
     protected int getLayoutId(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,8 +54,10 @@ public class TastyFragment extends MainFragment implements
         View tabView = LayoutInflater.from(container.getContext()).inflate(R.layout.item_custom_tab_view, container, false);
         TextView tabTitleView = (TextView) tabView.findViewById(R.id.tv_tab);
         TextView tabCount = (TextView) tabView.findViewById(R.id.tv_count);
-        tabTitleView.setText(adapter.getPageTitle(position));
+        String pageTitle = adapter.getPageTitle(position).toString();
+        tabTitleView.setText(pageTitle);
         tabCount.setText("5");
+        sparseArray.put(position, pageTitle);
         return tabView;
     }
 
@@ -89,22 +93,20 @@ public class TastyFragment extends MainFragment implements
 
     @Override
     public void onTabClicked(View v, int position) {
-        TextView textView = (TextView) v.findViewById(R.id.tv_tab);
-        String tabName = textView.getText().toString();
+        String tabName = sparseArray.get(position);
         if (v.isSelected()) {
             View child = vpTasty.getChildAt(vpTasty.getCurrentItem());
             if (child instanceof RecyclerView)
                 RecyclerViewUtils.scrollToTopWithAnimation((RecyclerView) child);
-            XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
-        } else if (pagerAdapter != null) {
             RVFragments fragment = pagerAdapter.getFragmentsByTabName(tabName);
-            if (fragment != null) {
-                if (fragment.isLoadData())
-                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("updateTab"));
-                else
-                    XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", tabName).setAction("update"));
-            }
+            XZQApplication.sendLocalBroadcast("update");
+            fragment.refreshData();
         }
+    }
+
+    @Override
+    public void onTabSelected(View v, int position) {
+        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", sparseArray.get(position)).setAction("updateTab"));
     }
 
     @Override
@@ -113,6 +115,6 @@ public class TastyFragment extends MainFragment implements
         vpTasty.setAdapter(pagerAdapter);
         if (stl != null)
             stl.setViewPager(vpTasty);
-        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", "体验1").setAction("update"));
+        XZQApplication.sendLocalBroadcast(new Intent().putExtra("title", sparseArray.get(0)).setAction("updateTab"));
     }
 }

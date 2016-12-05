@@ -12,15 +12,19 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BroadcastActivity;
 import com.xiezhenqi.business.more.mazing.adapters.IDFragmentPagerAdapter;
 import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
+import com.xiezhenqi.business.more.mazing.adapters.RVFragmentAdapter;
+import com.xiezhenqi.business.more.mazing.fragments.RVFragments;
 import com.xiezhenqi.business.more.mazing.managers.GradientTabStrip2;
 import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.utils.LogUtils;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
@@ -112,18 +116,21 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs2.jumpTo(correct);
+            getTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs2.gotoLeft(correct, next, offset);
+            getTabName(next);
         }
 
         @Override
         public void gotoRight(int correct, int next, float offset) {
             rlTitles.moveRight(correct, offset);
             gtsTabs2.gotoRight(correct, next, offset);
+            getTabName(next);
         }
     };
 
@@ -132,71 +139,63 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs.jumpTo(correct);
+            getTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs.gotoLeft(correct, next, offset);
+            getTabName(next);
         }
 
         @Override
         public void gotoRight(int correct, int next, float offset) {
             rlTitles.moveRight(correct, offset);
             gtsTabs.gotoRight(correct, next, offset);
+            getTabName(next);
         }
     };
+
+    private void getTabName(int position) {
+        ViewGroup viewGroup = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
+        ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
+        for (int i = 0; i < childGroup.getChildCount(); i++) {
+            if (childGroup.getChildAt(i).isSelected()) {
+                View child = childGroup.getChildAt(i);
+                if (child instanceof ViewGroup) {
+                    ViewGroup group = (ViewGroup) child;
+                    TextView tvTabName = (TextView) group.getChildAt(0);
+                    tabName = tvTabName.getText().toString();
+                }
+            }
+        }
+    }
 
     @Override
     public void onRefresh() {
 
-//        if (tabName == null)
-//            return;
-//
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        List<Fragment> fragments = fragmentManager.getFragments();
-//
-//        if (fragments == null)
-//            return;
-//
-//        for (Fragment fragment : fragments) {
-//
-//            if (fragment.getView() instanceof ViewPager) {
-//                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
-//                if (pagerAdapter != null) {
-//                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
-//                    if (rvf != null) {
-//                        rvf.refreshData();
-//                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
-//                        return;
-//                    }
-//                }
-//            }
-//        }
+        if (tabName == null)
+            return;
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
+
+        if (fragments == null)
+            return;
+
         for (Fragment fragment : fragments) {
-            if (fragment.getView() instanceof ViewPager
-                    && fragment.getUserVisibleHint()) {
 
-
-                ViewGroup childView = (ViewGroup) fragment.getView();
-                for (int i = 0; i < childView.getChildCount(); i++) {
-                    LogUtils.debug("WISH", childView.getChildAt(i).toString());
+            if (fragment.getView() instanceof ViewPager && fragment.getUserVisibleHint()) {
+                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
+                if (pagerAdapter != null) {
+                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(tabName);
+                    if (rvf != null) {
+                        rvf.refreshData();
+                        ToastUtils.showToast(this, "刷新" + tabName + "页面");
+                        return;
+                    }
                 }
-
-//                FragmentManager childFragmentManager = fragment.getChildFragmentManager();
-//                List<Fragment> childFragments = childFragmentManager.getFragments();
-//                if (childFragments == null)
-//                    continue;
-//
-//                for (Fragment childFragment : fragments)
-//
-//                    if (childFragment.getUserVisibleHint()) {
-//                        RVFragments rvf = (RVFragments) childFragment;
-//                        rvf.refreshData();
-//                        return;
-//                    }
             }
         }
 
@@ -224,7 +223,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
             isRefresh = true;
             pullDownRefresh.autoRefresh(0);
-            tabName = intent.getStringExtra("title");
+            //tabName = intent.getStringExtra("title");
 
         } else if ("refreshComplete".equals(intent.getAction())) {
             isRefresh = false;
