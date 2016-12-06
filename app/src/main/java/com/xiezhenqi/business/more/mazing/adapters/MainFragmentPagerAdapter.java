@@ -167,6 +167,8 @@ public abstract class MainFragmentPagerAdapter extends FragmentPagerAdapter impl
     @Override
     public void onSelected(ViewGroup replace, int position) {
         mManager.onSelected(replace, position, getCount(), positionToType(position));
+        if (listener != null)
+            listener.onTabSelect(position);
     }
 
     public boolean isTagEnable(int position) {
@@ -185,5 +187,15 @@ public abstract class MainFragmentPagerAdapter extends FragmentPagerAdapter impl
             if (fragment != null)
                 fragment.bindTitleView(mManager.getReplaceView(positionToType(i)));
         }
+    }
+
+    private OnSelectListener listener;
+
+    public void setListener(OnSelectListener listener) {
+        this.listener = listener;
+    }
+
+    public interface OnSelectListener {
+        void onTabSelect(int position);
     }
 }

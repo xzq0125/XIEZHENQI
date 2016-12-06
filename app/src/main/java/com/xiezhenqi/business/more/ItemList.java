@@ -57,12 +57,12 @@ public class ItemList {
 
     private void initItemCount() {
         itemList.add(new Item("上下文RecyclerView", ContextMenuRecyclerViewActivity.class));
-        itemList.add(new Item("Fragment懒加载", LazyLoadingActivity.class));
         itemList.add(new Item("Drag(拖拽)Activity", DragActivity.class));
-        itemList.add(new Item("OrderActivity", OrderActivity.class));
         itemList.add(new Item("ProgressBarActivity", ProgressBarActivity.class));
-        itemList.add(new Item("IDActivity", IDActivity.class));
         itemList.add(new Item("WatermarkActivity", WatermarkActivity.class));
+        itemList.add(new Item("Fragment懒加载", LazyLoadingActivity.class));
+        itemList.add(new Item("IDActivity", IDActivity.class));
+        itemList.add(new Item("ID导航", OrderActivity.class));
     }
 
 }
