@@ -7,6 +7,7 @@ import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.mazing.IDActivity;
+import com.xiezhenqi.business.more.moveview.MoveViewActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
@@ -63,6 +64,7 @@ public class ItemList {
         itemList.add(new Item("Fragment懒加载", LazyLoadingActivity.class));
         itemList.add(new Item("IDActivity", IDActivity.class));
         itemList.add(new Item("ID导航", OrderActivity.class));
+        itemList.add(new Item("MoveViewActivity", MoveViewActivity.class));
     }
 
 }
