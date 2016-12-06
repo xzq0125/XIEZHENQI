@@ -97,6 +97,14 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         pullDownRefresh.setSlopRate(5);
         toolbarMoveAnimator = new ToolbarMoveAnimator(toolbar);
         toolbar.setVisibility(View.INVISIBLE);
+
+        vpId.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                vpId.setCurrentItem(2);
+                pullDownRefresh.autoRefresh();
+            }
+        }, 0);
     }
 
     @Override
@@ -123,6 +131,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
             rlTitles.moveTo(correct);
             gtsTabs2.jumpTo(correct);
             getCurrTabName(correct);
+            loadFirstDataByTabName(currTabName);
         }
 
         @Override
@@ -146,6 +155,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
             rlTitles.moveTo(correct);
             gtsTabs.jumpTo(correct);
             getCurrTabName(correct);
+            loadFirstDataByTabName(currTabName);
         }
 
         @Override
@@ -164,13 +174,13 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     };
 
     private void getCurrTabName(int position) {
-        ViewGroup viewGroup = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
-        if (viewGroup != null && viewGroup.getChildCount() > 0) {
-            ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
-            int childCount = childGroup == null ? 0 : childGroup.getChildCount();
+        ViewGroup smartLayout = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
+        if (smartLayout != null && smartLayout.getChildCount() > 0) {
+            ViewGroup smartTabStrip = (ViewGroup) smartLayout.getChildAt(0);
+            int childCount = smartTabStrip == null ? 0 : smartTabStrip.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                if (childGroup.getChildAt(i).isSelected()) {
-                    View child = childGroup.getChildAt(i);
+                if (smartTabStrip.getChildAt(i).isSelected()) {
+                    View child = smartTabStrip.getChildAt(i);
                     if (child instanceof ViewGroup) {
                         ViewGroup group = (ViewGroup) child;
                         TextView tvTabName = (TextView) group.getChildAt(0);
@@ -181,12 +191,34 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         }
     }
 
-    @Override
-    public void onRefresh() {
-
+    private void loadFirstDataByTabName(String currTabName) {
         if (currTabName == null)
             return;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
 
+        if (fragments == null)
+            return;
+
+        for (Fragment fragment : fragments) {
+
+            if (fragment.getView() instanceof ViewPager && fragment.getUserVisibleHint()) {
+                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) ((ViewPager) fragment.getView()).getAdapter();
+                if (pagerAdapter != null) {
+                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(currTabName);
+                    if (rvf != null && !rvf.isLoadData) {
+                        rvf.preLoadData(true);
+                        ToastUtils.showToast(this, "刷新" + currTabName + "页面");
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void refreshDataByTabName(String currTabName) {
+        if (currTabName == null)
+            return;
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
 
@@ -207,7 +239,11 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
                 }
             }
         }
+    }
 
+    @Override
+    public void onRefresh() {
+        refreshDataByTabName(currTabName);
     }
 
     @Override
