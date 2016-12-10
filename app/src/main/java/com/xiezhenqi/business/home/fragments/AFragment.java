@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.xiezhenqi.R;
 import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
-import com.xiezhenqi.business.musicpavilion.MusicPavilionFragment;
 
 /**
  * AFragment
@@ -26,7 +25,7 @@ public class AFragment extends BaseFragment {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-        getFragmentManager().beginTransaction().replace(R.id.a_container, new MusicPavilionFragment()).commit();
+        //getFragmentManager().beginTransaction().replace(R.id.a_container, new MusicPavilionFragment()).commit();
     }
 
     public static CharSequence getPageTitle(Context context) {

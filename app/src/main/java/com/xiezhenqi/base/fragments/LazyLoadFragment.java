@@ -29,7 +29,7 @@ public abstract class LazyLoadFragment extends BroadcastFragment {
         super.onActivityCreated(savedInstanceState);
         this.isViewInitialized = true;
         //因为setUserVisibleHint比onActivityCreated优先调用，首次初始化的时候，UI还没有初始化，故在此为当前可见页面加载一次数据
-        if (getUserVisibleHint()) {
+        if (loadDataWhenCreate() && getUserVisibleHint()) {
             preLoadData(false);
         }
     }
@@ -55,5 +55,18 @@ public abstract class LazyLoadFragment extends BroadcastFragment {
      * 子类刷新数据
      */
     public void refreshData() {
+    }
+
+    /**
+     * 判断是否已经加载数据
+     *
+     * @return 是否已经加载数据
+     */
+    public boolean isLoadData() {
+        return isLoadData;
+    }
+
+    protected boolean loadDataWhenCreate() {
+        return true;
     }
 }

@@ -36,9 +36,12 @@ import am.widget.replacelayout.ReplaceLayout;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener {
+public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener, MainFragmentPagerAdapter.OnSelectListener {
 
     private static final String EXTRA_TAB_NAME = "extra_tab_name";
+    private static final String EXTRA_TYPE = "extra_type";
+    private static final String EXTRA_SMOOTH = "extra_smooth";
+    private static final String EXTRA_PAGE = "extra_page";
     @Bind(R.id.vp)
     ViewPager vpId;
     @Bind(R.id.app_bar)
@@ -73,6 +76,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         mTitleViewManager.initManager(this, rlTitles);
 
         mPagerAdapter = new IDFragmentPagerAdapter(getSupportFragmentManager(), mTitleViewManager, getIntent().getBundleExtra("data"));
+        mPagerAdapter.setListener(this);
 
         rlTitles.setAdapter(mPagerAdapter);
         vpId.setOffscreenPageLimit(3);
@@ -97,6 +101,14 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         pullDownRefresh.setSlopRate(5);
         toolbarMoveAnimator = new ToolbarMoveAnimator(toolbar);
         toolbar.setVisibility(View.INVISIBLE);
+
+        vpId.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setCurrentPager((MainFragmentPagerAdapter.PagerType) getIntent().getSerializableExtra(EXTRA_TYPE),
+                        getIntent().getBooleanExtra(EXTRA_SMOOTH, false), getIntent().getIntExtra(EXTRA_PAGE, 0));
+            }
+        }, 0);
     }
 
     @Override
@@ -122,14 +134,12 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs2.jumpTo(correct);
-            getCurrTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs2.gotoLeft(correct, next, offset);
-            getCurrTabName(next);
         }
 
         @Override
@@ -145,32 +155,29 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         public void jumpTo(int correct) {
             rlTitles.moveTo(correct);
             gtsTabs.jumpTo(correct);
-            getCurrTabName(correct);
         }
 
         @Override
         public void gotoLeft(int correct, int next, float offset) {
             rlTitles.moveLeft(correct, offset);
             gtsTabs.gotoLeft(correct, next, offset);
-            getCurrTabName(next);
         }
 
         @Override
         public void gotoRight(int correct, int next, float offset) {
             rlTitles.moveRight(correct, offset);
             gtsTabs.gotoRight(correct, next, offset);
-            getCurrTabName(next);
         }
     };
 
     private void getCurrTabName(int position) {
-        ViewGroup viewGroup = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
-        if (viewGroup != null && viewGroup.getChildCount() > 0) {
-            ViewGroup childGroup = (ViewGroup) viewGroup.getChildAt(0);
-            int childCount = childGroup == null ? 0 : childGroup.getChildCount();
+        ViewGroup smartLayout = (ViewGroup) mPagerAdapter.getReplaceView(null, position);
+        if (smartLayout != null && smartLayout.getChildCount() > 0) {
+            ViewGroup smartTabStrip = (ViewGroup) smartLayout.getChildAt(0);
+            int childCount = smartTabStrip == null ? 0 : smartTabStrip.getChildCount();
             for (int i = 0; i < childCount; i++) {
-                if (childGroup.getChildAt(i).isSelected()) {
-                    View child = childGroup.getChildAt(i);
+                if (smartTabStrip.getChildAt(i).isSelected()) {
+                    View child = smartTabStrip.getChildAt(i);
                     if (child instanceof ViewGroup) {
                         ViewGroup group = (ViewGroup) child;
                         TextView tvTabName = (TextView) group.getChildAt(0);
@@ -181,12 +188,38 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         }
     }
 
-    @Override
-    public void onRefresh() {
-
+    private void loadFirstDataByTabName(String currTabName) {
         if (currTabName == null)
             return;
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
 
+        if (fragments == null)
+            return;
+
+        for (Fragment fragment : fragments) {
+
+            if (fragment.getView() instanceof ViewPager && fragment.getUserVisibleHint()) {
+
+                ViewPager viewPager = (ViewPager) fragment.getView();
+                RVFragmentAdapter pagerAdapter = (RVFragmentAdapter) viewPager.getAdapter();
+                if (pagerAdapter != null) {
+                    RVFragments rvf = pagerAdapter.getFragmentsByTabName(currTabName);
+                    if (rvf != null && !rvf.isLoadData()) {
+                        viewPager.setCurrentItem(page, false);
+                        page = 0;
+                        rvf.preLoadData(true);
+                        ToastUtils.showToast(this, "开始加载" + currTabName + "页面");
+                        return;
+                    }
+                }
+            }
+        }
+    }
+
+    private void refreshDataByTabName(String currTabName) {
+        if (currTabName == null)
+            return;
         FragmentManager fragmentManager = getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
 
@@ -201,13 +234,17 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
                     RVFragments rvf = pagerAdapter.getFragmentsByTabName(currTabName);
                     if (rvf != null) {
                         rvf.refreshData();
-                        ToastUtils.showToast(this, "刷新" + currTabName + "页面");
+                        ToastUtils.showToast(this, "开始刷新" + currTabName + "页面");
                         return;
                     }
                 }
             }
         }
+    }
 
+    @Override
+    public void onRefresh() {
+        refreshDataByTabName(currTabName);
     }
 
     @Override
@@ -233,5 +270,48 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
 
     public static Intent getIntent(String tabName) {
         return new Intent(LocalAction.ACTION_UPDATE_TAB_NAME).putExtra(EXTRA_TAB_NAME, tabName);
+    }
+
+    @Override
+    public void onTabSelect(int position) {
+        getCurrTabName(position);
+        vpId.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadFirstDataByTabName(currTabName);
+            }
+        }, 500);
+    }
+
+    int page;
+
+    /**
+     * 滚动到某一页面
+     *
+     * @param type   页面枚举值
+     * @param smooth 是否平滑
+     * @param page   选中哪个子tab
+     */
+    private void setCurrentPager(MainFragmentPagerAdapter.PagerType type, boolean smooth, int page) {
+        int position = -1;
+        if (type != null) {
+            position = mPagerAdapter.typeToPosition(type);
+        }
+        if (position != -1) {
+            gtsTabs.performClick(position, smooth, false);
+            this.page = page;
+        }
+    }
+
+    public static void start(Context context, MainFragmentPagerAdapter.PagerType pageType, int page) {
+        start(context, pageType, false, page);
+    }
+
+    public static void start(Context context, MainFragmentPagerAdapter.PagerType pageType, boolean smooth, int page) {
+        Intent starter = new Intent(context, IDActivity.class);
+        starter.putExtra(EXTRA_TYPE, pageType);
+        starter.putExtra(EXTRA_SMOOTH, smooth);
+        starter.putExtra(EXTRA_PAGE, page);
+        context.startActivity(starter);
     }
 }

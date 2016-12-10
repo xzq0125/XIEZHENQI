@@ -68,6 +68,11 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     }
 
     @Override
+    protected boolean loadDataWhenCreate() {
+        return false;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
