@@ -311,7 +311,14 @@ public class RefreshLayout extends ViewGroup {
 
 
                     // 判断是否拦截事件
-                    if ((moveDown && !canMoveDown) || (moveUp && canMoveUp)) {
+                    if (moveDown && !canMoveDown) {
+                        moveSpinner(offsetY);
+                        return true;
+                    }
+
+                    if (moveUp && canMoveUp) {
+                        if (offsetY < -20)
+                            offsetY = -40;
                         moveSpinner(offsetY);
                         return true;
                     }
