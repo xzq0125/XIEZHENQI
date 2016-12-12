@@ -245,7 +245,7 @@
                 android:paddingRight="6dp"
                 android:paddingStart="5dp"
                 android:textSize="16sp"
-                android:text="7" />
+                android:text="9" />
         </LinearLayout>
 
     </LinearLayout>

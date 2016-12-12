@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
+import com.xiezhenqi.business.more.galleryviewpager.GalleryViewPagerActivity;
 import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
@@ -65,6 +66,7 @@ public class ItemList {
         itemList.add(new Item("IDActivity", IDActivity.class));
         itemList.add(new Item("ID导航", OrderActivity.class));
         itemList.add(new Item("MoveViewActivity", MoveViewActivity.class));
+        itemList.add(new Item("GalleryViewPagerActivity", GalleryViewPagerActivity.class));
     }
 
 }

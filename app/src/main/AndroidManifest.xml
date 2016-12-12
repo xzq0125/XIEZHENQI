@@ -45,7 +45,8 @@
             android:name=".business.more.mazing.IDActivity"
             android:theme="@style/AppBaseTheme" />
         <activity android:name=".business.more.watermark.WatermarkActivity" />
-        <activity android:name=".business.more.moveview.MoveViewActivity"></activity>
+        <activity android:name=".business.more.moveview.MoveViewActivity" />
+        <activity android:name=".business.more.galleryviewpager.GalleryViewPagerActivity"></activity>
     </application>
 
 </manifest>
