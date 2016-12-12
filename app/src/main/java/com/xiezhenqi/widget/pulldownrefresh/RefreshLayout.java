@@ -277,7 +277,7 @@ public class RefreshLayout extends ViewGroup {
                 hasSendCancelEvent = false;
                 mIsBeginDragged = false;
                 lastTargetOffsetTop = currentTargetOffsetTop;
-                currentTargetOffsetTop = Math.max(0, target.getTop());
+                currentTargetOffsetTop = target.getTop();
                 initDownY = lastMotionY = ev.getY(0);
                 autoScroll.stop();
                 if (!isIgnoreTouch)
@@ -453,7 +453,7 @@ public class RefreshLayout extends ViewGroup {
         target.offsetTopAndBottom(offset);
         refreshHeader.offsetTopAndBottom(offset);
         lastTargetOffsetTop = currentTargetOffsetTop;
-        currentTargetOffsetTop = Math.max(0, target.getTop());
+        currentTargetOffsetTop = target.getTop();
 //        Log.e(TAG, "moveSpinner: currentTargetOffsetTop = "+ currentTargetOffsetTop);
         invalidate();
     }
