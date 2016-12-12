@@ -160,9 +160,9 @@ public class RefreshLayout extends ViewGroup {
      * @param duration 延时执行的毫秒值
      */
     public void autoRefresh(long duration) {
-        if (state != State.RESET) {
-            return;
-        }
+//        if (state != State.RESET) {
+//            return;
+//        }
         postDelayed(autoRefreshRunnable, duration);
     }
 
@@ -277,7 +277,7 @@ public class RefreshLayout extends ViewGroup {
                 hasSendCancelEvent = false;
                 mIsBeginDragged = false;
                 lastTargetOffsetTop = currentTargetOffsetTop;
-                currentTargetOffsetTop = target.getTop();
+                currentTargetOffsetTop = Math.max(0, target.getTop());
                 initDownY = lastMotionY = ev.getY(0);
                 autoScroll.stop();
                 if (!isIgnoreTouch)
@@ -302,7 +302,7 @@ public class RefreshLayout extends ViewGroup {
                 }
                 if (mIsBeginDragged) {
                     boolean moveDown = offsetY > 0; // ↓
-                    boolean canMoveDown = canChildScrollUp();
+                    boolean canMoveDown = !canChildScrollUp();
                     boolean moveUp = !moveDown;     // ↑
                     boolean canMoveUp = currentTargetOffsetTop > START_POSITION;
 
@@ -311,7 +311,13 @@ public class RefreshLayout extends ViewGroup {
 
 
                     // 判断是否拦截事件
-                    if ((moveDown && !canMoveDown) || (moveUp && canMoveUp)) {
+                    if (moveDown && canMoveDown) {
+                        moveSpinner(offsetY);
+                        return true;
+                    }
+
+                    if (moveUp && canMoveUp) {
+                        offsetY = Math.max(-20, offsetY);
                         moveSpinner(offsetY);
                         return true;
                     }
@@ -446,7 +452,8 @@ public class RefreshLayout extends ViewGroup {
         target.offsetTopAndBottom(offset);
         refreshHeader.offsetTopAndBottom(offset);
         lastTargetOffsetTop = currentTargetOffsetTop;
-        currentTargetOffsetTop = target.getTop();
+//        currentTargetOffsetTop = target.getTop();
+        currentTargetOffsetTop = Math.max(0, target.getTop());
 //        Log.e(TAG, "moveSpinner: currentTargetOffsetTop = "+ currentTargetOffsetTop);
         invalidate();
     }
