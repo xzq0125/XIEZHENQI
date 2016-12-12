@@ -302,7 +302,7 @@ public class RefreshLayout extends ViewGroup {
                 }
                 if (mIsBeginDragged) {
                     boolean moveDown = offsetY > 0; // ↓
-                    boolean canMoveDown = canChildScrollUp();
+                    boolean canMoveDown = !canChildScrollUp();
                     boolean moveUp = !moveDown;     // ↑
                     boolean canMoveUp = currentTargetOffsetTop > START_POSITION;
 
@@ -311,7 +311,7 @@ public class RefreshLayout extends ViewGroup {
 
 
                     // 判断是否拦截事件
-                    if (moveDown && !canMoveDown) {
+                    if (moveDown && canMoveDown) {
                         moveSpinner(offsetY);
                         return true;
                     }
