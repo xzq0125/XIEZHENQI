@@ -160,9 +160,9 @@ public class RefreshLayout extends ViewGroup {
      * @param duration 延时执行的毫秒值
      */
     public void autoRefresh(long duration) {
-        if (state != State.RESET) {
-            return;
-        }
+//        if (state != State.RESET) {
+//            return;
+//        }
         postDelayed(autoRefreshRunnable, duration);
     }
 
@@ -277,7 +277,7 @@ public class RefreshLayout extends ViewGroup {
                 hasSendCancelEvent = false;
                 mIsBeginDragged = false;
                 lastTargetOffsetTop = currentTargetOffsetTop;
-                currentTargetOffsetTop = target.getTop();
+                currentTargetOffsetTop = Math.max(0, target.getTop());
                 initDownY = lastMotionY = ev.getY(0);
                 autoScroll.stop();
                 if (!isIgnoreTouch)
@@ -317,8 +317,7 @@ public class RefreshLayout extends ViewGroup {
                     }
 
                     if (moveUp && canMoveUp) {
-                        if (offsetY < -20)
-                            offsetY = -40;
+                        offsetY = Math.max(-20, offsetY);
                         moveSpinner(offsetY);
                         return true;
                     }
@@ -453,7 +452,8 @@ public class RefreshLayout extends ViewGroup {
         target.offsetTopAndBottom(offset);
         refreshHeader.offsetTopAndBottom(offset);
         lastTargetOffsetTop = currentTargetOffsetTop;
-        currentTargetOffsetTop = target.getTop();
+//        currentTargetOffsetTop = target.getTop();
+        currentTargetOffsetTop = Math.max(0, target.getTop());
 //        Log.e(TAG, "moveSpinner: currentTargetOffsetTop = "+ currentTargetOffsetTop);
         invalidate();
     }
