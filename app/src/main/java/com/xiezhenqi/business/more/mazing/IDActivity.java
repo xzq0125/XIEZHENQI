@@ -26,8 +26,8 @@ import com.xiezhenqi.business.more.mazing.managers.IDTitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.TitleViewManager;
 import com.xiezhenqi.business.more.mazing.managers.ToolbarMoveAnimator;
 import com.xiezhenqi.utils.ToastUtils;
+import com.xiezhenqi.widget.pulldownrefresh.HeaderHelper;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
-import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
 import java.util.List;
 
@@ -93,10 +93,7 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
         gtsTabs2.setAdapter(mPagerAdapter);
         gtsTabs2.setOnItemClickListener(mPagerAdapter);
 
-        RefreshLayoutHeader header = new RefreshLayoutHeader(this);
-        pullDownRefresh.addOnRefreshListener(header);
-        pullDownRefresh.addOnRefreshListener(this);
-        pullDownRefresh.setRefreshHeader(header);
+        HeaderHelper.initSampleHeader(pullDownRefresh, this);
         pullDownRefresh.setIsIgnoreTouch(true);
         pullDownRefresh.setSlopRate(5);
         toolbarMoveAnimator = new ToolbarMoveAnimator(toolbar);
