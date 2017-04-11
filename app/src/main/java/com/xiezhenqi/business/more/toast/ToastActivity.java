@@ -8,6 +8,8 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.liuguangqiang.cookie.CookieBar;
+import com.liuguangqiang.cookie.OnActionClickListener;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 
@@ -56,5 +58,18 @@ public class ToastActivity extends BaseActivity {
 
     public void onCustomClick(View view) {
         Toasty.custom(this, "I'm a custom Toast", R.mipmap.ic_launcher, Color.RED, Color.GREEN, 1000, true, true).show();
+    }
+
+    public void onAppMsgClick(View view) {
+        new CookieBar.Builder(this)
+                .setTitle("TITLE")
+                .setIcon(R.mipmap.ic_launcher)
+                .setMessage("MESSAGE")
+                .setAction("ACTION", new OnActionClickListener() {
+                    @Override
+                    public void onClick() {
+                    }
+                })
+                .show();
     }
 }

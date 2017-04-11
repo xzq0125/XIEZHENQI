@@ -63,6 +63,12 @@
             android:onClick="onCustomClick"
             android:text="custom" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onAppMsgClick"
+            android:text="AppMsg" />
+
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton

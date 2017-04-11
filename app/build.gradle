@@ -60,4 +60,5 @@ dependencies {
     compile 'am.widget:gradienttabstrip:24.2.1.1'
     compile 'com.github.GrenderG:Toasty:1.1.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.liuguangqiang.cookie:library:0.2'
 }
