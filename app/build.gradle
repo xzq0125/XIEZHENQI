@@ -58,4 +58,6 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'am.widget:replacelayout:1.1.0'
     compile 'am.widget:gradienttabstrip:24.2.1.1'
+    compile 'com.github.GrenderG:Toasty:1.1.4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
 }

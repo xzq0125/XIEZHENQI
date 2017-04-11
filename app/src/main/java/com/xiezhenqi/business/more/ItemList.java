@@ -11,6 +11,7 @@ import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
+import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class ItemList {
         itemList.add(new Item("ID导航", OrderActivity.class));
         itemList.add(new Item("MoveViewActivity", MoveViewActivity.class));
         itemList.add(new Item("GalleryViewPagerActivity", GalleryViewPagerActivity.class));
+        itemList.add(new Item("ToastActivity", ToastActivity.class));
     }
 
 }

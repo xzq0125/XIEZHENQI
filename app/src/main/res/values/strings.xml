@@ -81,4 +81,5 @@
         <item>关不上的窗</item>
         <item>过火</item>
     </string-array>
+    <string name="title_activity_toast">ToastActivity</string>
 </resources>

@@ -46,7 +46,11 @@
             android:theme="@style/AppBaseTheme" />
         <activity android:name=".business.more.watermark.WatermarkActivity" />
         <activity android:name=".business.more.moveview.MoveViewActivity" />
-        <activity android:name=".business.more.galleryviewpager.GalleryViewPagerActivity"></activity>
+        <activity android:name=".business.more.galleryviewpager.GalleryViewPagerActivity" />
+        <activity
+            android:name=".business.more.toast.ToastActivity"
+            android:label="@string/title_activity_toast"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
