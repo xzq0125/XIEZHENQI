@@ -50,7 +50,9 @@
         <activity
             android:name=".business.more.toast.ToastActivity"
             android:label="@string/title_activity_toast"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".business.more.live.phone.PhoneLiveListActivity" />
+        <activity android:name=".business.more.live.phone.PhoneLiveActivity"></activity>
     </application>
 
 </manifest>
