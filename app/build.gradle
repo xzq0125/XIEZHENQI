@@ -13,7 +13,7 @@ android {
     buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.xiezhenqi"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -61,4 +61,7 @@ dependencies {
     compile 'com.github.GrenderG:Toasty:1.1.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.liuguangqiang.cookie:library:0.2'
+    //    弹幕
+    compile 'com.github.ctiao:DanmakuFlameMaster:0.4.6'
+    compile project(':InitActivity')
 }

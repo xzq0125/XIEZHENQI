@@ -40,6 +40,7 @@ public class PhoneLiveListActivity extends BaseListActivity implements BaseLoadM
     public void onItemClick(Object dto, int position) {
         if (dto instanceof PhoneLiveDto.DataDto) {
             ToastUtils.showToast(this, ((PhoneLiveDto.DataDto) dto).room_name);
+            PhoneLiveActivity.start(this);
         }
     }
 }
