@@ -61,7 +61,12 @@ dependencies {
     compile 'com.github.GrenderG:Toasty:1.1.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
     compile 'com.liuguangqiang.cookie:library:0.2'
-    //    弹幕
-    compile 'com.github.ctiao:DanmakuFlameMaster:0.4.6'
+
+    /*直播*/
+    compile 'com.github.ctiao:DanmakuFlameMaster:0.4.6'  //弹幕
     compile project(':InitActivity')
+    compile 'com.github.GaoYin2016:Android-SVProgressHUD:1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 }

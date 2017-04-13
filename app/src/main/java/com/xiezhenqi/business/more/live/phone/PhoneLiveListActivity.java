@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import com.xiezhenqi.base.list.activity.BaseListActivity;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.utils.EntitySerializer;
-import com.xiezhenqi.utils.ToastUtils;
 
 public class PhoneLiveListActivity extends BaseListActivity implements BaseLoadMoreAdapter.OnItemClickListener {
 
@@ -39,8 +38,7 @@ public class PhoneLiveListActivity extends BaseListActivity implements BaseLoadM
     @Override
     public void onItemClick(Object dto, int position) {
         if (dto instanceof PhoneLiveDto.DataDto) {
-            ToastUtils.showToast(this, ((PhoneLiveDto.DataDto) dto).room_name);
-            PhoneLiveActivity.start(this);
+            PhoneLiveActivity.start(this, ((PhoneLiveDto.DataDto) dto).room_id);
         }
     }
 }

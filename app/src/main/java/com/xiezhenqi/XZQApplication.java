@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ApplicationInfo;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -77,4 +78,15 @@ public class XZQApplication extends Application {
         mLocalBroadcastManager.unregisterReceiver(mLocalReceiver);
         super.onTerminate();
     }
+
+    /**
+     * 程序是否可调试
+     *
+     * @return 程序是否可调试
+     */
+    public static boolean isDebuggable() {
+        return (mContext.getApplicationInfo().flags &=
+                ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+    }
+
 }
