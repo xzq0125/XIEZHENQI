@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
+import com.xiezhenqi.business.more.dragview.DragViewActivity;
 import com.xiezhenqi.business.more.galleryviewpager.GalleryViewPagerActivity;
 import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.live.phone.PhoneLiveListActivity;
@@ -71,6 +72,7 @@ public class ItemList {
         itemList.add(new Item("GalleryViewPagerActivity", GalleryViewPagerActivity.class));
         itemList.add(new Item("ToastActivity", ToastActivity.class));
         itemList.add(new Item("手机直播列表", PhoneLiveListActivity.class));
+        itemList.add(new Item("DragViewActivity", DragViewActivity.class));
     }
 
 }

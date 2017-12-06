@@ -52,7 +52,8 @@
             android:label="@string/title_activity_toast"
             android:theme="@style/AppTheme" />
         <activity android:name=".business.more.live.phone.PhoneLiveListActivity" />
-        <activity android:name=".business.more.live.phone.PhoneLiveActivity"></activity>
+        <activity android:name=".business.more.live.phone.PhoneLiveActivity" />
+        <activity android:name=".business.more.dragview.DragViewActivity" />
     </application>
 
 </manifest>
