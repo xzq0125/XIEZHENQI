@@ -17,7 +17,7 @@ public class LogUtils {
     /**
      * 打印模式
      */
-    enum Mode {
+    private enum Mode {
         /**
          * 打印所有
          */

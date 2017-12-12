@@ -18,7 +18,7 @@ public class MD5 {
      */
     public static String encode(String str, boolean lowerCase) {
         try {
-            MessageDigest md5 = MessageDigest.getInstance("encode");
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
             md5.update(str.getBytes("utf-8"));
             StringBuilder builder = new StringBuilder();
             for (byte b : md5.digest()) {
