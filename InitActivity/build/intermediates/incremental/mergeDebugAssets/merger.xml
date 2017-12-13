@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\AndroidStudioProjectLocation\XIEZHENQI\InitActivity\src\main\assets"/><source path="F:\AndroidStudioProjectLocation\XIEZHENQI\InitActivity\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\AndroidStudioProjectLocation\XIEZHENQI\InitActivity\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="I:\projects\XIEZHENQI\InitActivity\src\main\assets"/><source path="I:\projects\XIEZHENQI\InitActivity\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="I:\projects\XIEZHENQI\InitActivity\src\debug\assets"/></dataSet></merger>
