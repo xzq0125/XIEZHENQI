@@ -15,14 +15,14 @@ import com.xiezhenqi.base.activitys.BaseActivity;
 
 import java.util.Map;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MoreActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
-    @Bind(android.R.id.list)
+    @BindView(android.R.id.list)
     ListView listView;
     private SimpleAdapter adapter;
 

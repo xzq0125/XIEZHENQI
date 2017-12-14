@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -48,13 +48,13 @@ public class ContextMenuRecyclerViewActivity extends BaseActivity implements
     private AddSingerDialog mAddSingerDialog;
     private final MyAdapter mAdapter = new MyAdapter(null);
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
 
-    @Bind(R.id.rl)
+    @BindView(R.id.rl)
     RefreshLayout pullDownRefresh;
 
-    @Bind(android.R.id.list)
+    @BindView(android.R.id.list)
     RecyclerView rvList;
 
     @Override
@@ -220,7 +220,7 @@ public class ContextMenuRecyclerViewActivity extends BaseActivity implements
 
         final ContextMenuRecyclerView.RecyclerItem item = new ContextMenuRecyclerView.RecyclerItem();
 
-        @Bind(R.id.tv_item)
+        @BindView(R.id.tv_item)
         TextView tvItem;
 
         public MyViewHolder(View itemView) {

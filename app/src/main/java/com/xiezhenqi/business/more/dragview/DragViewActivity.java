@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 
 public class DragViewActivity extends BaseActivity {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
 
     @Override

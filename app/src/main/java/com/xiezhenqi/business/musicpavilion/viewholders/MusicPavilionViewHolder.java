@@ -10,7 +10,7 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.business.musicpavilion.adapters.MusicPavilionAdapter;
 import com.xiezhenqi.entity.musicpavilion.MusicPavilionDto;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,25 +20,25 @@ import butterknife.ButterKnife;
 @SuppressWarnings("all")
 public class MusicPavilionViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.music_pavilion_iv_pic)
+    @BindView(R.id.music_pavilion_iv_pic)
     ImageView ivPic;
-    @Bind(R.id.music_pavilion_iv_play)
+    @BindView(R.id.music_pavilion_iv_play)
     ImageView ivPlay;
-    @Bind(R.id.music_pavilion_iv_pause)
+    @BindView(R.id.music_pavilion_iv_pause)
     ImageView ivPause;
-    @Bind(R.id.music_pavilion_tv_name1)
+    @BindView(R.id.music_pavilion_tv_name1)
     TextView tvName1;
-    @Bind(R.id.music_pavilion_tv_name2)
+    @BindView(R.id.music_pavilion_tv_name2)
     TextView tvName2;
-    @Bind(R.id.music_pavilion_tv_name3)
+    @BindView(R.id.music_pavilion_tv_name3)
     TextView tvName3;
-    @Bind(R.id.music_pavilion_tv_singer1)
+    @BindView(R.id.music_pavilion_tv_singer1)
     TextView tvSinger1;
-    @Bind(R.id.music_pavilion_tv_singer2)
+    @BindView(R.id.music_pavilion_tv_singer2)
     TextView tvSinger2;
-    @Bind(R.id.music_pavilion_tv_singer3)
+    @BindView(R.id.music_pavilion_tv_singer3)
     TextView tvSinger3;
-    @Bind(R.id.music_pavilion_tv_topName)
+    @BindView(R.id.music_pavilion_tv_topName)
     TextView tvTopName;
 
     public MusicPavilionViewHolder(View itemView, int viewType, View.OnClickListener listener) {

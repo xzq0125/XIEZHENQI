@@ -13,7 +13,7 @@ import com.xiezhenqi.base.activitys.BroadcastActivity;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,19 +24,19 @@ import butterknife.ButterKnife;
 public abstract class BaseListActivity extends BroadcastActivity
         implements RefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.rl)
+    @BindView(R.id.rl)
     RefreshLayout pullDownRefresh;
 
-    @Bind(android.R.id.empty)
+    @BindView(android.R.id.empty)
     ImageView empty;
 
-    @Bind(android.R.id.list)
+    @BindView(android.R.id.list)
     RecyclerView recyclerView;
 
-    @Bind(R.id.base_list_title)
+    @BindView(R.id.base_list_title)
     TextView tvTitle;
 
-    @Bind(R.id.base_list_btn)
+    @BindView(R.id.base_list_btn)
     TextView btn;
 
     @Override

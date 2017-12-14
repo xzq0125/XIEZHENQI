@@ -12,7 +12,7 @@ import com.xiezhenqi.base.fragments.LazyLoadFragment;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayout;
 import com.xiezhenqi.widget.pulldownrefresh.RefreshLayoutHeader;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,13 +23,13 @@ import butterknife.ButterKnife;
 public abstract class BaseListFragment2 extends LazyLoadFragment
         implements RefreshLayout.OnRefreshListener {
 
-    @Bind(R.id.rl)
+    @BindView(R.id.rl)
     RefreshLayout pullDownRefresh;
 
-    @Bind(android.R.id.empty)
+    @BindView(android.R.id.empty)
     ImageView empty;
 
-    @Bind(android.R.id.list)
+    @BindView(android.R.id.list)
     RecyclerView recyclerView;
 
 

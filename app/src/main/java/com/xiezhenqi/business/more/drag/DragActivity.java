@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapter.OnItemLongClickListener, BaseLoadMoreAdapter.OnItemClickListener {
@@ -110,7 +110,7 @@ public class DragActivity extends BaseListActivity implements BaseLoadMoreAdapte
 
     class MyViewHolder extends BaseLoadMoreViewHolder {
 
-        @Bind(R.id.tv_item)
+        @BindView(R.id.tv_item)
         TextView tvItem;
 
         public MyViewHolder(View itemView) {

@@ -28,7 +28,7 @@ import com.xiezhenqi.entity.HomeRecommendHotCate;
 import com.xiezhenqi.entity.OldLiveVideoInfo;
 import com.xiezhenqi.widget.loadplay.LoadingView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -42,25 +42,25 @@ public class PhoneLiveActivity extends BaseActivity implements
         MediaPlayer.OnErrorListener,
         PhoneLiveContract.View<DataEntity> {
 
-    @Bind(R.id.vm_videoview)
+    @BindView(R.id.vm_videoview)
     VideoView vmVideoview;
-    @Bind(R.id.im_logo)
+    @BindView(R.id.im_logo)
     ImageView imLogo;
-    @Bind(R.id.lv_playloading)
+    @BindView(R.id.lv_playloading)
     LoadingView lvPlayloading;
-    @Bind(R.id.fl_loading)
+    @BindView(R.id.fl_loading)
     FrameLayout flLoading;
-    @Bind(R.id.iv_control_img)
+    @BindView(R.id.iv_control_img)
     ImageView ivControlImg;
-    @Bind(R.id.tv_control_name)
+    @BindView(R.id.tv_control_name)
     TextView tvControlName;
-    @Bind(R.id.tv_control)
+    @BindView(R.id.tv_control)
     TextView tvControl;
-    @Bind(R.id.control_center)
+    @BindView(R.id.control_center)
     RelativeLayout controlCenter;
-    @Bind(R.id.tv_loading_buffer)
+    @BindView(R.id.tv_loading_buffer)
     TextView tvLoadingBuffer;
-    @Bind(R.id.danmakuView)
+    @BindView(R.id.danmakuView)
     DanmakuView danmakuView;
     private HomeRecommendHotCate.RoomListEntity mRoomEntity;
     private OldLiveVideoInfo videoInfo;
@@ -326,7 +326,6 @@ public class PhoneLiveActivity extends BaseActivity implements
         }
         mDanmuProcess.finish();
         danmakuView.release();
-        ButterKnife.unbind(this);
         super.onDestroy();
     }
 

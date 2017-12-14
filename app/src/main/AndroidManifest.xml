@@ -54,6 +54,7 @@
         <activity android:name=".business.more.live.phone.PhoneLiveListActivity" />
         <activity android:name=".business.more.live.phone.PhoneLiveActivity" />
         <activity android:name=".business.more.dragview.DragViewActivity" />
+        <activity android:name=".business.more.richtext.RichTextActivity" />
     </application>
 
 </manifest>

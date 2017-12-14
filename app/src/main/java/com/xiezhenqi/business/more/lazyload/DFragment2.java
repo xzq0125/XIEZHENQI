@@ -22,7 +22,7 @@ import com.xiezhenqi.business.selectpic.BaseSelectPicActivity;
 import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.ToastUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -33,7 +33,7 @@ import butterknife.OnClick;
 
 public class DFragment2 extends LazyLoadFragment implements Runnable {
 
-    @Bind(R.id.account_siv_head)
+    @BindView(R.id.account_siv_head)
     ImageView ivHead;
 
     @Override

@@ -18,7 +18,7 @@ import com.xiezhenqi.widget.divider.DividerItemDecoration;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolderClickListener, Runnable {
 
-    @Bind(R.id.rv)
+    @BindView(R.id.rv)
     RecyclerView rv;
     private SongAdapter songAdapter;
 
@@ -75,7 +75,6 @@ public class RVFragments extends LazyLoadFragment implements SongAdapter.OnHolde
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

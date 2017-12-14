@@ -13,6 +13,7 @@ import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
+import com.xiezhenqi.business.more.richtext.RichTextActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
 
@@ -73,6 +74,7 @@ public class ItemList {
         itemList.add(new Item("ToastActivity", ToastActivity.class));
         itemList.add(new Item("手机直播列表", PhoneLiveListActivity.class));
         itemList.add(new Item("DragViewActivity", DragViewActivity.class));
+        itemList.add(new Item("RichTextActivity", RichTextActivity.class));
     }
 
 }

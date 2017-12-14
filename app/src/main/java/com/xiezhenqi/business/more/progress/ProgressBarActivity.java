@@ -9,15 +9,15 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.widget.progressbar.NumberProgressBar;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProgressBarActivity extends BaseActivity implements Runnable {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
 
-    @Bind(R.id.progress1)
+    @BindView(R.id.progress1)
     NumberProgressBar progressBar;
 
     @Override

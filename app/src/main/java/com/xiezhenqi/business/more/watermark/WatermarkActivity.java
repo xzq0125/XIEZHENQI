@@ -12,15 +12,15 @@ import android.widget.TextView;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class WatermarkActivity extends BaseActivity {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
-    @Bind(R.id.btn)
+    @BindView(R.id.btn)
     TextView btn;
     private ImageView mSourImage;
     private ImageView mWartermarkImage;

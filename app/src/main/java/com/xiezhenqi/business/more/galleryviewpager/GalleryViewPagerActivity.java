@@ -10,7 +10,7 @@ import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.business.more.galleryviewpager.adapters.GuideAdapter;
 import com.xiezhenqi.business.more.galleryviewpager.transformer.RotateYTransformer;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,9 +24,9 @@ public class GalleryViewPagerActivity extends BaseActivity {
             R.drawable.image_03,
             R.drawable.image_04};
 
-    @Bind(R.id.vp)
+    @BindView(R.id.vp)
     ViewPager viewPager;
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
     private GuideAdapter mAdapter;
 

@@ -8,7 +8,7 @@ import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.entity.search.SearchSongDto;
 import com.xiezhenqi.utils.StringUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,11 +18,11 @@ import butterknife.ButterKnife;
 
 public class SearchSongViewHolder extends BaseLoadMoreViewHolder {
 
-    @Bind(R.id.item_search_songName)
+    @BindView(R.id.item_search_songName)
     TextView tvSongName;
-    @Bind(R.id.item_search_singerName)
+    @BindView(R.id.item_search_singerName)
     TextView tvSingerName;
-    @Bind(R.id.item_search_special)
+    @BindView(R.id.item_search_special)
     TextView tvSpecial;
 
     public SearchSongViewHolder(View itemView) {

@@ -22,7 +22,7 @@ import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.RecyclerViewUtils;
 import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -34,7 +34,7 @@ public class LikeFragment extends MainFragment implements
         SmartTabLayout.TabProvider,
         SmartTabLayout.OnTabClickListener {
 
-    @Bind(R.id.vp_like)
+    @BindView(R.id.vp_like)
     ViewPager vpLike;
     private SmartTabLayout stl;
     private RVFragmentAdapter adapter;
@@ -90,7 +90,6 @@ public class LikeFragment extends MainFragment implements
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.unbind(this);
     }
 
     @Override

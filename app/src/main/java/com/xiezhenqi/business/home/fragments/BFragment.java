@@ -13,7 +13,7 @@ import com.xiezhenqi.XZQApplication;
 import com.xiezhenqi.base.fragments.BaseFragment;
 import com.xiezhenqi.business.search.SearchManager;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 
 public class BFragment extends BaseFragment {
 
-    @Bind(R.id.search_container)
+    @BindView(R.id.search_container)
     View vSearch;
 
     @Override

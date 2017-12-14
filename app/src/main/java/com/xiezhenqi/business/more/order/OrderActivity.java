@@ -12,12 +12,12 @@ import com.xiezhenqi.business.more.mazing.adapters.MainFragmentPagerAdapter;
 import com.xiezhenqi.business.more.order.homepage.JsonDto;
 import com.xiezhenqi.utils.EntitySerializer;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OrderActivity extends BaseActivity {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
 
     @Override

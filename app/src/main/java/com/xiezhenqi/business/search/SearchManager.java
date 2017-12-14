@@ -32,7 +32,7 @@ import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -47,15 +47,15 @@ public class SearchManager implements TextWatcher,
         BaseLoadMoreAdapter.OnLoadMoreCallback,
         StateFrameLayout.OnStateClickListener, TextView.OnEditorActionListener {
 
-    @Bind(R.id.search_song_sfl)
+    @BindView(R.id.search_song_sfl)
     StateFrameLayout sflState;
-    @Bind(R.id.search_song_rv)
+    @BindView(R.id.search_song_rv)
     RecyclerView rvSong;
-    @Bind(R.id.search_song_edt_content)
+    @BindView(R.id.search_song_edt_content)
     EditText edtContent;
-    @Bind(R.id.search_song_ibtn_clear)
+    @BindView(R.id.search_song_ibtn_clear)
     ImageButton iBtnClear;
-    @Bind(R.id.search_song_iv_back_top)
+    @BindView(R.id.search_song_iv_back_top)
     ImageView ivBackTop;
 
     private int mPage = 1;

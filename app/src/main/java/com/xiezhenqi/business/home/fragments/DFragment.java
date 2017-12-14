@@ -21,7 +21,7 @@ import com.xiezhenqi.business.more.MoreActivity;
 import com.xiezhenqi.business.selectpic.BaseSelectPicActivity;
 import com.xiezhenqi.utils.ToastUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -32,7 +32,7 @@ import butterknife.OnClick;
 
 public class DFragment extends BaseFragment {
 
-    @Bind(R.id.account_siv_head)
+    @BindView(R.id.account_siv_head)
     ImageView ivHead;
 
     @Override

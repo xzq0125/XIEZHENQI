@@ -13,14 +13,14 @@ import com.xiezhenqi.business.home.adapters.HomeFragmentPagerAdapter;
 import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.gradienttabview.GradientTabView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BroadcastActivity {
 
-    @Bind(R.id.main_vp_fragments)
+    @BindView(R.id.main_vp_fragments)
     ViewPager vpFragments;
-    @Bind(R.id.main_gtv_tabs)
+    @BindView(R.id.main_gtv_tabs)
     GradientTabView gtvTabs;
 
     @Override

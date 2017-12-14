@@ -33,7 +33,7 @@ import java.util.List;
 
 import am.widget.basetabstrip.BaseTabStrip;
 import am.widget.replacelayout.ReplaceLayout;
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffsetChangedListener, RefreshLayout.OnRefreshListener, MainFragmentPagerAdapter.OnSelectListener {
@@ -42,19 +42,19 @@ public class IDActivity extends BroadcastActivity implements AppBarLayout.OnOffs
     private static final String EXTRA_TYPE = "extra_type";
     private static final String EXTRA_SMOOTH = "extra_smooth";
     private static final String EXTRA_PAGE = "extra_page";
-    @Bind(R.id.vp)
+    @BindView(R.id.vp)
     ViewPager vpId;
-    @Bind(R.id.app_bar)
+    @BindView(R.id.app_bar)
     AppBarLayout appBarLayout;
-    @Bind(R.id.tool_bar)
+    @BindView(R.id.tool_bar)
     Toolbar toolbar;
-    @Bind(R.id.gts)
+    @BindView(R.id.gts)
     GradientTabStrip2 gtsTabs;
-    @Bind(R.id.gts2)
+    @BindView(R.id.gts2)
     GradientTabStrip2 gtsTabs2;
-    @Bind(R.id.rl)
+    @BindView(R.id.rl)
     ReplaceLayout rlTitles;
-    @Bind(R.id.refresh)
+    @BindView(R.id.refresh)
     RefreshLayout pullDownRefresh;
     private MainFragmentPagerAdapter mPagerAdapter;
     private String currTabName;

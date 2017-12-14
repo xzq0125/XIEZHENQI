@@ -14,7 +14,7 @@ import com.xiezhenqi.base.fragments.BaseFragment;
 import com.xiezhenqi.business.songlist.SongListFragmengAdapter;
 import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
 
 public class CFragment extends BaseFragment {
 
-    @Bind(R.id.stl)
+    @BindView(R.id.stl)
     SmartTabLayout smartTabLayout;
 
-    @Bind(R.id.vp_song_list)
+    @BindView(R.id.vp_song_list)
     ViewPager viewPager;
 
     @Override

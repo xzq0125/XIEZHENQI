@@ -10,6 +10,8 @@ import android.view.View;
 
 import com.xiezhenqi.utils.LogUtils;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Activity基类
@@ -18,14 +20,14 @@ import com.xiezhenqi.utils.LogUtils;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private final String TAG = getClass().getSimpleName();
+    private static final String TAG = "BaseActivity";
     //Activity生命周期
     private ActivityState mState = ActivityState.CREATE;
 
     /**
      * Activity生命周期
      */
-    public enum ActivityState {
+    private enum ActivityState {
         CREATE, START, RESTART, RESUME, PAUSE, STOP, DESTROY
     }
 
@@ -35,6 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogUtils.debug(TAG, getClass().getSimpleName());
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         initViews(savedInstanceState);
     }
 
@@ -79,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 从继承BaseActivity的子Activity获取布局ID
+     * 获取布局ID
      *
      * @return 布局ID
      */
@@ -129,7 +132,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return The view if found or null otherwise.
      */
     @Nullable
-    public <T extends View> T findViewByID(@IdRes int id) {
+    @SuppressWarnings("unchecked")
+    public <T extends View> T findViewById2(@IdRes int id) {
         return (T) findViewById(id);
     }
 

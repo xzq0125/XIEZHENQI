@@ -12,18 +12,18 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.widget.smarttablayout.SmartTabLayout;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LazyLoadingActivity extends BaseActivity implements SmartTabLayout.TabProvider {
 
-    @Bind(android.R.id.title)
+    @BindView(android.R.id.title)
     TextView tvTitle;
 
-    @Bind(R.id.vp)
+    @BindView(R.id.vp)
     ViewPager vpFragments;
 
-    @Bind(R.id.stl)
+    @BindView(R.id.stl)
     SmartTabLayout stl;
 
     @Override

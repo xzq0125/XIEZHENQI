@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MoveViewActivity extends BaseActivity {
 
-    @Bind(R.id.mv)
+    @BindView(R.id.mv)
     MoveView moveView;
 
     @Override

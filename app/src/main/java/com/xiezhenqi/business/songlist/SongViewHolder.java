@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class SongViewHolder extends RecyclerView.ViewHolder {
 
-    @Bind(R.id.tv_song)
+    @BindView(R.id.tv_song)
     TextView tvSong;
 
     public SongViewHolder(View itemView) {
