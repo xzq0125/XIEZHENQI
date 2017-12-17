@@ -3,6 +3,7 @@ package com.xiezhenqi.business.more;
 import android.content.Context;
 import android.content.Intent;
 
+import com.xiezhenqi.business.more.cling.ClingBarActivity;
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.dragview.DragViewActivity;
@@ -75,6 +76,7 @@ public class ItemList {
         itemList.add(new Item("手机直播列表", PhoneLiveListActivity.class));
         itemList.add(new Item("DragViewActivity", DragViewActivity.class));
         itemList.add(new Item("RichTextActivity", RichTextActivity.class));
+        itemList.add(new Item("ClingBarActivity", ClingBarActivity.class));
     }
 
 }
