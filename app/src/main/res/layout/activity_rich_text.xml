@@ -4,17 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.xiezhenqi.business.more.richtext.RichTextActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="同意百度服务协议"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="136dp"
-        tools:layout_editor_absoluteY="262dp" />
+        android:text="我是多个颜色的文本"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textSize="20sp" />
 
 
 </LinearLayout>
