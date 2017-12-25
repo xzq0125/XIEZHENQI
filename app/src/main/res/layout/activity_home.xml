@@ -23,8 +23,8 @@
         android:background="@drawable/bg_main_tabbar"
         android:gravity="center"
         custom:show_icon="true"
-        custom:text_normal_color="#ff999999"
-        custom:text_select_color="#ffff0027"
+        custom:text_normal_color="@color/lineColor_toolbar"
+        custom:text_select_color="@color/themeColor"
         custom:text_size="9sp"
         custom:text_style="normal" />
 

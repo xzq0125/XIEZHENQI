@@ -14,6 +14,8 @@ import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
+import com.xiezhenqi.business.more.record.Record2Activity;
+import com.xiezhenqi.business.more.record.RecordActivity;
 import com.xiezhenqi.business.more.richtext.RichTextActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
@@ -77,6 +79,8 @@ public class ItemList {
         itemList.add(new Item("DragViewActivity", DragViewActivity.class));
         itemList.add(new Item("RichTextActivity", RichTextActivity.class));
         itemList.add(new Item("ClingBarActivity", ClingBarActivity.class));
+        itemList.add(new Item("RecordActivity", RecordActivity.class));
+        itemList.add(new Item("Record2Activity", Record2Activity.class));
     }
 
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:context=".business.more.record.RecordActivity">
+
+    <include layout="@layout/merge_toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:text="00:00"
+            android:textColor="@color/black"
+            android:textSize="33sp" />
+
+        <FrameLayout
+            android:id="@+id/btn_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/start_record"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="点击录音"
+                android:src="@drawable/ly" />
+
+            <ImageView
+                android:id="@+id/recording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="正在录音"
+                android:src="@drawable/ly_2" />
+
+            <ImageView
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="播放"
+                android:src="@drawable/bf" />
+
+            <ImageView
+                android:id="@+id/stop_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="暂停播放"
+                android:src="@drawable/zt" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/record_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/btn_container"
+            android:layout_toRightOf="@+id/btn_container"
+            android:text="完成" />
+
+        <Button
+            android:id="@+id/record_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/btn_container"
+            android:layout_toRightOf="@+id/btn_container"
+            android:text="上传" />
+
+        <Button
+            android:id="@+id/record_again"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_toLeftOf="@+id/btn_container"
+            android:layout_toStartOf="@+id/btn_container"
+            android:text="重新录制" />
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
