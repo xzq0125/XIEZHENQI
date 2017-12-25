@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dlf_outside"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/dlf_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        android:gravity="center_vertical"
+        android:maxWidth="325dp"
+        android:text="师傅，请带我去"
+        android:textColor="#ff333333"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        tools:text="师傅，请带我去" />
+
+    <TextView
+        android:id="@+id/dlf_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:maxWidth="325dp"
+        android:textColor="#ff333333"
+        android:textSize="26sp"
+        android:textStyle="normal"
+        android:text="中间放大的文字" />
+
+</FrameLayout>

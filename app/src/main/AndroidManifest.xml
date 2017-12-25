@@ -9,8 +9,8 @@
     <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -60,7 +60,8 @@
         <activity android:name=".business.more.richtext.RichTextActivity" />
         <activity android:name=".business.more.cling.ClingBarActivity" />
         <activity android:name=".business.more.record.RecordActivity" />
-        <activity android:name=".business.more.record.Record2Activity"></activity>
+        <activity android:name=".business.more.record.Record2Activity" />
+        <activity android:name=".business.more.largedialog.LargeDialogActivity"></activity>
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.dragview.DragViewActivity;
 import com.xiezhenqi.business.more.galleryviewpager.GalleryViewPagerActivity;
+import com.xiezhenqi.business.more.largedialog.LargeDialogActivity;
 import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.live.phone.PhoneLiveListActivity;
 import com.xiezhenqi.business.more.mazing.IDActivity;
@@ -81,6 +82,7 @@ public class ItemList {
         itemList.add(new Item("ClingBarActivity", ClingBarActivity.class));
         itemList.add(new Item("RecordActivity", RecordActivity.class));
         itemList.add(new Item("Record2Activity", Record2Activity.class));
+        itemList.add(new Item("LargeDialogActivity", LargeDialogActivity.class));
     }
 
 }
