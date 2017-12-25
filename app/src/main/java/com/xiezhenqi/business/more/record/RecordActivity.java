@@ -1,7 +1,13 @@
 package com.xiezhenqi.business.more.record;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -9,11 +15,14 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
+import com.xiezhenqi.utils.ToastUtils;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RecordActivity extends BaseActivity {
+public class RecordActivity extends BaseActivity implements MediaPlayer.OnCompletionListener {
 
     @BindView(android.R.id.title)
     TextView tvTitle;
@@ -33,6 +42,9 @@ public class RecordActivity extends BaseActivity {
     Button recordAgain;
     @BindView(R.id.record_upload)
     Button recordUpload;
+    AudioRecorder audioRecorder = AudioRecorder.getInstance();
+    private MediaPlayer player;
+    private File file;
 
     @Override
     protected int getLayoutId() {
@@ -50,7 +62,7 @@ public class RecordActivity extends BaseActivity {
         recordDone.setVisibility(View.GONE);
         recordAgain.setVisibility(View.GONE);
         recordUpload.setVisibility(View.GONE);
-
+        audioRecorder.createDefaultAudio("xzq");
     }
 
     @OnClick({R.id.start_record, R.id.stop_play, R.id.recording, R.id.play,
@@ -65,25 +77,61 @@ public class RecordActivity extends BaseActivity {
         recordUpload.setVisibility(View.GONE);
         switch (view.getId()) {
             case R.id.start_record://开始录音,点击之后会开始录音
-                recording.setVisibility(View.VISIBLE);
-                recordDone.setVisibility(View.VISIBLE);
+
+                if (PackageManager.PERMISSION_GRANTED == ContextCompat.
+                        checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)) {
+
+                } else {
+                    //提示用户开户权限音频
+                    String[] perms = {"android.permission.RECORD_AUDIO"};
+                    ActivityCompat.requestPermissions(this, perms, 11);
+                }
+
+                if (PackageManager.PERMISSION_GRANTED == ContextCompat.
+                        checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    recording.setVisibility(View.VISIBLE);
+                    recordDone.setVisibility(View.VISIBLE);
+                    audioRecorder.startRecord(null);
+                } else {
+                    //提示用户开户权限音频
+                    String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+                    ActivityCompat.requestPermissions(this, perms, 12);
+                }
                 break;
 
             case R.id.recording://正在录音按钮,点击之后会停止
                 startRecord.setVisibility(View.VISIBLE);
+                audioRecorder.pauseRecord();
                 break;
 
             case R.id.play://正在播放
                 stopPlay.setVisibility(View.VISIBLE);
                 recordAgain.setVisibility(View.VISIBLE);
                 recordUpload.setVisibility(View.VISIBLE);
+                String path = audioRecorder.getDestinationPath();
+                file = new File(path);
+                if (player == null) {
+                    player = MediaPlayer.create(this, Uri.parse(file.getAbsolutePath()));
+                    player.setOnCompletionListener(this);
+                }
+                play();
                 break;
 
-            case R.id.record_done://完成
+            case R.id.record_done: {//完成
+                play.setVisibility(View.VISIBLE);
+                recordAgain.setVisibility(View.VISIBLE);
+                recordUpload.setVisibility(View.VISIBLE);
+                AudioRecorder.Status status = audioRecorder.getStatus();
+                if (!(status == AudioRecorder.Status.STATUS_NO_READY || status == AudioRecorder.Status.STATUS_READY))
+                    audioRecorder.stopRecord();
+            }
+            break;
+
             case R.id.stop_play://停止播放
                 play.setVisibility(View.VISIBLE);
                 recordAgain.setVisibility(View.VISIBLE);
                 recordUpload.setVisibility(View.VISIBLE);
+                player.pause();
                 break;
 
             case R.id.record_again://重新录制
@@ -94,5 +142,53 @@ public class RecordActivity extends BaseActivity {
                 finish();
                 break;
         }
+
+    }
+
+    //播放音乐的方法
+    public void play() {
+        try {
+            player.reset();
+            player.setDataSource(file.getAbsolutePath());//重新设置要播放的音频
+            player.prepare();//预加载音频
+            player.start();//开始播放
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
+        switch (permsRequestCode) {
+            case 11:
+                boolean albumAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (!albumAccepted) {
+                    ToastUtils.showToast(this, "请开启应用录音权限");
+                    startRecord.setVisibility(View.VISIBLE);
+                }
+                break;
+
+            case 12:
+                boolean albumAccepted2 = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (!albumAccepted2) {
+                    ToastUtils.showToast(this, "请开启应用内部存储权限");
+                    startRecord.setVisibility(View.VISIBLE);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onCompletion(MediaPlayer mp) {
+        play.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (player.isPlaying())
+            player.stop();
+        player.release();
+        super.onDestroy();
     }
 }
