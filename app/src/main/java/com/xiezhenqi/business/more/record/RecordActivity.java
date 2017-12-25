@@ -42,7 +42,7 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
     Button recordAgain;
     @BindView(R.id.record_upload)
     Button recordUpload;
-    AudioRecorder audioRecorder = AudioRecorder.getInstance();
+    AudioRecorder audioRecorder;
     private MediaPlayer player;
     private File file;
 
@@ -62,8 +62,10 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
         recordDone.setVisibility(View.GONE);
         recordAgain.setVisibility(View.GONE);
         recordUpload.setVisibility(View.GONE);
-        audioRecorder.createDefaultAudio("xzq");
     }
+
+    private boolean isPause = false;
+    private boolean isAgain = false;
 
     @OnClick({R.id.start_record, R.id.stop_play, R.id.recording, R.id.play,
             R.id.record_done, R.id.record_again, R.id.record_upload})
@@ -80,23 +82,32 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
 
                 if (PackageManager.PERMISSION_GRANTED == ContextCompat.
                         checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)) {
-
+                    if (PackageManager.PERMISSION_GRANTED == ContextCompat.
+                            checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        recording.setVisibility(View.VISIBLE);
+                        recordDone.setVisibility(View.VISIBLE);
+                        if (audioRecorder == null) {
+                            audioRecorder = AudioRecorder.getInstance();
+                            audioRecorder.createDefaultAudio("xzq");
+                        }
+                        if (isAgain)
+                            audioRecorder.createDefaultAudio("xzq");
+                        isAgain = false;
+                        audioRecorder.startRecord(null);
+                    } else {
+                        startRecord.setVisibility(View.VISIBLE);
+                        //提示用户开户权限音频
+                        String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+                        ActivityCompat.requestPermissions(this, perms, 12);
+                    }
                 } else {
+                    startRecord.setVisibility(View.VISIBLE);
                     //提示用户开户权限音频
                     String[] perms = {"android.permission.RECORD_AUDIO"};
                     ActivityCompat.requestPermissions(this, perms, 11);
                 }
 
-                if (PackageManager.PERMISSION_GRANTED == ContextCompat.
-                        checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    recording.setVisibility(View.VISIBLE);
-                    recordDone.setVisibility(View.VISIBLE);
-                    audioRecorder.startRecord(null);
-                } else {
-                    //提示用户开户权限音频
-                    String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
-                    ActivityCompat.requestPermissions(this, perms, 12);
-                }
+
                 break;
 
             case R.id.recording://正在录音按钮,点击之后会停止
@@ -114,7 +125,12 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
                     player = MediaPlayer.create(this, Uri.parse(file.getAbsolutePath()));
                     player.setOnCompletionListener(this);
                 }
-                play();
+                if (isPause) {
+                    player.start();//开始播放
+                } else {
+                    play();
+                }
+                isPause = false;
                 break;
 
             case R.id.record_done: {//完成
@@ -132,9 +148,11 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
                 recordAgain.setVisibility(View.VISIBLE);
                 recordUpload.setVisibility(View.VISIBLE);
                 player.pause();
+                isPause = true;
                 break;
 
             case R.id.record_again://重新录制
+                isAgain = true;
                 startRecord.setVisibility(View.VISIBLE);
                 break;
 
@@ -165,7 +183,12 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
                 boolean albumAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 if (!albumAccepted) {
                     ToastUtils.showToast(this, "请开启应用录音权限");
-                    startRecord.setVisibility(View.VISIBLE);
+                } else {
+                    if (!(PackageManager.PERMISSION_GRANTED == ContextCompat.
+                            checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
+                        String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+                        ActivityCompat.requestPermissions(this, perms, 12);
+                    }
                 }
                 break;
 
@@ -173,7 +196,6 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
                 boolean albumAccepted2 = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                 if (!albumAccepted2) {
                     ToastUtils.showToast(this, "请开启应用内部存储权限");
-                    startRecord.setVisibility(View.VISIBLE);
                 }
                 break;
         }
@@ -182,13 +204,16 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
     @Override
     public void onCompletion(MediaPlayer mp) {
         play.setVisibility(View.VISIBLE);
+        stopPlay.setVisibility(View.GONE);
     }
 
     @Override
     protected void onDestroy() {
-        if (player.isPlaying())
-            player.stop();
-        player.release();
+        if (player != null) {
+            if (player.isPlaying())
+                player.stop();
+            player.release();
+        }
         super.onDestroy();
     }
 }
