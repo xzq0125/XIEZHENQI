@@ -60,8 +60,7 @@
         <activity android:name=".business.more.richtext.RichTextActivity" />
         <activity android:name=".business.more.cling.ClingBarActivity" />
         <activity android:name=".business.more.record.RecordActivity" />
-        <activity android:name=".business.more.record.Record2Activity" />
-        <activity android:name=".business.more.largedialog.LargeDialogActivity"></activity>
+        <activity android:name=".business.more.largedialog.LargeDialogActivity"/>
     </application>
 
 </manifest>

@@ -5,19 +5,22 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
+import com.xiezhenqi.utils.DateUtils;
 import com.xiezhenqi.utils.ToastUtils;
 
 import java.io.File;
+import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,25 +29,35 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
 
     @BindView(android.R.id.title)
     TextView tvTitle;
-    @BindView(R.id.time)
-    TextView time;
-    @BindView(R.id.start_record)
-    ImageView startRecord;
-    @BindView(R.id.stop_play)
-    ImageView stopPlay;
-    @BindView(R.id.recording)
-    ImageView recording;
-    @BindView(R.id.play)
-    ImageView play;
-    @BindView(R.id.record_done)
-    Button recordDone;
-    @BindView(R.id.record_again)
-    Button recordAgain;
-    @BindView(R.id.record_upload)
-    Button recordUpload;
-    AudioRecorder audioRecorder;
-    private MediaPlayer player;
+    @BindView(R.id.ar_tv_count_time)
+    TextView tvCountTime;
+
+    @BindView(R.id.ar_btn_start_record)
+    View btnStartRecord;//开始录音
+    @BindView(R.id.ar_btn_pause_record)
+    View btnPauseRecord;//暂停录音
+
+    @BindView(R.id.ar_btn_play_voice)
+    View btnPlayVoice;//播放音频
+    @BindView(R.id.ar_btn_pause_play_voice)
+    View btnPausePlayVoice;//暂停播放音频
+
+    @BindView(R.id.ar_btn_record_again)
+    View btnRecordAgain;//重新录制音频
+    @BindView(R.id.ar_btn_record_done)
+    View btnRecordDone;//录制完毕
+    @BindView(R.id.ar_btn_upload_voice)
+    View btnRecordUpload;//上传录音
+
+    private AudioRecorder mAudioRecorder;
+    private MediaPlayer mVoicePlayer;
     private File file;
+    private CountTimeHandler mCountTimeHandler;
+    private boolean isPlayVoicePause = false;//播放音频是否暂停
+    private boolean isRecordAgain = false;//是否重新录制
+    private static final String FILE_NAME = "bendi_voice";//录音文件名
+    private static final int PERMS_REQUEST_AUDIO = 998;
+    private static final int PERMS_REQUEST_STORAGE = 999;
 
     @Override
     protected int getLayoutId() {
@@ -55,134 +68,171 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
     protected void initViews(@Nullable Bundle savedInstanceState) {
         setSupportActionBar(R.id.tool_bar);
         tvTitle.setText("录音");
-        startRecord.setVisibility(View.VISIBLE);
-        stopPlay.setVisibility(View.GONE);
-        play.setVisibility(View.GONE);
-        recording.setVisibility(View.GONE);
-        recordDone.setVisibility(View.GONE);
-        recordAgain.setVisibility(View.GONE);
-        recordUpload.setVisibility(View.GONE);
+        hideAllButton();
+        btnStartRecord.setVisibility(View.VISIBLE);
     }
 
-    private boolean isPause = false;
-    private boolean isAgain = false;
+    private void hideAllButton() {
+        btnStartRecord.setVisibility(View.GONE);
+        btnPausePlayVoice.setVisibility(View.GONE);
+        btnPlayVoice.setVisibility(View.GONE);
+        btnPauseRecord.setVisibility(View.GONE);
+        btnRecordDone.setVisibility(View.GONE);
+        btnRecordAgain.setVisibility(View.GONE);
+        btnRecordUpload.setVisibility(View.GONE);
+    }
 
-    @OnClick({R.id.start_record, R.id.stop_play, R.id.recording, R.id.play,
-            R.id.record_done, R.id.record_again, R.id.record_upload})
+    @OnClick({R.id.ar_btn_start_record,
+            R.id.ar_btn_pause_record,
+            R.id.ar_btn_play_voice,
+            R.id.ar_btn_pause_play_voice,
+            R.id.ar_btn_record_done,
+            R.id.ar_btn_record_again,
+            R.id.ar_btn_upload_voice})
     public void onClick(View view) {
-        startRecord.setVisibility(View.GONE);
-        stopPlay.setVisibility(View.GONE);
-        play.setVisibility(View.GONE);
-        recording.setVisibility(View.GONE);
-        recordDone.setVisibility(View.GONE);
-        recordAgain.setVisibility(View.GONE);
-        recordUpload.setVisibility(View.GONE);
+        hideAllButton();
         switch (view.getId()) {
-            case R.id.start_record://开始录音,点击之后会开始录音
-
+            case R.id.ar_btn_start_record: {// 点击开始录音
                 if (PackageManager.PERMISSION_GRANTED == ContextCompat.
                         checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)) {
                     if (PackageManager.PERMISSION_GRANTED == ContextCompat.
                             checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        recording.setVisibility(View.VISIBLE);
-                        recordDone.setVisibility(View.VISIBLE);
-                        if (audioRecorder == null) {
-                            audioRecorder = AudioRecorder.getInstance();
-                            audioRecorder.createDefaultAudio("xzq");
+                        btnPauseRecord.setVisibility(View.VISIBLE);
+                        btnRecordDone.setVisibility(View.VISIBLE);
+                        if (mAudioRecorder == null) {
+                            mAudioRecorder = AudioRecorder.getInstance();
+                            mAudioRecorder.createDefaultAudio(FILE_NAME);
                         }
-                        if (isAgain)
-                            audioRecorder.createDefaultAudio("xzq");
-                        isAgain = false;
-                        audioRecorder.startRecord(null);
+                        if (isRecordAgain)
+                            mAudioRecorder.createDefaultAudio(FILE_NAME);
+                        isRecordAgain = false;
+                        mAudioRecorder.startRecord(null);
+                        if (mCountTimeHandler == null)
+                            mCountTimeHandler = new CountTimeHandler(tvCountTime);
+                        mCountTimeHandler.startCount();
                     } else {
-                        startRecord.setVisibility(View.VISIBLE);
-                        //提示用户开户权限音频
-                        String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
-                        ActivityCompat.requestPermissions(this, perms, 12);
+                        btnStartRecord.setVisibility(View.VISIBLE);
+                        //申请文件权限
+                        ActivityCompat.requestPermissions(this,
+                                new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"},
+                                PERMS_REQUEST_STORAGE);
                     }
                 } else {
-                    startRecord.setVisibility(View.VISIBLE);
-                    //提示用户开户权限音频
-                    String[] perms = {"android.permission.RECORD_AUDIO"};
-                    ActivityCompat.requestPermissions(this, perms, 11);
+                    btnStartRecord.setVisibility(View.VISIBLE);
+                    //申请录音权限
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{"android.permission.RECORD_AUDIO"},
+                            PERMS_REQUEST_AUDIO);
                 }
-
-
-                break;
-
-            case R.id.recording://正在录音按钮,点击之后会停止
-                startRecord.setVisibility(View.VISIBLE);
-                audioRecorder.pauseRecord();
-                break;
-
-            case R.id.play://正在播放
-                stopPlay.setVisibility(View.VISIBLE);
-                recordAgain.setVisibility(View.VISIBLE);
-                recordUpload.setVisibility(View.VISIBLE);
-                String path = audioRecorder.getDestinationPath();
-                file = new File(path);
-                if (player == null) {
-                    player = MediaPlayer.create(this, Uri.parse(file.getAbsolutePath()));
-                    player.setOnCompletionListener(this);
-                }
-                if (isPause) {
-                    player.start();//开始播放
-                } else {
-                    play();
-                }
-                isPause = false;
-                break;
-
-            case R.id.record_done: {//完成
-                play.setVisibility(View.VISIBLE);
-                recordAgain.setVisibility(View.VISIBLE);
-                recordUpload.setVisibility(View.VISIBLE);
-                AudioRecorder.Status status = audioRecorder.getStatus();
-                if (!(status == AudioRecorder.Status.STATUS_NO_READY || status == AudioRecorder.Status.STATUS_READY))
-                    audioRecorder.stopRecord();
             }
             break;
 
-            case R.id.stop_play://停止播放
-                play.setVisibility(View.VISIBLE);
-                recordAgain.setVisibility(View.VISIBLE);
-                recordUpload.setVisibility(View.VISIBLE);
-                player.pause();
-                isPause = true;
+            case R.id.ar_btn_pause_record://点击暂停
+                btnStartRecord.setVisibility(View.VISIBLE);
+                pauseRecord();
+                mCountTimeHandler.pauseCountTime();
                 break;
 
-            case R.id.record_again://重新录制
-                isAgain = true;
-                startRecord.setVisibility(View.VISIBLE);
+            case R.id.ar_btn_play_voice://点击播放音频
+                btnPausePlayVoice.setVisibility(View.VISIBLE);
+                btnRecordAgain.setVisibility(View.VISIBLE);
+                btnRecordUpload.setVisibility(View.VISIBLE);
+                String path = mAudioRecorder.getDestinationPath();
+                file = new File(path);
+                if (mVoicePlayer == null) {
+                    mVoicePlayer = MediaPlayer.create(this, Uri.parse(file.getAbsolutePath()));
+                    mVoicePlayer.setOnCompletionListener(this);
+                }
+                if (isPlayVoicePause) {//继续播放
+                    mVoicePlayer.start();
+                } else {//重新播放
+                    resetCountTime();
+                    playVoiceReset();
+                }
+                mCountTimeHandler.startCount();
+                isPlayVoicePause = false;
                 break;
 
-            case R.id.record_upload://上传
+            case R.id.ar_btn_record_done: {//点击了完成
+                btnPlayVoice.setVisibility(View.VISIBLE);
+                btnRecordAgain.setVisibility(View.VISIBLE);
+                btnRecordUpload.setVisibility(View.VISIBLE);
+                stopRecord();
+                mCountTimeHandler.doneCountTime();
+            }
+            break;
+
+            case R.id.ar_btn_pause_play_voice://点击了暂停播放
+                btnPlayVoice.setVisibility(View.VISIBLE);
+                btnRecordAgain.setVisibility(View.VISIBLE);
+                btnRecordUpload.setVisibility(View.VISIBLE);
+                mVoicePlayer.pause();
+                mCountTimeHandler.pauseCountTime();
+                isPlayVoicePause = true;
+                break;
+
+            case R.id.ar_btn_record_again://点击了重新录制
+                isRecordAgain = true;
+                btnStartRecord.setVisibility(View.VISIBLE);
+                mCountTimeHandler.doneCountTime();
+                if (mVoicePlayer.isPlaying())
+                    mVoicePlayer.stop();
+                resetCountTime();
+                break;
+
+            case R.id.ar_btn_upload_voice://点击了上传
                 finish();
                 break;
         }
 
     }
 
-    //播放音乐的方法
-    public void play() {
+    /**
+     * 计时复位
+     */
+    private void resetCountTime() {
+        tvCountTime.setText("00:00");
+    }
+
+    /**
+     * 重新播放
+     */
+    public void playVoiceReset() {
         try {
-            player.reset();
-            player.setDataSource(file.getAbsolutePath());//重新设置要播放的音频
-            player.prepare();//预加载音频
-            player.start();//开始播放
+            mVoicePlayer.reset();
+            mVoicePlayer.setDataSource(file.getAbsolutePath());//重新设置要播放的音频
+            mVoicePlayer.prepare();//预加载音频
+            mVoicePlayer.start();//开始播放
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    private void stopRecord() {
+        if (mAudioRecorder == null)
+            return;
+        AudioRecorder.Status status = mAudioRecorder.getStatus();
+        if (!(status == AudioRecorder.Status.STATUS_NO_READY || status == AudioRecorder.Status.STATUS_READY))
+            mAudioRecorder.stopRecord();
+    }
+
+    private void pauseRecord() {
+        if (mAudioRecorder == null)
+            return;
+        AudioRecorder.Status status = mAudioRecorder.getStatus();
+        if (status == AudioRecorder.Status.STATUS_START) {
+            mAudioRecorder.pauseRecord();
+        }
     }
 
     @Override
-    public void onRequestPermissionsResult(int permsRequestCode, String[] permissions, int[] grantResults) {
-        switch (permsRequestCode) {
-            case 11:
-                boolean albumAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!albumAccepted) {
-                    ToastUtils.showToast(this, "请开启应用录音权限");
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case PERMS_REQUEST_AUDIO:
+                boolean isOpenAudio = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (!isOpenAudio) {
+                    ToastUtils.showToast(this, "请开启录音权限");
                 } else {
                     if (!(PackageManager.PERMISSION_GRANTED == ContextCompat.
                             checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
@@ -192,10 +242,10 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
                 }
                 break;
 
-            case 12:
-                boolean albumAccepted2 = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!albumAccepted2) {
-                    ToastUtils.showToast(this, "请开启应用内部存储权限");
+            case PERMS_REQUEST_STORAGE:
+                boolean isOpenStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                if (!isOpenStorage) {
+                    ToastUtils.showToast(this, "请开启内部存储权限");
                 }
                 break;
         }
@@ -203,17 +253,68 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
 
     @Override
     public void onCompletion(MediaPlayer mp) {
-        play.setVisibility(View.VISIBLE);
-        stopPlay.setVisibility(View.GONE);
+        btnPlayVoice.setVisibility(View.VISIBLE);
+        btnPausePlayVoice.setVisibility(View.GONE);
+        if (mCountTimeHandler != null)
+            mCountTimeHandler.doneCountTime();
     }
 
     @Override
     protected void onDestroy() {
-        if (player != null) {
-            if (player.isPlaying())
-                player.stop();
-            player.release();
+        if (mVoicePlayer != null) {
+            if (mVoicePlayer.isPlaying())
+                mVoicePlayer.stop();
+            mVoicePlayer.release();
         }
+        if (mCountTimeHandler != null)
+            mCountTimeHandler.doneCountTime();
         super.onDestroy();
+    }
+
+    /**
+     * 计时处理器
+     */
+    private static class CountTimeHandler extends Handler {
+
+        private final WeakReference<TextView> textViewWeakReference;
+        private int count = 0;
+        private static final int WHAT_COUNT = 1;
+        private static final int DELAYED = 1000;//1000ms=1s
+
+        CountTimeHandler(TextView textView) {
+            textViewWeakReference = new WeakReference<>(textView);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (textViewWeakReference.get() != null) {
+                count++;
+                String timeStr = DateUtils.getCalendarStr("mm:ss", count * 1000);
+                textViewWeakReference.get().setText(timeStr);
+                startCount();
+            }
+        }
+
+        /**
+         * 开启计时
+         */
+        void startCount() {
+            sendEmptyMessageDelayed(WHAT_COUNT, DELAYED);
+        }
+
+        /**
+         * 暂停计时
+         */
+        void pauseCountTime() {
+            removeMessages(WHAT_COUNT);
+        }
+
+        /**
+         * 计时完成,计时会重置
+         */
+        void doneCountTime() {
+            pauseCountTime();
+            count = 0;
+        }
     }
 }

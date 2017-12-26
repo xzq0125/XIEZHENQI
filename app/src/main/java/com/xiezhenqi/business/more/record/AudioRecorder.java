@@ -94,7 +94,7 @@ public class AudioRecorder {
         if (status == Status.STATUS_START) {
             throw new IllegalStateException("正在录音");
         }
-        Log.d("AudioRecorder", "===startRecord===" + audioRecord.getState());
+        Log.d("AudioRecorder", "===btnStartRecord===" + audioRecord.getState());
         audioRecord.startRecording();
 
         new Thread(new Runnable() {

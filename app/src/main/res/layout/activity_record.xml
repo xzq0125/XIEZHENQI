@@ -16,81 +16,81 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <TextView
-            android:id="@+id/time"
+            android:id="@+id/ar_tv_count_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="90dp"
             android:text="00:00"
             android:textColor="@color/black"
-            android:textSize="33sp" />
+            android:textSize="45sp" />
 
         <FrameLayout
-            android:id="@+id/btn_container"
+            android:id="@+id/ar_btn_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
             <ImageView
-                android:id="@+id/start_record"
+                android:id="@+id/ar_btn_start_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="点击录音"
                 android:src="@drawable/ly" />
 
             <ImageView
-                android:id="@+id/recording"
+                android:id="@+id/ar_btn_pause_record"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="正在录音"
+                android:contentDescription="点击暂停录音"
                 android:src="@drawable/ly_2" />
 
             <ImageView
-                android:id="@+id/play"
+                android:id="@+id/ar_btn_play_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="播放"
+                android:contentDescription="播放音频"
                 android:src="@drawable/bf" />
 
             <ImageView
-                android:id="@+id/stop_play"
+                android:id="@+id/ar_btn_pause_play_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="暂停播放"
+                android:contentDescription="暂停播放音频"
                 android:src="@drawable/zt" />
         </FrameLayout>
 
         <Button
-            android:id="@+id/record_done"
+            android:id="@+id/ar_btn_record_done"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/btn_container"
-            android:layout_toRightOf="@+id/btn_container"
+            android:layout_toEndOf="@+id/ar_btn_container"
+            android:layout_toRightOf="@+id/ar_btn_container"
             android:text="完成" />
 
         <Button
-            android:id="@+id/record_upload"
+            android:id="@+id/ar_btn_upload_voice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/btn_container"
-            android:layout_toRightOf="@+id/btn_container"
+            android:layout_toEndOf="@+id/ar_btn_container"
+            android:layout_toRightOf="@+id/ar_btn_container"
             android:text="上传" />
 
         <Button
-            android:id="@+id/record_again"
+            android:id="@+id/ar_btn_record_again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/btn_container"
-            android:layout_toStartOf="@+id/btn_container"
+            android:layout_toLeftOf="@+id/ar_btn_container"
+            android:layout_toStartOf="@+id/ar_btn_container"
             android:text="重新录制" />
 
     </RelativeLayout>
