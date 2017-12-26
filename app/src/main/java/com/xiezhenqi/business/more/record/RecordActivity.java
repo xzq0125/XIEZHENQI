@@ -1,7 +1,6 @@
 package com.xiezhenqi.business.more.record;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,21 +8,22 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.utils.DateUtils;
-import com.xiezhenqi.utils.ToastUtils;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
+import kr.co.namee.permissiongen.internal.Utils;
 
 public class RecordActivity extends BaseActivity implements MediaPlayer.OnCompletionListener {
 
@@ -58,6 +58,8 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
     private static final String FILE_NAME = "bendi_voice";//录音文件名
     private static final int PERMS_REQUEST_AUDIO = 998;
     private static final int PERMS_REQUEST_STORAGE = 999;
+    private boolean requestPermissionSuccess = false;
+
 
     @Override
     protected int getLayoutId() {
@@ -82,6 +84,29 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
         btnRecordUpload.setVisibility(View.GONE);
     }
 
+    @PermissionSuccess(requestCode = PERMS_REQUEST_AUDIO)
+    public void requestAudioSuccess() {
+        PermissionGen.with(RecordActivity.this)
+                .addRequestCode(PERMS_REQUEST_STORAGE)
+                .permissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .request();
+    }
+
+    @PermissionFail(requestCode = PERMS_REQUEST_AUDIO)
+    public void requestAudioFail() {
+        finish();
+    }
+
+    @PermissionSuccess(requestCode = PERMS_REQUEST_STORAGE)
+    public void requestStorageSuccess() {
+        requestPermissionSuccess = true;
+    }
+
+    @PermissionFail(requestCode = PERMS_REQUEST_STORAGE)
+    public void requestStorageFail() {
+        finish();
+    }
+
     @OnClick({R.id.ar_btn_start_record,
             R.id.ar_btn_pause_record,
             R.id.ar_btn_play_voice,
@@ -93,36 +118,26 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
         hideAllButton();
         switch (view.getId()) {
             case R.id.ar_btn_start_record: {// 点击开始录音
-                if (PackageManager.PERMISSION_GRANTED == ContextCompat.
-                        checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO)) {
-                    if (PackageManager.PERMISSION_GRANTED == ContextCompat.
-                            checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        btnPauseRecord.setVisibility(View.VISIBLE);
-                        btnRecordDone.setVisibility(View.VISIBLE);
-                        if (mAudioRecorder == null) {
-                            mAudioRecorder = AudioRecorder.getInstance();
-                            mAudioRecorder.createDefaultAudio(FILE_NAME);
-                        }
-                        if (isRecordAgain)
-                            mAudioRecorder.createDefaultAudio(FILE_NAME);
-                        isRecordAgain = false;
-                        mAudioRecorder.startRecord(null);
-                        if (mCountTimeHandler == null)
-                            mCountTimeHandler = new CountTimeHandler(tvCountTime);
-                        mCountTimeHandler.startCount();
-                    } else {
-                        btnStartRecord.setVisibility(View.VISIBLE);
-                        //申请文件权限
-                        ActivityCompat.requestPermissions(this,
-                                new String[]{"android.permission.WRITE_EXTERNAL_STORAGE"},
-                                PERMS_REQUEST_STORAGE);
+                if (!Utils.isOverMarshmallow() || requestPermissionSuccess) {
+                    btnPauseRecord.setVisibility(View.VISIBLE);
+                    btnRecordDone.setVisibility(View.VISIBLE);
+                    if (mAudioRecorder == null) {
+                        mAudioRecorder = AudioRecorder.getInstance();
+                        mAudioRecorder.createDefaultAudio(FILE_NAME);
                     }
+                    if (isRecordAgain)
+                        mAudioRecorder.createDefaultAudio(FILE_NAME);
+                    isRecordAgain = false;
+                    mAudioRecorder.startRecord(null);
+                    if (mCountTimeHandler == null)
+                        mCountTimeHandler = new CountTimeHandler(tvCountTime);
+                    mCountTimeHandler.startCount();
                 } else {
                     btnStartRecord.setVisibility(View.VISIBLE);
-                    //申请录音权限
-                    ActivityCompat.requestPermissions(this,
-                            new String[]{"android.permission.RECORD_AUDIO"},
-                            PERMS_REQUEST_AUDIO);
+                    PermissionGen.with(RecordActivity.this)
+                            .addRequestCode(PERMS_REQUEST_AUDIO)
+                            .permissions(Manifest.permission.RECORD_AUDIO)
+                            .request();
                 }
             }
             break;
@@ -227,28 +242,7 @@ public class RecordActivity extends BaseActivity implements MediaPlayer.OnComple
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMS_REQUEST_AUDIO:
-                boolean isOpenAudio = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!isOpenAudio) {
-                    ToastUtils.showToast(this, "请开启录音权限");
-                } else {
-                    if (!(PackageManager.PERMISSION_GRANTED == ContextCompat.
-                            checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
-                        String[] perms = {"android.permission.WRITE_EXTERNAL_STORAGE"};
-                        ActivityCompat.requestPermissions(this, perms, 12);
-                    }
-                }
-                break;
-
-            case PERMS_REQUEST_STORAGE:
-                boolean isOpenStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!isOpenStorage) {
-                    ToastUtils.showToast(this, "请开启内部存储权限");
-                }
-                break;
-        }
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     @Override

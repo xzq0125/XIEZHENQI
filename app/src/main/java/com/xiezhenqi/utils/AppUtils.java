@@ -2,7 +2,10 @@ package com.xiezhenqi.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
+import android.net.Uri;
+import android.provider.Settings;
 
 import java.util.List;
 
@@ -62,5 +65,16 @@ public class AppUtils {
     public static boolean isDebuggable(Context context) {
         return (context.getApplicationInfo().flags &=
                 ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+    }
+
+    /***
+     * 去设置界面
+     */
+    public static void toSetting(Context context) {
+        //go to setting view
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", context.getPackageName(), null);
+        intent.setData(uri);
+        context.startActivity(intent);
     }
 }
