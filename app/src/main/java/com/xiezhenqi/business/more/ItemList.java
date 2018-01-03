@@ -15,6 +15,11 @@ import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
+<<<<<<< Updated upstream
+=======
+import com.xiezhenqi.business.more.pulldownrefresh.PullDownRefreshActivity;
+import com.xiezhenqi.business.more.record.Record2Activity;
+>>>>>>> Stashed changes
 import com.xiezhenqi.business.more.record.RecordActivity;
 import com.xiezhenqi.business.more.richtext.RichTextActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
@@ -81,6 +86,7 @@ public class ItemList {
         itemList.add(new Item("ClingBarActivity", ClingBarActivity.class));
         itemList.add(new Item("RecordActivity", RecordActivity.class));
         itemList.add(new Item("LargeDialogActivity", LargeDialogActivity.class));
+        itemList.add(new Item("PullDownRefreshActivity", PullDownRefreshActivity.class));
     }
 
 }

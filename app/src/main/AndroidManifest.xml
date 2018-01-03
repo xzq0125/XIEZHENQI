@@ -60,7 +60,13 @@
         <activity android:name=".business.more.richtext.RichTextActivity" />
         <activity android:name=".business.more.cling.ClingBarActivity" />
         <activity android:name=".business.more.record.RecordActivity" />
+<<<<<<< Updated upstream
         <activity android:name=".business.more.largedialog.LargeDialogActivity"/>
+=======
+        <activity android:name=".business.more.record.Record2Activity" />
+        <activity android:name=".business.more.largedialog.LargeDialogActivity" />
+        <activity android:name=".business.more.pulldownrefresh.PullDownRefreshActivity"/>
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
