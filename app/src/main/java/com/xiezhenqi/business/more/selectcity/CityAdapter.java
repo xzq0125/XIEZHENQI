@@ -57,4 +57,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
     public String getGroupName(int index) {
         return list.get(index).first_letter.toUpperCase();
     }
+
+    public int getSelectedPosition(String letter) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).first_letter.equals(letter)) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }

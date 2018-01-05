@@ -24,6 +24,7 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
     RecyclerView ascCityList;
     @BindView(R.id.asc_side_letter_bar)
     SideLetterBar ascSideLetterBar;
+    private CityAdapter myAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -37,7 +38,7 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
         ascSideLetterBar.setOnLetterChangedListener(this);
 
         ascCityList.setLayoutManager(new LinearLayoutManager(this));
-        CityAdapter myAdapter = new CityAdapter();
+        myAdapter = new CityAdapter();
         ascCityList.setAdapter(myAdapter);
         ascCityList.addItemDecoration(new StickyItemDecoration());
         ascCityList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
@@ -49,6 +50,9 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
     @Override
     public void onLetterChanged(String letter) {
         LogUtils.debug("XZQ", "letter = " + letter);
+        int dPos = myAdapter.getSelectedPosition(letter);
+        LogUtils.debug("XZQ", "dPos = " + dPos);
+        ascCityList.scrollToPosition(dPos);
     }
 
 }
