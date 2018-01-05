@@ -18,6 +18,7 @@ import com.xiezhenqi.business.more.progress.ProgressBarActivity;
 import com.xiezhenqi.business.more.pulldownrefresh.PullDownRefreshActivity;
 import com.xiezhenqi.business.more.record.RecordActivity;
 import com.xiezhenqi.business.more.richtext.RichTextActivity;
+import com.xiezhenqi.business.more.selectcity.SelectCityActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
 
@@ -83,6 +84,7 @@ public class ItemList {
         itemList.add(new Item("RecordActivity", RecordActivity.class));
         itemList.add(new Item("LargeDialogActivity", LargeDialogActivity.class));
         itemList.add(new Item("PullDownRefreshActivity", PullDownRefreshActivity.class));
+        itemList.add(new Item("SelectCityActivity", SelectCityActivity.class));
     }
 
 }

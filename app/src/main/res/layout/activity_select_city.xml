@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:context=".business.more.selectcity.SelectCityActivity">
+
+    <include layout="@layout/merge_toolbar" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/asc_city_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.xiezhenqi.business.more.selectcity.SideLetterBar
+            android:id="@+id/asc_side_letter_bar"
+            android:layout_width="36dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            tools:ignore="RtlHardcoded" />
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
