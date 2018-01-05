@@ -16,7 +16,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class SelectCityActivity extends BaseActivity implements SideLetterBar.OnLetterChangedListener {
+public class SelectCityActivity extends BaseActivity
+        implements SideLetterBar.OnLetterChangedListener, CityViewHolder.OnItemClickListener {
 
     @BindView(android.R.id.title)
     TextView title;
@@ -25,6 +26,8 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
     @BindView(R.id.asc_side_letter_bar)
     SideLetterBar ascSideLetterBar;
     private CityAdapter myAdapter;
+    private List<CityDto> list;
+    private LinearLayoutManager layoutManager;
 
     @Override
     protected int getLayoutId() {
@@ -37,13 +40,13 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
         title.setText("选择城市");
         ascSideLetterBar.setOnLetterChangedListener(this);
 
-        ascCityList.setLayoutManager(new LinearLayoutManager(this));
-        myAdapter = new CityAdapter();
+        ascCityList.setLayoutManager(layoutManager = new LinearLayoutManager(this));
+        myAdapter = new CityAdapter(this);
         ascCityList.setAdapter(myAdapter);
-        ascCityList.addItemDecoration(new StickyItemDecoration());
+        ascCityList.addItemDecoration(new StickyItemDecoration(this));
         ascCityList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
 
-        List<CityDto> list = DBHelper.getInstance(this).getAllCities();
+        list = DBHelper.getInstance(this).getAllCities();
         myAdapter.setData(list);
     }
 
@@ -52,7 +55,14 @@ public class SelectCityActivity extends BaseActivity implements SideLetterBar.On
         LogUtils.debug("XZQ", "letter = " + letter);
         int dPos = myAdapter.getSelectedPosition(letter);
         LogUtils.debug("XZQ", "dPos = " + dPos);
-        ascCityList.scrollToPosition(dPos);
+        if (dPos >= 0) {
+            layoutManager.scrollToPositionWithOffset(dPos, 0);
+            layoutManager.setStackFromEnd(true);
+        }
     }
 
+    @Override
+    public void onCityClick(CityDto city, int position) {
+        LogUtils.debug("XZQ", "position = " + position);
+    }
 }

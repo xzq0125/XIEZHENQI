@@ -11,6 +11,7 @@
     <dimen name="common_item_marginTop">10dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="toolbar_height">45dp</dimen>
+    <dimen name="selected_bar_height">20dp</dimen>
 
 
     <dimen name="red_action_button_size">108dp</dimen>
@@ -35,5 +36,5 @@
     <dimen name="sub_action_button_size">36dp</dimen>
     <dimen name="sub_action_button_content_margin">6dp</dimen>
 
-    <dimen name="index_bar_text_size">10sp</dimen>
+    <dimen name="index_bar_text_size">11sp</dimen>
 </resources>

@@ -50,7 +50,7 @@ public class SideLetterBar extends View {
             canvas.drawColor(Color.TRANSPARENT);
         }
 
-        int height = getHeight();
+        int height = getHeight() - getPaddingBottom();
         int width = getWidth();
         int singleHeight = height / b.length;
         for (int i = 0; i < b.length; i++) {
@@ -58,7 +58,7 @@ public class SideLetterBar extends View {
             paint.setColor(getResources().getColor(R.color.themeColor));
             paint.setAntiAlias(true);
             if (i == choose) {
-                paint.setColor(getResources().getColor(R.color.themeColor));
+                //paint.setColor(getResources().getColor(R.color.themeColor));
 //                paint.setFakeBoldText(true);  //加粗
             }
             float xPos = width / 2 - paint.measureText(b[i]) / 2;
@@ -75,7 +75,7 @@ public class SideLetterBar extends View {
         final float y = event.getY();
         final int oldChoose = choose;
         final OnLetterChangedListener listener = onLetterChangedListener;
-        final int c = (int) (y / getHeight() * b.length);
+        final int c = (int) (y / (getHeight() - getPaddingBottom()) * b.length);
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:

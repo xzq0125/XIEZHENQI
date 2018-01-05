@@ -18,17 +18,22 @@ import java.util.List;
 public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     private List<CityDto> list = new ArrayList<>();
+    private CityViewHolder.OnItemClickListener listener;
+
+    public CityAdapter(CityViewHolder.OnItemClickListener listener) {
+        this.listener = listener;
+    }
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_city_list, parent, false);
-        return new CityViewHolder(itemView);
+        return new CityViewHolder(itemView, listener);
     }
 
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
-        holder.setData(list.get(position));
+        holder.setData(list.get(position), position);
     }
 
     @Override
@@ -54,8 +59,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
         return true;
     }
 
+    public long getGroupId(int position) {
+        return Character.toUpperCase(list.get(position).first_letter.charAt(0));
+    }
+
+
     public String getGroupName(int index) {
-        return list.get(index).first_letter.toUpperCase();
+        return list.get(index).first_letter;
     }
 
     public int getSelectedPosition(String letter) {
@@ -64,6 +74,6 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
                 return i;
             }
         }
-        return 0;
+        return -1;
     }
 }
