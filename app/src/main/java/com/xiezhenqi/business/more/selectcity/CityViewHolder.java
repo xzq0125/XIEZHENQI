@@ -17,11 +17,24 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private CityDto data;
     private int position;
 
-    public CityViewHolder(View itemView, OnItemClickListener listener) {
+    public CityViewHolder(View itemView, int viewType, OnItemClickListener listener) {
         super(itemView);
-        this.listener = listener;
-        itemView.setOnClickListener(this);
-        tvName = (TextView) itemView.findViewById(R.id.icl_tv_name);
+        switch (viewType) {
+            default:
+            case 0: {
+                this.listener = listener;
+                itemView.setOnClickListener(this);
+                tvName = (TextView) itemView.findViewById(R.id.icl_tv_name);
+            }
+            break;
+
+            case 1: {
+                this.listener = listener;
+                itemView.setOnClickListener(this);
+            }
+            break;
+        }
+
     }
 
     public void setData(CityDto data, int position) {

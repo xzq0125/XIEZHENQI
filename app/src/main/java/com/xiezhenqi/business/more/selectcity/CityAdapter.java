@@ -26,19 +26,39 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_city_list, parent, false);
-        return new CityViewHolder(itemView, listener);
+        switch (viewType) {
+            default:
+            case 1: {
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_city_hot, parent, false);
+                return new CityViewHolder(itemView, viewType, listener);
+            }
+
+            case 0: {
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_city_list, parent, false);
+                return new CityViewHolder(itemView, viewType, listener);
+            }
+        }
+
     }
 
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
-        holder.setData(list.get(position), position);
+        if (position != 0)
+            holder.setData(list.get(position), position);
     }
 
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == 0)
+            return 1;
+        return 0;
     }
 
     public void setData(List<CityDto> list) {
@@ -65,6 +85,9 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
 
     public String getGroupName(int index) {
+        if (index == 0) {
+            return list.get(index).name;
+        }
         return list.get(index).first_letter;
     }
 

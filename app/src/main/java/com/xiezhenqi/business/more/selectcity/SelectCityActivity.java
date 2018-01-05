@@ -47,6 +47,7 @@ public class SelectCityActivity extends BaseActivity
         ascCityList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
 
         list = DBHelper.getInstance(this).getAllCities();
+        list.add(0, new CityDto("热门", "#"));
         myAdapter.setData(list);
     }
 
