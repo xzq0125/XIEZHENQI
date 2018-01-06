@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.utils.LogUtils;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
 import java.util.List;
@@ -17,7 +18,8 @@ import java.util.List;
 import butterknife.BindView;
 
 public class SelectCityActivity extends BaseActivity
-        implements SideLetterBar.OnLetterChangedListener, CityViewHolder.OnItemClickListener {
+        implements SideLetterBar.OnLetterChangedListener,
+        CityViewHolder.OnItemClickListener {
 
     @BindView(android.R.id.title)
     TextView title;
@@ -48,6 +50,8 @@ public class SelectCityActivity extends BaseActivity
 
         list = DBHelper.getInstance(this).getAllCities();
         list.add(0, new CityDto("热门", "#"));
+        list.add(0, new CityDto("定位", "!"));
+        list.add(0, new CityDto("", "搜"));
         myAdapter.setData(list);
     }
 
@@ -65,5 +69,11 @@ public class SelectCityActivity extends BaseActivity
     @Override
     public void onCityClick(CityDto city, int position) {
         LogUtils.debug("XZQ", "position = " + position);
+        ToastUtils.showToast(this, city.name);
+    }
+
+    @Override
+    public void onSearchClick(int position) {
+        ToastUtils.showToast(this, "搜索");
     }
 }

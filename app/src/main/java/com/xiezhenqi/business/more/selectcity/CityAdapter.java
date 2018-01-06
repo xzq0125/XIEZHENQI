@@ -28,13 +28,22 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
     public CityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             default:
-            case 1: {
+            case CityViewHolder.TYPE_SEARCH: {
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_city_search, parent, false);
+                return new CityViewHolder(itemView, viewType, listener);
+            }
+            case CityViewHolder.TYPE_LOCATION: {
                 View itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_city_hot, parent, false);
                 return new CityViewHolder(itemView, viewType, listener);
             }
-
-            case 0: {
+            case CityViewHolder.TYPE_HOT: {
+                View itemView = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_city_hot, parent, false);
+                return new CityViewHolder(itemView, viewType, listener);
+            }
+            case CityViewHolder.TYPE_NORMAL: {
                 View itemView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_city_list, parent, false);
                 return new CityViewHolder(itemView, viewType, listener);
@@ -45,7 +54,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     @Override
     public void onBindViewHolder(CityViewHolder holder, int position) {
-        if (position != 0)
+        int viewType = getItemViewType(position);
+        if (viewType == CityViewHolder.TYPE_NORMAL)
             holder.setData(list.get(position), position);
     }
 
@@ -57,8 +67,12 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
     @Override
     public int getItemViewType(int position) {
         if (position == 0)
-            return 1;
-        return 0;
+            return CityViewHolder.TYPE_SEARCH;
+        if (position == 1)
+            return CityViewHolder.TYPE_LOCATION;
+        if (position == 2)
+            return CityViewHolder.TYPE_HOT;
+        return CityViewHolder.TYPE_NORMAL;
     }
 
     public void setData(List<CityDto> list) {
@@ -70,7 +84,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     public boolean isFirstOfGroup(int position) {
         if (position == 0) {
-            return true;
+            return false;
         }
         int prevPosition = position - 1;
         if (list.get(prevPosition).first_letter.equals(list.get(position).first_letter)) {
@@ -85,7 +99,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
 
     public String getGroupName(int index) {
-        if (index == 0) {
+        if (index == 0 || index == 1 || index == 2) {
             return list.get(index).name;
         }
         return list.get(index).first_letter;

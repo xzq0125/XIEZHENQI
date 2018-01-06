@@ -25,15 +25,14 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
     private int topGap;
     private Paint.FontMetrics fontMetrics;
 
-
     public StickyItemDecoration(Context context) {
         Resources res = context.getResources();
         paint = new Paint();
-        paint.setColor(res.getColor(R.color.progress_unreached_color));
+        paint.setColor(res.getColor(R.color.common_background));
 
         textPaint = new TextPaint();
         textPaint.setAntiAlias(true);
-        textPaint.setTextSize(50);
+        textPaint.setTextSize(res.getDimensionPixelSize(R.dimen.selected_bar_text_size));
         textPaint.setColor(Color.BLACK);
         textPaint.getFontMetrics(fontMetrics);
         textPaint.setTextAlign(Paint.Align.LEFT);
@@ -50,7 +49,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
         CityAdapter adapter = (CityAdapter) parent.getAdapter();
         long groupId = adapter.getGroupId(pos);
         if (groupId < 0) return;
-        if (pos == 0 || adapter.isFirstOfGroup(pos)) {
+        if (adapter.isFirstOfGroup(pos)) {
             outRect.top = topGap - 1;
         } else {
             outRect.top = 0;
@@ -87,7 +86,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
                 }
             }
             c.drawRect(left, textY - topGap, right, textY, paint);
-            c.drawText(textLine, left + topGap, textY - (topGap - lineHeight), textPaint);
+            c.drawText(textLine, left + topGap, textY - (topGap - lineHeight) / 2 - 5, textPaint);
         }
 
     }
