@@ -13,6 +13,10 @@ import com.xiezhenqi.R;
 
 public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    public static final int TYPE_SEARCH = 1;
+    public static final int TYPE_LOCATION = 2;
+    public static final int TYPE_HOT = 3;
+    public static final int TYPE_NORMAL = 4;
     private TextView tvName;
     private CityDto data;
     private int position;
@@ -20,17 +24,23 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public CityViewHolder(View itemView, int viewType, OnItemClickListener listener) {
         super(itemView);
         switch (viewType) {
-            default:
-            case 0: {
+            case TYPE_NORMAL: {
                 this.listener = listener;
                 itemView.setOnClickListener(this);
                 tvName = (TextView) itemView.findViewById(R.id.icl_tv_name);
             }
             break;
 
-            case 1: {
+            case TYPE_SEARCH: {
                 this.listener = listener;
                 itemView.setOnClickListener(this);
+            }
+            break;
+
+            case TYPE_LOCATION:
+            case TYPE_HOT: {
+                this.listener = listener;
+                //itemView.setOnClickListener(this);
             }
             break;
         }
@@ -45,7 +55,14 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if (listener != null) {
+        switch (v.getId()) {
+            case R.id.lcs_btn_go_search:
+                if (listener != null) {
+                    listener.onSearchClick(position);
+                }
+                return;
+        }
+        if (listener != null && data != null) {
             listener.onCityClick(data, position);
         }
     }
@@ -54,5 +71,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public interface OnItemClickListener {
         void onCityClick(CityDto city, int position);
+
+        void onSearchClick(int position);
     }
 }

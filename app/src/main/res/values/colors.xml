@@ -17,6 +17,7 @@
     <color name="themeColor">#fffd6a27</color>
 
     <color name="common_bg">#ff1d3749</color>
+    <color name="common_background">#ffeeeeee</color>
 
     <color name="ripple_light">#1f000000</color>
     <color name="ripple_dark">#4dffffff</color>

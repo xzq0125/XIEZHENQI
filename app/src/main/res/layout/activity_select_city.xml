@@ -15,19 +15,56 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/asc_city_list"
+        <FrameLayout
+            android:id="@+id/asc_flyt_city"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.xiezhenqi.business.more.selectcity.SideLetterBar
-            android:id="@+id/asc_side_letter_bar"
-            android:layout_width="36dp"
             android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:layout_marginTop="50dp"
-            android:paddingBottom="50dp"
-            tools:ignore="RtlHardcoded" />
+            android:visibility="gone">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/asc_city_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.xiezhenqi.business.more.selectcity.SideLetterBar
+                android:id="@+id/asc_side_letter_bar"
+                android:layout_width="36dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginTop="50dp"
+                android:paddingBottom="50dp"
+                tools:ignore="RtlHardcoded" />
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/asc_llyt_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <include layout="@layout/layout_city_search" />
+
+            <TextView
+                android:id="@+id/asc_tv_search_result_count"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:background="@color/common_background"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="有33个搜索结果"
+                android:textColor="#ff333333"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/asc_search_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </FrameLayout>
 

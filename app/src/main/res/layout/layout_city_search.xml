@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/lcs_edt_text"
+        style="@style/EditTextStyleNoCursorDrawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_theme"
+        android:drawableLeft="@drawable/ic_search_city"
+        android:drawablePadding="5dp"
+        android:drawableStart="@drawable/ic_search_city"
+        android:ellipsize="end"
+        android:gravity="start|center"
+        android:hint="输入城市名货拼音查询"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="35dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text=""
+        android:textColor="@color/black"
+        android:textColorHint="#ff999999"
+        android:textSize="15sp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/lcs_btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="取消"
+        android:textColor="@color/themeColor"
+        android:textSize="15sp" />
+
+</LinearLayout>

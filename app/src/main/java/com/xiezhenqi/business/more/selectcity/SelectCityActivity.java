@@ -5,19 +5,30 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.utils.LogUtils;
+import com.xiezhenqi.utils.SoftInputUtils;
+import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SelectCityActivity extends BaseActivity
-        implements SideLetterBar.OnLetterChangedListener, CityViewHolder.OnItemClickListener {
+        implements SideLetterBar.OnLetterChangedListener,
+        CityViewHolder.OnItemClickListener, TextWatcher, SearchResultViewHolder.OnResultCityClickListener {
 
     @BindView(android.R.id.title)
     TextView title;
@@ -25,9 +36,23 @@ public class SelectCityActivity extends BaseActivity
     RecyclerView ascCityList;
     @BindView(R.id.asc_side_letter_bar)
     SideLetterBar ascSideLetterBar;
+    @BindView(R.id.lcs_edt_text)
+    EditText edtText;
+    @BindView(R.id.lcs_btn_cancel)
+    TextView btnCancel;
+    @BindView(R.id.asc_tv_search_result_count)
+    TextView tvResultCount;
+    @BindView(R.id.asc_search_result_list)
+    RecyclerView searchResultList;
+    @BindView(R.id.asc_llyt_search)
+    ViewGroup vgSearch;
+    @BindView(R.id.asc_flyt_city)
+    ViewGroup vgCity;
     private CityAdapter myAdapter;
+    private SearchResultAdapter searchResultAdapter;
     private List<CityDto> list;
     private LinearLayoutManager layoutManager;
+    private DBHelper dbHelper;
 
     @Override
     protected int getLayoutId() {
@@ -38,17 +63,31 @@ public class SelectCityActivity extends BaseActivity
     protected void initViews(@Nullable Bundle savedInstanceState) {
         setSupportActionBar(R.id.tool_bar);
         title.setText("选择城市");
-        ascSideLetterBar.setOnLetterChangedListener(this);
 
+        vgCity.setVisibility(View.VISIBLE);
+        vgSearch.setVisibility(View.GONE);
+
+        ascSideLetterBar.setOnLetterChangedListener(this);
         ascCityList.setLayoutManager(layoutManager = new LinearLayoutManager(this));
         myAdapter = new CityAdapter(this);
         ascCityList.setAdapter(myAdapter);
         ascCityList.addItemDecoration(new StickyItemDecoration(this));
         ascCityList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
 
-        list = DBHelper.getInstance(this).getAllCities();
+        searchResultList.setLayoutManager(new LinearLayoutManager(this));
+        searchResultAdapter = new SearchResultAdapter(this);
+        searchResultList.setAdapter(searchResultAdapter);
+        searchResultList.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this, R.drawable.divider_common_horizontal)));
+
+
+        dbHelper = DBHelper.getInstance(this);
+        list = dbHelper.getAllCities();
         list.add(0, new CityDto("热门", "#"));
+        list.add(0, new CityDto("定位", "!"));
+        list.add(0, new CityDto("", "搜"));
         myAdapter.setData(list);
+
+        edtText.addTextChangedListener(this);
     }
 
     @Override
@@ -65,5 +104,54 @@ public class SelectCityActivity extends BaseActivity
     @Override
     public void onCityClick(CityDto city, int position) {
         LogUtils.debug("XZQ", "position = " + position);
+        ToastUtils.showToast(this, city.name);
+    }
+
+    @Override
+    public void onSearchClick(int position) {
+        vgCity.setVisibility(View.GONE);
+        vgSearch.setVisibility(View.VISIBLE);
+        SoftInputUtils.show(this, edtText);
+    }
+
+    @OnClick(R.id.lcs_btn_cancel)
+    public void onCancelClick() {
+        vgCity.setVisibility(View.VISIBLE);
+        vgSearch.setVisibility(View.GONE);
+        SoftInputUtils.hide(this, edtText);
+        searchResultAdapter.setData(null);
+        edtText.setText(null);
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+        String keyword = s.toString();
+        if (TextUtils.isEmpty(keyword)) {
+            searchResultAdapter.setData(null);
+            tvResultCount.setVisibility(View.GONE);
+            return;
+        }
+        List<CityDto> searchList = dbHelper.searchCity(keyword);
+        searchResultAdapter.setData(searchList);
+        tvResultCount.setVisibility(View.VISIBLE);
+        String countFormatStr = String.format(Locale.getDefault(), format, searchList.size());
+        tvResultCount.setText(countFormatStr);
+    }
+
+    public static final String format = "有%1$d个搜索结果";
+
+    @Override
+    public void onCityClick(CityDto city) {
+        ToastUtils.showToast(this, city.name);
     }
 }
