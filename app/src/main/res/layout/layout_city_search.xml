@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ics_flyt_search"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:gravity="center">
+    android:animateLayoutChanges="true"
+    android:gravity="center"
+    android:orientation="horizontal">
 
     <EditText
         android:id="@+id/lcs_edt_text"
         style="@style/EditTextStyleNoCursorDrawable"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:layout_weight="1"
         android:background="@drawable/bg_theme"
         android:drawableLeft="@drawable/ic_search_city"
+        android:drawablePadding="5dp"
         android:drawableStart="@drawable/ic_search_city"
         android:ellipsize="end"
-        android:focusable="false"
         android:gravity="start|center"
         android:hint="输入城市名货拼音查询"
         android:imeOptions="actionDone"
         android:inputType="text"
         android:maxLines="1"
-        android:minHeight="40dp"
+        android:minHeight="35dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:text=""
@@ -32,4 +32,14 @@
         android:textSize="15sp"
         android:visibility="visible" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/lcs_btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="取消"
+        android:textColor="@color/themeColor"
+        android:textSize="15sp" />
+
+</LinearLayout>

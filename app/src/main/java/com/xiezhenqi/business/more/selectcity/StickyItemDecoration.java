@@ -74,8 +74,8 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
             groupId = adapter.getGroupId(position);
             if (groupId < 0 || groupId == preGroupId) continue;
 
-            String textLine = adapter.getGroupName(position).toUpperCase();
-            if (TextUtils.isEmpty(textLine)) continue;
+            String groupName = adapter.getGroupName(position).toUpperCase();
+            if (TextUtils.isEmpty(groupName)) continue;
 
             int viewBottom = view.getBottom();
             float textY = Math.max(topGap, view.getTop());
@@ -86,7 +86,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
                 }
             }
             c.drawRect(left, textY - topGap, right, textY, paint);
-            c.drawText(textLine, left + topGap, textY - (topGap - lineHeight) / 2 - 5, textPaint);
+            c.drawText(groupName, left + topGap, textY - (topGap - lineHeight) / 2 - 5, textPaint);
         }
 
     }

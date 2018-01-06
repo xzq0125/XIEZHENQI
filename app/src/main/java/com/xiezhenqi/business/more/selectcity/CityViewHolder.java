@@ -62,7 +62,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 }
                 return;
         }
-        if (listener != null) {
+        if (listener != null && data != null) {
             listener.onCityClick(data, position);
         }
     }
