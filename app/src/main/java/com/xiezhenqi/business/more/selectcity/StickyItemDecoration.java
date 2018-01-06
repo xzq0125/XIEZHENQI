@@ -23,7 +23,6 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
     private TextPaint textPaint;
     private Paint paint;
     private int topGap;
-    private Paint.FontMetrics fontMetrics;
 
 
     public StickyItemDecoration(Context context) {
@@ -35,9 +34,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
         textPaint.setAntiAlias(true);
         textPaint.setTextSize(50);
         textPaint.setColor(Color.BLACK);
-        textPaint.getFontMetrics(fontMetrics);
         textPaint.setTextAlign(Paint.Align.LEFT);
-        fontMetrics = new Paint.FontMetrics();
         topGap = res.getDimensionPixelSize(R.dimen.selected_bar_height);
 
     }
@@ -64,7 +61,6 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
         int childCount = parent.getChildCount();
         int left = parent.getPaddingLeft();
         int right = parent.getWidth() - parent.getPaddingRight();
-        float lineHeight = textPaint.getTextSize() + fontMetrics.descent;
         long preGroupId, groupId = -1;
         CityAdapter adapter = (CityAdapter) parent.getAdapter();
         for (int i = 0; i < childCount; i++) {
@@ -87,7 +83,9 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
                 }
             }
             c.drawRect(left, textY - topGap, right, textY, paint);
-            c.drawText(textLine, left + topGap, textY - (topGap - lineHeight), textPaint);
+            Paint.FontMetrics fm = textPaint.getFontMetrics();
+            float textBaseLine = textY - (topGap - (fm.bottom - fm.top)) / 2 - fm.bottom;
+            c.drawText(textLine, left + topGap, textBaseLine, textPaint);
         }
 
     }
