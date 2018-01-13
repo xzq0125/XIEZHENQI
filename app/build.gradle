@@ -28,6 +28,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 
     productFlavors {
         amarket {
@@ -70,4 +75,5 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'com.lovedise:permissiongen:0.0.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    compile files('libs/BaiduLBS_Android.jar')
 }

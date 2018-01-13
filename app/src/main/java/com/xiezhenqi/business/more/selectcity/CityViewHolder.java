@@ -20,6 +20,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private TextView tvName;
     private CityDto data;
     private int position;
+    private TextView tvLocation;
 
     public CityViewHolder(View itemView, int viewType, OnItemClickListener listener) {
         super(itemView);
@@ -37,7 +38,11 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
             }
             break;
 
-            case TYPE_LOCATION:
+            case TYPE_LOCATION: {
+                tvLocation = (TextView) itemView.findViewById(R.id.icl_tv_location);
+            }
+            break;
+
             case TYPE_HOT: {
                 this.listener = listener;
                 //itemView.setOnClickListener(this);
@@ -51,6 +56,10 @@ public class CityViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         this.data = data;
         this.position = position;
         tvName.setText(data.name);
+    }
+
+    public void setLocation(String locationName) {
+        tvLocation.setText(locationName);
     }
 
     @Override

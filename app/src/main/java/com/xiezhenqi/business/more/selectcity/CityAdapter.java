@@ -20,6 +20,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
 
     private List<CityDto> list = new ArrayList<>();
     private CityViewHolder.OnItemClickListener listener;
+    private String locationName;
 
     public CityAdapter(CityViewHolder.OnItemClickListener listener) {
         this.listener = listener;
@@ -36,7 +37,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
             }
             case CityViewHolder.TYPE_LOCATION: {
                 View itemView = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_city_hot, parent, false);
+                        .inflate(R.layout.item_city_location, parent, false);
                 return new CityViewHolder(itemView, viewType, listener);
             }
             case CityViewHolder.TYPE_HOT: {
@@ -58,6 +59,10 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
         int viewType = getItemViewType(position);
         if (viewType == CityViewHolder.TYPE_NORMAL)
             holder.setData(list.get(position), position);
+        else if (viewType == CityViewHolder.TYPE_LOCATION) {
+            if (!TextUtils.isEmpty(locationName))
+                holder.setLocation(locationName);
+        }
     }
 
     @Override
@@ -113,5 +118,10 @@ public class CityAdapter extends RecyclerView.Adapter<CityViewHolder> {
                 return i;
         }
         return -1;
+    }
+
+    public void setLocation(String locationName) {
+        this.locationName = locationName;
+        notifyItemChanged(1);
     }
 }

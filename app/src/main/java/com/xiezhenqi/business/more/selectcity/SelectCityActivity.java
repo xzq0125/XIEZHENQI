@@ -1,6 +1,8 @@
 package com.xiezhenqi.business.more.selectcity;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.baidu.location.Address;
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.utils.LogUtils;
@@ -25,11 +28,17 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import kr.co.namee.permissiongen.PermissionFail;
+import kr.co.namee.permissiongen.PermissionGen;
+import kr.co.namee.permissiongen.PermissionSuccess;
 
 public class SelectCityActivity extends BaseActivity
         implements SideLetterBar.OnLetterChangedListener,
-        CityViewHolder.OnItemClickListener, TextWatcher, SearchResultViewHolder.OnResultCityClickListener {
+        CityViewHolder.OnItemClickListener, TextWatcher,
+        SearchResultViewHolder.OnResultCityClickListener,
+        MyLocationListener.OnGetBDLocationListener {
 
+    private static final int PERMS_REQUEST_LOCATION = 99;
     @BindView(android.R.id.title)
     TextView title;
     @BindView(R.id.asc_city_list)
@@ -69,6 +78,7 @@ public class SelectCityActivity extends BaseActivity
 
         ascSideLetterBar.setOnLetterChangedListener(this);
         ascCityList.setLayoutManager(layoutManager = new LinearLayoutManager(this));
+        ascCityList.setItemAnimator(null);
         myAdapter = new CityAdapter(this);
         ascCityList.setAdapter(myAdapter);
         ascCityList.addItemDecoration(new StickyItemDecoration(this));
@@ -88,7 +98,32 @@ public class SelectCityActivity extends BaseActivity
         myAdapter.setData(list);
 
         edtText.addTextChangedListener(this);
+
+        PermissionGen.with(this)
+                .addRequestCode(PERMS_REQUEST_LOCATION)
+                .permissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+                .request();
+
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
+    @PermissionSuccess(requestCode = PERMS_REQUEST_LOCATION)
+    public void requestLocationSuccess() {
+        bdLocationUtils = new BDLocationUtils(this, this);
+        bdLocationUtils.doLocation();
+        bdLocationUtils.mLocationClient.start();
+    }
+
+    @PermissionFail(requestCode = PERMS_REQUEST_LOCATION)
+    public void requestLocationFail() {
+        ToastUtils.showToast(this, "请开启手机定位，以获取您当前的城市");
+    }
+
+    private BDLocationUtils bdLocationUtils;
 
     @Override
     public void onLetterChanged(String letter) {
@@ -153,5 +188,17 @@ public class SelectCityActivity extends BaseActivity
     @Override
     public void onCityClick(CityDto city) {
         ToastUtils.showToast(this, city.name);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (bdLocationUtils != null)
+            bdLocationUtils.mLocationClient.stop();
+        super.onDestroy();
+    }
+
+    @Override
+    public void onGetBDLocation(Address address) {
+        myAdapter.setLocation(address.city);
     }
 }
