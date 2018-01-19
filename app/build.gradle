@@ -54,6 +54,7 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/xUtils-2.6.14.jar')
     compile project(':InitActivity')
+    compile files('libs/BaiduLBS_Android.jar')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.jakewharton:butterknife:8.8.1'
@@ -75,5 +76,4 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile 'com.lovedise:permissiongen:0.0.6'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    compile files('libs/BaiduLBS_Android.jar')
 }
