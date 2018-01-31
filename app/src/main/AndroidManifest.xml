@@ -99,6 +99,8 @@
             android:value="SUmjHV4jEkK57Fj7UWoWjhWTqR7u79MU" />
 
 
+
+        <activity android:name=".business.more.playaac.PlayAacActivity"></activity>
     </application>
 
 </manifest>
