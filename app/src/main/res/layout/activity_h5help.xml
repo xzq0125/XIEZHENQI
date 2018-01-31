@@ -42,7 +42,7 @@
             android:id="@+id/h5help_tv_title"
             style="@style/ToobarTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:layout_toEndOf="@+id/h5help_ibtn_close"
             android:layout_toRightOf="@+id/h5help_ibtn_close"

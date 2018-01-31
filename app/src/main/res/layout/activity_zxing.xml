@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.xiezhenqi.business.more.zxing.ZxingActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_toolbar_normal">
+
+        <TextView
+            android:id="@android:id/title"
+            style="@style/ToobarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="标题" />
+
+        <TextView
+            android:id="@+id/btn_open_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="相册" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="45dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/btn_open_light"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:text="开灯"
+        android:textColor="@color/themeColor"
+        android:textSize="20sp" />
+
+
+</FrameLayout>

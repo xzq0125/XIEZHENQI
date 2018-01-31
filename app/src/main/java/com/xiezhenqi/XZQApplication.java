@@ -9,6 +9,7 @@ import android.content.pm.ApplicationInfo;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.xiezhenqi.utils.Constant;
 import com.xiezhenqi.utils.StringUtils;
 
@@ -27,6 +28,7 @@ public class XZQApplication extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = getApplicationContext();
+        ZXingLibrary.initDisplayOpinion(this);
         Fresco.initialize(mContext);
         File file = new File(Constant.lyricPath);
         if (!file.exists()) {

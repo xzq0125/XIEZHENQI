@@ -21,6 +21,7 @@ import com.xiezhenqi.business.more.richtext.RichTextActivity;
 import com.xiezhenqi.business.more.selectcity.SelectCityActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
+import com.xiezhenqi.business.more.zxing.ZxingActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,6 +86,7 @@ public class ItemList {
         itemList.add(new Item("LargeDialogActivity", LargeDialogActivity.class));
         itemList.add(new Item("PullDownRefreshActivity", PullDownRefreshActivity.class));
         itemList.add(new Item("SelectCityActivity", SelectCityActivity.class));
+        itemList.add(new Item("ZxingActivity", ZxingActivity.class));
     }
 
 }
