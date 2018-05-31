@@ -100,7 +100,7 @@
 
 
 
-        <activity android:name=".business.more.playaac.PlayAacActivity"></activity>
+        <activity android:name=".business.more.playaac.MPermissionActivity"></activity>
     </application>
 
 </manifest>

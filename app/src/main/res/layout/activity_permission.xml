@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context=".business.more.playaac.PlayAacActivity">
+    tools:context=".business.more.playaac.MPermissionActivity">
 
     <include layout="@layout/merge_toolbar" />
 
