@@ -76,8 +76,6 @@ public class MusicPavilionViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(ivPic.getContext())
                 .load(first.albumpic_big)
-                .placeholder(R.color.common_bg)
-                .centerCrop()
                 .into(ivPic);
         tvTopName.setText(data.top_name);
 

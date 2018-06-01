@@ -3,6 +3,8 @@ package android.support.v4.widget;
 import android.support.annotation.ColorInt;
 import android.view.View;
 
+import am.drawable.MaterialProgressDrawable;
+
 /**
  * MaterialProgressDrawable
  */
@@ -19,7 +21,7 @@ public class MaterialLoadingProgressDrawable extends MaterialProgressDrawable {
 
     public MaterialLoadingProgressDrawable(View parent, @ColorInt int backgroundColor,
                                            boolean autoStart, int... schemeColors) {
-        super(parent.getContext(), parent);
+        super(parent.getContext().getResources().getDisplayMetrics().scaledDensity);
         setAlpha(255);
         setBackgroundColor(backgroundColor);
         setColorSchemeColors(schemeColors);

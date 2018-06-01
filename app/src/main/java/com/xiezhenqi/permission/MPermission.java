@@ -20,115 +20,71 @@ import static com.xiezhenqi.permission.util.MPermissionUtil.getActivity;
 
 
 public class MPermission {
-    private String[] permissions;
-    private int requestCode;
-    private Object object; // activity or fragment
 
     /**
      * ********************* util *********************
      */
 
-    public static List<String> getDeniedPermissions(Activity activity, String[] permissions) {
+    public static List<String> getDeniedPermissions(Activity activity, String... permissions) {
         return getDeniedPermissions((Object) activity, permissions);
     }
 
-    public static List<String> getDeniedPermissions(Fragment fragment, String[] permissions) {
+    public static List<String> getDeniedPermissions(Fragment fragment, String... permissions) {
         return getDeniedPermissions((Object) fragment, permissions);
     }
 
-    private static List<String> getDeniedPermissions(Object activity, String[] permissions) {
+    private static List<String> getDeniedPermissions(Object activity, String... permissions) {
         if (permissions == null || permissions.length <= 0) {
             return null;
         }
-
         return MPermissionUtil.findDeniedPermissions(getActivity(activity), permissions);
     }
 
-    public static List<String> getNeverAskAgainPermissions(Activity activity, String[] permissions) {
+    public static List<String> getNeverAskAgainPermissions(Activity activity, String... permissions) {
         return getNeverAskAgainPermissions((Object) activity, permissions);
     }
 
-    public static List<String> getNeverAskAgainPermissions(Fragment fragment, String[] permissions) {
+    public static List<String> getNeverAskAgainPermissions(Fragment fragment, String... permissions) {
         return getNeverAskAgainPermissions((Object) fragment, permissions);
     }
 
-    private static List<String> getNeverAskAgainPermissions(Object activity, String[] permissions) {
+    private static List<String> getNeverAskAgainPermissions(Object activity, String... permissions) {
         if (permissions == null || permissions.length <= 0) {
             return null;
         }
-
         return MPermissionUtil.findNeverAskAgainPermissions(getActivity(activity), permissions);
     }
 
-    public static List<String> getDeniedPermissionsWithoutNeverAskAgain(Activity activity, String[] permissions) {
+    public static List<String> getDeniedPermissionsWithoutNeverAskAgain(Activity activity, String... permissions) {
         return getDeniedPermissionsWithoutNeverAskAgain((Object) activity, permissions);
     }
 
-    public static List<String> getDeniedPermissionsWithoutNeverAskAgain(Fragment fragment, String[] permissions) {
+    public static List<String> getDeniedPermissionsWithoutNeverAskAgain(Fragment fragment, String... permissions) {
         return getDeniedPermissionsWithoutNeverAskAgain((Object) fragment, permissions);
     }
 
-    private static List<String> getDeniedPermissionsWithoutNeverAskAgain(Object activity, String[] permissions) {
+    private static List<String> getDeniedPermissionsWithoutNeverAskAgain(Object activity, String... permissions) {
         if (permissions == null || permissions.length <= 0) {
             return null;
         }
-
         return MPermissionUtil.findDeniedPermissionWithoutNeverAskAgain(getActivity(activity), permissions);
-    }
-
-    /**
-     * ********************* getToken *********************
-     */
-
-    private MPermission(Object object) {
-        this.object = object;
-    }
-
-    public static MPermission with(Activity activity) {
-        return new MPermission(activity);
-    }
-
-    public static MPermission with(Fragment fragment) {
-        return new MPermission(fragment);
-    }
-
-    public MPermission permissions(String... permissions) {
-        this.permissions = permissions;
-        return this;
-    }
-
-    public MPermission addRequestCode(int requestCode) {
-        this.requestCode = requestCode;
-        return this;
     }
 
     /**
      * ********************* request *********************
      */
-
     @TargetApi(value = Build.VERSION_CODES.M)
-    public void request() {
-        requestPermissions(object, requestCode, permissions);
-    }
-
-    public static void needPermission(Activity activity, int requestCode, String[] permissions) {
+    public static void needPermission(Activity activity, int requestCode, String... permissions) {
         requestPermissions(activity, requestCode, permissions);
     }
 
-    public static void needPermission(Fragment fragment, int requestCode, String[] permissions) {
+    @TargetApi(value = Build.VERSION_CODES.M)
+    public static void needPermission(Fragment fragment, int requestCode, String... permissions) {
         requestPermissions(fragment, requestCode, permissions);
     }
 
-    public static void needPermission(Activity activity, int requestCode, String permission) {
-        needPermission(activity, requestCode, new String[]{permission});
-    }
-
-    public static void needPermission(Fragment fragment, int requestCode, String permission) {
-        needPermission(fragment, requestCode, new String[]{permission});
-    }
-
     @TargetApi(value = Build.VERSION_CODES.M)
-    private static void requestPermissions(Object object, int requestCode, String[] permissions) {
+    private static void requestPermissions(Object object, int requestCode, String... permissions) {
         if (!MPermissionUtil.isOverMarshmallow()) {
             doExecuteSuccess(object, requestCode);
             return;
@@ -200,7 +156,7 @@ public class MPermission {
      */
 
     private static void executeMethod(Object activity, Method executeMethod) {
-        executeMethodWithParam(activity, executeMethod, new Object[]{});
+        executeMethodWithParam(activity, executeMethod);
     }
 
     private static void executeMethodWithParam(Object activity, Method executeMethod, Object... args) {
@@ -210,9 +166,7 @@ public class MPermission {
                     executeMethod.setAccessible(true);
                 }
                 executeMethod.invoke(activity, args);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
             }
         }

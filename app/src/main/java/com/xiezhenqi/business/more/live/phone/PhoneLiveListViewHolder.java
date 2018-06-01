@@ -25,7 +25,6 @@ class PhoneLiveListViewHolder extends BaseLoadMoreViewHolder {
         itemView.setTag(dto);
         Glide.with(itemView.getContext())
                 .load(dto.room_src)
-                .placeholder(R.color.lineColor_toolbar)
                 .into(ivCover);
     }
 }

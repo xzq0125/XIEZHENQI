@@ -5,6 +5,8 @@ import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.xiezhenqi.XZQApplication;
+
 /**
  * Toast工具，(防止多次触发，一直弹toast)
  * Created by sean on 2016/8/8.
@@ -50,6 +52,34 @@ public class ToastUtils {
     public static void showToast(Context context, @StringRes int resId) {
         if (mDefaultToast == null) {
             mDefaultToast = Toast.makeText(context.getApplicationContext(), resId, Toast.LENGTH_SHORT);
+        } else {
+            mDefaultToast.setText(resId);
+        }
+        mDefaultToast.show();
+    }
+
+    /**
+     * 在默认位置toast
+     *
+     * @param text 文本资源ID
+     */
+    public static void showToast(CharSequence text) {
+        if (mDefaultToast == null) {
+            mDefaultToast = Toast.makeText(XZQApplication.getContext().getApplicationContext(), text, Toast.LENGTH_SHORT);
+        } else {
+            mDefaultToast.setText(text);
+        }
+        mDefaultToast.show();
+    }
+
+    /**
+     * 在默认位置toast
+     *
+     * @param resId 文本资源ID
+     */
+    public static void showToast(@StringRes int resId) {
+        if (mDefaultToast == null) {
+            mDefaultToast = Toast.makeText(XZQApplication.getContext().getApplicationContext(), resId, Toast.LENGTH_SHORT);
         } else {
             mDefaultToast.setText(resId);
         }

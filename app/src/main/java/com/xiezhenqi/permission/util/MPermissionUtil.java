@@ -51,7 +51,6 @@ final public class MPermissionUtil {
                 neverAskAgainPermission.add(value);
             }
         }
-
         return neverAskAgainPermission;
     }
 
@@ -70,7 +69,7 @@ final public class MPermissionUtil {
 
     @TargetApi(value = Build.VERSION_CODES.M)
     public static boolean hasNeverAskAgainPermission(Activity activity, List<String> permission) {
-        //TODO:本地网采用对话框形式提示用户授权
+        //TODO:统一调用授权失败方法，采用对话框形式提示用户授权
 //        for (String value : permission) {
 //            if (activity.checkSelfPermission(value) != PackageManager.PERMISSION_GRANTED &&
 //                    !activity.shouldShowRequestPermissionRationale(value)) {
@@ -95,15 +94,14 @@ final public class MPermissionUtil {
         return findMethodWithRequestCode(clazz.getSuperclass(), annotation, requestCode);
     }
 
-    public static boolean isEqualRequestCodeFromAnnotation(Method m, Class clazz, int requestCode) {
+    private static boolean isEqualRequestCodeFromAnnotation(Method m, Class clazz, int requestCode) {
         if (clazz.equals(OnMPermissionDenied.class)) {
             return requestCode == m.getAnnotation(OnMPermissionDenied.class).requestCode();
         } else if (clazz.equals(OnMPermissionGranted.class)) {
             return requestCode == m.getAnnotation(OnMPermissionGranted.class).requestCode();
-        } else if (clazz.equals(OnMPermissionNeverAskAgain.class)) {
-            return requestCode == m.getAnnotation(OnMPermissionNeverAskAgain.class).requestCode();
         } else {
-            return false;
+            return clazz.equals(OnMPermissionNeverAskAgain.class)
+                    && requestCode == m.getAnnotation(OnMPermissionNeverAskAgain.class).requestCode();
         }
     }
 
@@ -111,7 +109,6 @@ final public class MPermissionUtil {
         if (permission == null || permission.isEmpty()) {
             return "";
         }
-
         return toString(permission.toArray(new String[permission.size()]));
     }
 
@@ -119,15 +116,12 @@ final public class MPermissionUtil {
         if (permission == null || permission.length <= 0) {
             return "";
         }
-
         StringBuilder sb = new StringBuilder();
         for (String p : permission) {
             sb.append(p.replaceFirst("android.permission.", ""));
             sb.append(",");
         }
-
         sb.deleteCharAt(sb.length() - 1);
-
         return sb.toString();
     }
 }

@@ -148,4 +148,18 @@ public class RequestUtil {
         return getMessage("拍照相关", "开启后，你可以进行拍照。");
     }
 
+    public static String getDeniedPermissionsName(Activity activity, String... permissions) {
+
+        return getTitle(LOCATION_NAME);
+    }
+
+
+    private static final String[] permissionName  = new String[10];
+
+    static {
+        for (int i = 0; i < 10; i++) {
+            permissionName[i] = android.Manifest.permission.READ_CALENDAR;
+        }
+    }
+
 }

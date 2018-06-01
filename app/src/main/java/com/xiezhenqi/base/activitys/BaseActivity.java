@@ -3,11 +3,13 @@ package com.xiezhenqi.base.activitys;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.xiezhenqi.permission.MPermission;
 import com.xiezhenqi.utils.LogUtils;
 
 import butterknife.ButterKnife;
@@ -135,6 +137,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @SuppressWarnings("unchecked")
     public <T extends View> T findViewById2(@IdRes int id) {
         return (T) findViewById(id);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        MPermission.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
 }
