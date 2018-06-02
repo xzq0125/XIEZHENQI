@@ -8,11 +8,13 @@ import android.support.v4.app.Fragment;
 
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
 import com.xiezhenqi.permission.annotation.OnMPermissionNeverAskAgain;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -95,14 +97,18 @@ final public class MPermissionUtil {
     }
 
     private static boolean isEqualRequestCodeFromAnnotation(Method m, Class clazz, int requestCode) {
+        int[] values = null;
         if (clazz.equals(OnMPermissionDenied.class)) {
-            return requestCode == m.getAnnotation(OnMPermissionDenied.class).requestCode();
+            //values = m.getAnnotation(OnMPermissionDenied.class).value();
+            return true;
         } else if (clazz.equals(OnMPermissionGranted.class)) {
-            return requestCode == m.getAnnotation(OnMPermissionGranted.class).requestCode();
-        } else {
-            return clazz.equals(OnMPermissionNeverAskAgain.class)
-                    && requestCode == m.getAnnotation(OnMPermissionNeverAskAgain.class).requestCode();
+            values = m.getAnnotation(OnMPermissionGranted.class).value();
+        } else if (clazz.equals(OnMPermissionGrantedCustomRequsetCode.class)) {
+            values = m.getAnnotation(OnMPermissionGrantedCustomRequsetCode.class).value();
+        } else if (clazz.equals(OnMPermissionNeverAskAgain.class)) {
+            values = m.getAnnotation(OnMPermissionNeverAskAgain.class).value();
         }
+        return values != null && Arrays.toString(values).contains(String.valueOf(requestCode));
     }
 
     public static String toString(List<String> permission) {

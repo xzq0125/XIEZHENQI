@@ -82,4 +82,27 @@
         <item>过火</item>
     </string-array>
     <string name="title_activity_toast">ToastActivity</string>
+
+    <!--permission name start-->
+    <string name="permission_name_calendar">日历</string>
+    <string name="permission_name_camera">相机</string>
+    <string name="permission_name_contacts">通讯录</string>
+    <string name="permission_name_location">定位</string>
+    <string name="permission_name_micro">麦克风</string>
+    <string name="permission_name_phone">电话</string>
+    <string name="permission_name_sensors">身体传感器</string>
+    <string name="permission_name_sms">短信</string>
+    <string name="permission_name_storage">存储</string>
+
+    <string name="permission_description_calendar">可以访问你的日历</string>
+    <string name="permission_description_camera">可以进行拍照</string>
+    <string name="permission_description_contacts">可以访问你的通讯录</string>
+    <string name="permission_description_location">可以定位你的位置</string>
+    <string name="permission_description_micro">可以录制声音</string>
+    <string name="permission_description_phone">可以拨打电话</string>
+    <string name="permission_description_sensors">可以检测身体感应</string>
+    <string name="permission_description_sms">可以收发短信</string>
+    <string name="permission_description_storage">可以访问你的文件</string>
+    <!--permission name end-->
+
 </resources>

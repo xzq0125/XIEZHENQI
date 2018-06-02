@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface OnMPermissionGranted {
-    int requestCode();
+    int[] value() default {-1};
 }

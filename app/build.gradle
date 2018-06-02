@@ -22,10 +22,16 @@ android {
         flavorDimensions "versionCode"
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.Release
+            debuggable true
+        } 
         release {
             minifyEnabled false
             signingConfig signingConfigs.Release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
         }
     }
     sourceSets {
@@ -65,7 +71,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'am.widget:replacelayout:1.1.0'
     implementation 'am.widget:gradienttabstrip:24.2.1.1'
-    implementation 'am.drawable:drawable:1.4.0'
+    implementation 'am.drawable:drawable:1.5.1'
     implementation 'com.github.GrenderG:Toasty:1.1.4'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.liuguangqiang.cookie:library:0.2'

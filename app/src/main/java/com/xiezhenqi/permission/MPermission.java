@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment;
 
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
 import com.xiezhenqi.permission.annotation.OnMPermissionNeverAskAgain;
 import com.xiezhenqi.permission.util.MPermissionUtil;
+import com.xiezhenqi.permission.util.PermissionRequestCode;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -140,23 +142,31 @@ public class MPermission {
      */
 
     private static void doExecuteSuccess(Object activity, int requestCode) {
-        executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(), OnMPermissionGranted.class, requestCode));
+        if (PermissionRequestCode.isCustomCode(requestCode)) {
+            executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
+                    OnMPermissionGrantedCustomRequsetCode.class, requestCode), requestCode);
+        } else {
+            executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
+                    OnMPermissionGranted.class, requestCode), requestCode);
+        }
     }
 
     private static void doExecuteFail(Object activity, int requestCode) {
-        executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(), OnMPermissionDenied.class, requestCode));
+        executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
+                OnMPermissionDenied.class, requestCode), requestCode);
     }
 
     private static void doExecuteFailAsNeverAskAgain(Object activity, int requestCode) {
-        executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(), OnMPermissionNeverAskAgain.class, requestCode));
+        executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
+                OnMPermissionNeverAskAgain.class, requestCode), requestCode);
     }
 
     /**
      * ********************* reflect execute method *********************
      */
 
-    private static void executeMethod(Object activity, Method executeMethod) {
-        executeMethodWithParam(activity, executeMethod);
+    private static void executeMethod(Object activity, Method executeMethod, Object... args) {
+        executeMethodWithParam(activity, executeMethod, args);
     }
 
     private static void executeMethodWithParam(Object activity, Method executeMethod, Object... args) {
@@ -166,7 +176,7 @@ public class MPermission {
                     executeMethod.setAccessible(true);
                 }
                 executeMethod.invoke(activity, args);
-            } catch (IllegalAccessException | InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }

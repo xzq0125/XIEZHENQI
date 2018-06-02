@@ -1,23 +1,18 @@
 package com.xiezhenqi.business.more.permission;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
-import com.xiezhenqi.permission.MPermission;
-import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
-import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
+import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -88,58 +83,40 @@ public class MPermissionActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private static String[] permission = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CAMERA};
-
-
-    @OnMPermissionDenied(requestCode = 11)
-    public void requestLocationDenied() {
-        ToastUtils.showToast("获取权限失败");
-        //showPermissionAlertDialog(RequestUtil.getDeniedPermissionsName(this, permission), RequestUtil.getLocationMessage());
-    }
-
-    @OnMPermissionGranted(requestCode = 11)
-    public void requestLocationSuccess() {
-        ToastUtils.showToast("定位权限成功");
-    }
-
-    private AlertDialog mPermissionAlertDialog;
-
-    public boolean showPermissionAlertDialog(String title, String message) {
-        if (mPermissionAlertDialog == null) {
-            mPermissionAlertDialog = new AlertDialog.Builder(this)
-                    .setTitle(title)
-                    .setMessage(message)
-                    .setCancelable(false)
-                    .setPositiveButton("去设置", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPermissionAlertDialog.dismiss();
-                            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                            Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-                            intent.setData(uri);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            mPermissionAlertDialog.dismiss();
-                        }
-                    })
-                    .show();
-        } else {
-            mPermissionAlertDialog.setTitle(title);
-            mPermissionAlertDialog.setMessage(message);
-        }
-        if (!mPermissionAlertDialog.isShowing())
-            mPermissionAlertDialog.show();
-        return true;
-    }
-
     @Override
     public void onClick(View v) {
-        MPermission.needPermission(this,
-                11,
-                (String) v.getTag());
+        int index = ((ViewGroup) v.getParent()).indexOfChild(v);
+        LogUtils.debug("XZQ", "index = " + index);
+        needPermission(index, (String) v.getTag());
     }
+
+    public void onCamera(View view) {
+        needCameraPermission();
+    }
+
+    public void onLocation(View view) {
+        needLocationPermission();
+    }
+
+    public void onStorage(View view) {
+        needStoragePermission();
+    }
+
+    public void onCameraStorage(View view) {
+        needPermission(11, Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    public void onCustom(View view) {
+        needPermission(12, Manifest.permission.READ_SMS);
+    }
+
+    @OnMPermissionGrantedCustomRequsetCode({11, 12})
+    public void onCustomSucceed(int requestCode) {
+        if (requestCode == 11) {
+            ToastUtils.showToast("相机存储授权成功");
+        } else if (requestCode == 12) {
+            ToastUtils.showToast("自定义请求码短信授权成功");
+        }
+    }
+
 }
