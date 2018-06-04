@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
-import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequestCode;
 import com.xiezhenqi.permission.annotation.OnMPermissionNeverAskAgain;
 import com.xiezhenqi.permission.util.MPermissionUtil;
 import com.xiezhenqi.permission.util.PermissionRequestCode;
@@ -144,7 +144,7 @@ public class MPermission {
     private static void doExecuteSuccess(Object activity, int requestCode) {
         if (PermissionRequestCode.isCustomCode(requestCode)) {
             executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
-                    OnMPermissionGrantedCustomRequsetCode.class, requestCode), requestCode);
+                    OnMPermissionGrantedCustomRequestCode.class, requestCode), requestCode);
         } else {
             executeMethod(activity, MPermissionUtil.findMethodWithRequestCode(activity.getClass(),
                     OnMPermissionGranted.class, requestCode), requestCode);

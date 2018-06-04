@@ -12,10 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import com.xiezhenqi.permission.MPermission;
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequestCode;
 import com.xiezhenqi.permission.util.PermissionRequestCode;
-import com.xiezhenqi.permission.util.RequestUtil;
+import com.xiezhenqi.permission.util.ResultUtil;
 import com.xiezhenqi.utils.LogUtils;
-import com.xiezhenqi.utils.ToastUtils;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by Wesley on 2018/6/2.
  */
 @SuppressWarnings("all")
-public class MPermissionActivity extends AppCompatActivity {
+public abstract class MPermissionActivity extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -101,10 +101,10 @@ public class MPermissionActivity extends AppCompatActivity {
      */
     @OnMPermissionDenied()
     protected void requestPermissionDenied(final int requestCode) {
-        LogUtils.debug("XZQ", "授权拒绝，请求码 requestCode = " + requestCode);
-        final String title = RequestUtil.getDeniedPermissionsTitle(this, permissions);
-        final String message = RequestUtil.getDeniedPermissionsDefaultMessage(this, permissions);
+        final String title = ResultUtil.getDeniedPermissionsTitle(this, permissions);
+        final String message = ResultUtil.getDeniedPermissionsDefaultMessage(this, permissions);
         showPermissionAlertDialog(title, message);
+        LogUtils.debug("XZQ", title + "\t授权拒绝，请求码 requestCode = " + requestCode);
     }
 
     /**
@@ -124,7 +124,6 @@ public class MPermissionActivity extends AppCompatActivity {
             PermissionRequestCode.STORAGE
     })
     protected void requestPermissionSuccess(final int requestCode) {
-        LogUtils.debug("XZQ", "授权成功，请求码 requestCode = " + requestCode);
         String msg = null;
         if (requestCode == PermissionRequestCode.CALENDAR) {
             msg = "日历权限申请成功";
@@ -145,7 +144,17 @@ public class MPermissionActivity extends AppCompatActivity {
         } else if (requestCode == PermissionRequestCode.STORAGE) {
             msg = "存储权限申请成功";
         }
-        ToastUtils.showToast(msg);
+        LogUtils.debug("XZQ", msg + "\t请求码 requestCode = " + requestCode);
+    }
+
+    /**
+     * 自定义请求码请求授权成功
+     *
+     * @param requestCode 请求码
+     */
+    @OnMPermissionGrantedCustomRequestCode()
+    protected void requestPermissionGrantedCustom(final int requestCode) {
+        LogUtils.debug("XZQ", "自定义请求码授权成功，请求码 requestCode = " + requestCode);
     }
 
     protected void onCalendarPermissionGot() {
@@ -177,7 +186,7 @@ public class MPermissionActivity extends AppCompatActivity {
 
     private AlertDialog mPermissionAlertDialog = null;
 
-    private void showPermissionAlertDialog(String title, String message) {
+    protected void showPermissionAlertDialog(String title, String message) {
         if (mPermissionAlertDialog == null) {
             mPermissionAlertDialog = new AlertDialog.Builder(this)
                     .setTitle(title)

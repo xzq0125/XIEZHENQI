@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseActivity;
-import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
 import com.xiezhenqi.utils.LogUtils;
-import com.xiezhenqi.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +84,7 @@ public class MPermissionActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int index = ((ViewGroup) v.getParent()).indexOfChild(v);
-        LogUtils.debug("XZQ", "index = " + index);
+        LogUtils.debug("XZQ", "requestCode = " + index);
         needPermission(index, (String) v.getTag());
     }
 
@@ -108,15 +106,6 @@ public class MPermissionActivity extends BaseActivity implements View.OnClickLis
 
     public void onCustom(View view) {
         needPermission(12, Manifest.permission.READ_SMS);
-    }
-
-    @OnMPermissionGrantedCustomRequsetCode({11, 12})
-    public void onCustomSucceed(int requestCode) {
-        if (requestCode == 11) {
-            ToastUtils.showToast("相机存储授权成功");
-        } else if (requestCode == 12) {
-            ToastUtils.showToast("自定义请求码短信授权成功");
-        }
     }
 
 }

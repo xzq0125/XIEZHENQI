@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
-import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequsetCode;
+import com.xiezhenqi.permission.annotation.OnMPermissionGrantedCustomRequestCode;
 import com.xiezhenqi.permission.annotation.OnMPermissionNeverAskAgain;
 
 import java.lang.annotation.Annotation;
@@ -103,8 +103,8 @@ final public class MPermissionUtil {
             return true;
         } else if (clazz.equals(OnMPermissionGranted.class)) {
             values = m.getAnnotation(OnMPermissionGranted.class).value();
-        } else if (clazz.equals(OnMPermissionGrantedCustomRequsetCode.class)) {
-            values = m.getAnnotation(OnMPermissionGrantedCustomRequsetCode.class).value();
+        } else if (clazz.equals(OnMPermissionGrantedCustomRequestCode.class)) {
+            return true;
         } else if (clazz.equals(OnMPermissionNeverAskAgain.class)) {
             values = m.getAnnotation(OnMPermissionNeverAskAgain.class).value();
         }
