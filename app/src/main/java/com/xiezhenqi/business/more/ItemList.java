@@ -13,6 +13,7 @@ import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.live.phone.PhoneLiveListActivity;
 import com.xiezhenqi.business.more.mazing.IDActivity;
 import com.xiezhenqi.business.more.moveview.MoveViewActivity;
+import com.xiezhenqi.business.more.mvp.MvpActivity;
 import com.xiezhenqi.business.more.order.OrderActivity;
 import com.xiezhenqi.business.more.permission.MPermissionActivity;
 import com.xiezhenqi.business.more.progress.ProgressBarActivity;
@@ -89,6 +90,7 @@ public class ItemList {
         itemList.add(new Item("SelectCityActivity", SelectCityActivity.class));
         itemList.add(new Item("ZxingActivity", ZxingActivity.class));
         itemList.add(new Item("MPermissionActivity", MPermissionActivity.class));
+        itemList.add(new Item("MvpActivity", MvpActivity.class));
     }
 
 }

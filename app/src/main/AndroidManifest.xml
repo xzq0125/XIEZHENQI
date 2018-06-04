@@ -151,6 +151,8 @@
 
 
         <activity android:name=".business.more.permission.MPermissionActivity" />
+        <activity android:name=".business.more.mvp.MvpActivity" />
+        <activity android:name=".business.more.mvp.login.LoginActivity" />
     </application>
 
 </manifest>
