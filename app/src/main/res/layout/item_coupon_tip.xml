@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.percent.PercentRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@drawable/ic_coupon_item_bg"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/ict_tv_value"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:maxLines="2"
+        android:text="1998分"
+        android:textColor="@color/themeColor"
+        android:textSize="27sp"
+        app:layout_marginLeftPercent="2.6%"
+        app:layout_marginStartPercent="2.6%"
+        app:layout_widthPercent="29.5%" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@+id/ict_tv_value"
+        android:layout_toLeftOf="@+id/ict_flyt"
+        android:layout_toRightOf="@+id/ict_tv_value"
+        android:layout_toStartOf="@+id/ict_flyt"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ict_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom"
+            android:maxLines="2"
+            android:text="满100立减20"
+            android:textColor="@color/themeColor"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/ict_tv_intro"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:maxLines="2"
+            android:text="18-04-23开始使用"
+            android:textColor="@color/themeColor"
+            android:textSize="10sp" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/ict_flyt"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        app:layout_widthPercent="13.2%">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ems="1"
+            android:gravity="center"
+            android:text="去使用"
+            android:textColor="@color/themeColor"
+            android:textSize="14sp" />
+
+    </FrameLayout>
+
+</android.support.percent.PercentRelativeLayout>

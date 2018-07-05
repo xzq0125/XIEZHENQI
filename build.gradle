@@ -17,10 +17,26 @@ allprojects {
     repositories {
         jcenter()
         google()
+        mavenCentral()
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    //Dependencies
+    supportVersion = '27.1.1'
+    butterknifeVersion = '8.8.1'
+    glideVersion = '3.8.0'
+    daggerVersion = '2.5'
+
+    // SDK And Tools
+    minSdkVersion = 19
+    targetSdkVersion = 27
+    compileSdkVersion = 27
+    buildToolsVersion = '27.0.3'
 }

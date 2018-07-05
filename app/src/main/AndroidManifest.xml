@@ -153,6 +153,7 @@
         <activity android:name=".business.more.permission.MPermissionActivity" />
         <activity android:name=".business.more.mvp.MvpActivity" />
         <activity android:name=".business.more.mvp.login.LoginActivity" />
+        <activity android:name=".business.more.fit.FitActivity" />
     </application>
 
 </manifest>

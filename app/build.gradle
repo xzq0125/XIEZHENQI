@@ -9,24 +9,27 @@ android {
             storePassword '123456'
         }
     }
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
     defaultConfig {
         applicationId "com.xiezhenqi"
-        minSdkVersion 19
-        targetSdkVersion 27
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.Release
         flavorDimensions "versionCode"
     }
+
     buildTypes {
         debug {
             minifyEnabled false
             signingConfig signingConfigs.Release
             debuggable true
-        } 
+        }
         release {
             minifyEnabled false
             signingConfig signingConfigs.Release
@@ -61,19 +64,20 @@ dependencies {
     implementation files('libs/xUtils-2.6.14.jar')
     implementation project(':InitActivity')
     implementation files('libs/BaiduLBS_Android.jar')
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    implementation 'com.android.support:recyclerview-v7:27.1.1'
+    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
+    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
+    implementation "com.android.support:percent:$rootProject.ext.supportVersion"
+    implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation "com.android.support:design:$rootProject.ext.supportVersion"
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.google.code.gson:gson:2.8.0'
     implementation 'com.github.bumptech.glide:glide:4.2.0'
     implementation 'com.facebook.fresco:fresco:0.8.1'
-    implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support:support-v4:27.1.1'
     implementation 'am.widget:replacelayout:1.1.0'
     implementation 'am.widget:gradienttabstrip:24.2.1.1'
     implementation 'am.drawable:drawable:1.5.1'
     implementation 'com.github.GrenderG:Toasty:1.1.4'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.liuguangqiang.cookie:library:0.2'
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.4.6'
     implementation 'com.github.GaoYin2016:Android-SVProgressHUD:1.0'
