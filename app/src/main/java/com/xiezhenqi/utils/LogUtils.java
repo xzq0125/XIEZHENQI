@@ -1,9 +1,8 @@
 package com.xiezhenqi.utils;
 
-import android.content.pm.ApplicationInfo;
 import android.util.Log;
 
-import com.xiezhenqi.XZQApplication;
+import com.xiezhenqi.BuildConfig;
 
 
 /**
@@ -170,20 +169,9 @@ public class LogUtils {
      * @param msg 消息
      */
     public static void debug(String tag, String msg) {
-        if (isDebuggable()) {
+        if (BuildConfig.DEBUG) {
             log(tag, msg, Log.DEBUG);
         }
     }
-
-    /**
-     * 程序是否可调试
-     *
-     * @return 程序是否可调试
-     */
-    private static boolean isDebuggable() {
-        return (XZQApplication.getContext().getApplicationInfo().flags &=
-                ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-    }
-
 
 }
