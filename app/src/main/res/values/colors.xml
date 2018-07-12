@@ -51,4 +51,5 @@
     <color name="base_background">#eeeeee</color>
     <!--直播结束-->
 
+    <color name="textColor_999999">#ff999999</color><!--提示性文案-->
 </resources>

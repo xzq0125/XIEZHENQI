@@ -1,6 +1,8 @@
 package com.xiezhenqi.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.IntDef;
 import android.support.annotation.StringRes;
 import android.view.Gravity;
@@ -99,14 +101,19 @@ public class ToastUtils {
      * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
      *                 {@link #LENGTH_LONG}
      */
-    private static void defShow(CharSequence text, @Duration int duration) {
-        if (sDefaultToast == null) {
-            sDefaultToast = Toast.makeText(sContext, text, duration);
-        } else {
-            sDefaultToast.setText(text);
-        }
-        sDefaultToast.setDuration(duration);
-        sDefaultToast.show();
+    private static void defShow(final CharSequence text, @Duration final int duration) {
+        HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                if (sDefaultToast == null) {
+                    sDefaultToast = Toast.makeText(sContext, text, duration);
+                } else {
+                    sDefaultToast.setText(text);
+                }
+                sDefaultToast.setDuration(duration);
+                sDefaultToast.show();
+            }
+        });
     }
 
     /**
@@ -152,15 +159,20 @@ public class ToastUtils {
      * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
      *                 {@link #LENGTH_LONG}
      */
-    private static void topShow(CharSequence text, @Duration int duration) {
-        if (sTopToast == null) {
-            sTopToast = Toast.makeText(sContext, text, duration);
-            sTopToast.setGravity(Gravity.TOP, 0, 0);
-        } else {
-            sTopToast.setText(text);
-        }
-        sTopToast.setDuration(duration);
-        sTopToast.show();
+    private static void topShow(final CharSequence text, @Duration final int duration) {
+        HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                if (sTopToast == null) {
+                    sTopToast = Toast.makeText(sContext, text, duration);
+                    sTopToast.setGravity(Gravity.TOP, 0, 0);
+                } else {
+                    sTopToast.setText(text);
+                }
+                sTopToast.setDuration(duration);
+                sTopToast.show();
+            }
+        });
     }
 
     /**
@@ -206,15 +218,26 @@ public class ToastUtils {
      * @param duration How long to display the message.  Either {@link #LENGTH_SHORT} or
      *                 {@link #LENGTH_LONG}
      */
-    private static void centerShow(CharSequence text, @Duration int duration) {
-        if (sCenterToast == null) {
-            sCenterToast = Toast.makeText(sContext, text, duration);
-            sCenterToast.setGravity(Gravity.CENTER, 0, 0);
-        } else {
-            sCenterToast.setText(text);
-        }
-        sCenterToast.setDuration(duration);
-        sCenterToast.show();
+    private static void centerShow(final CharSequence text, final @Duration int duration) {
+        HANDLER.post(new Runnable() {
+            @Override
+            public void run() {
+                if (sCenterToast == null) {
+                    sCenterToast = Toast.makeText(sContext, text, duration);
+                    sCenterToast.setGravity(Gravity.CENTER, 0, 0);
+                } else {
+                    sCenterToast.setText(text);
+                }
+                sCenterToast.setDuration(duration);
+                sCenterToast.show();
+            }
+        });
+    }
+
+    private final static Handler HANDLER = new Handler(Looper.getMainLooper());
+
+    public static void showToast(Context context, String msg) {
+        show(msg);
     }
 
 }

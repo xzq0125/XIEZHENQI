@@ -5,8 +5,8 @@ package com.xiezhenqi.base.mvp;
  * Created by Wesley on 2017/12/13.
  */
 
-public abstract class AbstractBasePresenter<Model extends BaseModel, View extends LoadingView>
-        implements BasePresenter, LoadingView, BaseModel {
+public abstract class AbstractBasePresenter<Model extends BaseModel, View extends ILoadingView>
+        implements BasePresenter, ILoadingView, BaseModel {
 
     protected View mView;
     protected final Model mModel;
@@ -52,9 +52,9 @@ public abstract class AbstractBasePresenter<Model extends BaseModel, View extend
     }
 
     @Override
-    public void onShowError() {
+    public void onShowError(String error) {
         if (mView != null)
-            mView.onShowError();
+            mView.onShowError(error);
     }
 
 }

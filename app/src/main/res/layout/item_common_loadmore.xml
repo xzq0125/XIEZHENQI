@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.xiezhenqi.widget.stateframelayout.StateFrameLayout
+    <am.widget.stateframelayout.StateFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

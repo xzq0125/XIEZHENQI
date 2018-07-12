@@ -1,10 +1,11 @@
 package com.xiezhenqi.base.mvp;
 
 /**
- * 实体View
+ * 网络响应以实体形式返回
+ * 实体接口
  * Created by Wesley on 2018/6/4.
  */
-public interface EntityView<Entity> {
+public interface IEntityView<Entity> extends ILoadingView {
 
     /**
      * 设置数据

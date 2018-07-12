@@ -22,6 +22,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.Release
         flavorDimensions "versionCode"
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -82,10 +83,17 @@ dependencies {
     implementation 'com.github.ctiao:DanmakuFlameMaster:0.4.6'
     implementation 'com.github.GaoYin2016:Android-SVProgressHUD:1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
     implementation 'com.lovedise:permissiongen:0.0.6'
     implementation 'cn.yipianfengye.android:zxing-library:2.2'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-components:2.2.1'
+    implementation 'com.trello.rxlifecycle2:rxlifecycle-navi:2.2.1'
+    implementation 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    implementation 'am.widget:stateframelayout:2.0.2'
+
+    implementation 'com.android.support:multidex:1.0.3'
 }

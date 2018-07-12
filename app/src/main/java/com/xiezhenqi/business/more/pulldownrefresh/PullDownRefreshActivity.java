@@ -17,12 +17,12 @@ import com.xiezhenqi.base.activitys.BaseActivity;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.widget.menurecyclerview.ContextMenuRecyclerView;
-import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import am.widget.stateframelayout.StateFrameLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

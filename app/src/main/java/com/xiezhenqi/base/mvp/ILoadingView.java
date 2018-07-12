@@ -4,7 +4,7 @@ package com.xiezhenqi.base.mvp;
  * 状态View
  * Created by Wesley on 2018/6/4.
  */
-public interface LoadingView {
+public interface ILoadingView {
 
     /**
      * 显示Loading状态
@@ -24,5 +24,5 @@ public interface LoadingView {
     /**
      * 显示错误
      */
-    void onShowError();
+    void onShowError(String error);
 }

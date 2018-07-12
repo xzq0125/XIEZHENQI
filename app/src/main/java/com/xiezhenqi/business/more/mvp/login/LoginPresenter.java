@@ -39,12 +39,12 @@ public class LoginPresenter extends AbstractBasePresenter<LoginModel, LoginContr
         String pwd = activity.edtPwd.getText().toString();
 
         if (TextUtils.isEmpty(account)) {
-            ToastUtils.showToast("账号不能为空~~");
+            ToastUtils.show("账号不能为空~~");
             return;
         }
 
         if (TextUtils.isEmpty(pwd)) {
-            ToastUtils.showToast("密码不能为空~~");
+            ToastUtils.show("密码不能为空~~");
             return;
         }
 

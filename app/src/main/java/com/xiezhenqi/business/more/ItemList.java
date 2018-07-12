@@ -25,6 +25,7 @@ import com.xiezhenqi.business.more.selectcity.SelectCityActivity;
 import com.xiezhenqi.business.more.toast.ToastActivity;
 import com.xiezhenqi.business.more.watermark.WatermarkActivity;
 import com.xiezhenqi.business.more.zxing.ZxingActivity;
+import com.xiezhenqi.newmvp.act.RXMVPActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +94,7 @@ public class ItemList {
         itemList.add(new Item("MPermissionActivity", MPermissionActivity.class));
         itemList.add(new Item("MvpActivity", MvpActivity.class));
         itemList.add(new Item("FitActivity", FitActivity.class));
+        itemList.add(new Item("RXMVPActivity", RXMVPActivity.class));
     }
 
 }

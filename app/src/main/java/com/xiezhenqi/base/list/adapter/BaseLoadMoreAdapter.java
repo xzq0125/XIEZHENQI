@@ -11,10 +11,11 @@ import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
-import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import am.widget.stateframelayout.StateFrameLayout;
 
 
 /**

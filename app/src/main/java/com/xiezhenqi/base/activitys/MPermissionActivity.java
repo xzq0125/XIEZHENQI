@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
+import com.xiezhenqi.newmvp.lifecycle.LifecycleActivity;
 import com.xiezhenqi.permission.MPermission;
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by Wesley on 2018/6/2.
  */
 @SuppressWarnings("all")
-public abstract class MPermissionActivity extends AppCompatActivity {
+public abstract class MPermissionActivity extends LifecycleActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

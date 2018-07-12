@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
-import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
+
+import am.widget.stateframelayout.StateFrameLayout;
 
 
 /**

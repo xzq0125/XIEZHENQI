@@ -1,8 +1,7 @@
 package com.xiezhenqi.business.more.mvp.login;
 
 
-import com.xiezhenqi.base.mvp.LoadingView;
-import com.xiezhenqi.base.mvp.EntityView;
+import com.xiezhenqi.base.mvp.IEntityView;
 import com.xiezhenqi.base.mvp.FinishView;
 
 /**
@@ -11,7 +10,7 @@ import com.xiezhenqi.base.mvp.FinishView;
  */
 public interface LoginContract {
 
-    interface LView extends LoadingView, FinishView, EntityView<String> {
+    interface LView extends  FinishView, IEntityView<String> {
     }
 
     interface LModel {

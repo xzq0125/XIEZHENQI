@@ -111,7 +111,7 @@ public class ContextMenuRecyclerViewActivity extends BaseActivity implements
                 break;
 
             case 2:
-                ToastUtils.showToastAtCenter(this, mAdapter.getDataAt(position));
+                ToastUtils.showToast(this, mAdapter.getDataAt(position));
                 break;
 
             case 3:

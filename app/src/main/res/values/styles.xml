@@ -79,4 +79,11 @@
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="StateFrameLayoutStyle">
+        <item name="sflLoadingLayout">@layout/layout_common_loading</item>
+        <item name="sflEmptyLayout">@layout/layout_common_empty</item>
+        <item name="sflErrorLayout">@layout/layout_common_error</item>
+    </style>
+
 </resources>

@@ -9,7 +9,7 @@ import retrofit2.Call;
  * AbstractModel
  * Created by Wesley on 2018/6/4.
  */
-public abstract class AbstractModel<Presenter extends LoadingView> implements BaseModel {
+public abstract class AbstractModel<Presenter extends ILoadingView> implements BaseModel {
 
     protected final Presenter presenter;
     private List<Call> callList = new ArrayList<>();

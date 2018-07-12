@@ -64,7 +64,7 @@
         </LinearLayout>
 
 
-        <com.xiezhenqi.widget.stateframelayout.StateFrameLayout
+        <am.widget.stateframelayout.StateFrameLayout
             android:id="@+id/search_song_sfl"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -85,7 +85,7 @@
                 android:contentDescription="@string/search_cd_back_top"
                 android:src="@drawable/ic_top" />
 
-        </com.xiezhenqi.widget.stateframelayout.StateFrameLayout>
+        </am.widget.stateframelayout.StateFrameLayout>
 
     </LinearLayout>
 

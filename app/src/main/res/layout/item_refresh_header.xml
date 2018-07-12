@@ -4,12 +4,12 @@
     android:layout_height="50dp"
     android:orientation="vertical">
 
-    <com.xiezhenqi.widget.stateframelayout.StateFrameLayout
+    <am.widget.stateframelayout.StateFrameLayout
         android:id="@+id/common_pull_down_refresh_loading"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
-    </com.xiezhenqi.widget.stateframelayout.StateFrameLayout>
+    </am.widget.stateframelayout.StateFrameLayout>
 
     <TextView
         android:id="@+id/common_pull_down_refresh_ok"

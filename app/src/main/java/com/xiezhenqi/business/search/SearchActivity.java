@@ -20,10 +20,11 @@ import com.xiezhenqi.request.RequestTask;
 import com.xiezhenqi.utils.StringUtils;
 import com.xiezhenqi.utils.ToastUtils;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
-import com.xiezhenqi.widget.stateframelayout.StateFrameLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import am.widget.stateframelayout.StateFrameLayout;
 
 public class SearchActivity extends BaseListActivity implements
         BaseLoadMoreAdapter.OnLoadMoreCallback,

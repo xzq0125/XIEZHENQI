@@ -67,7 +67,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override
-    public void onShowError() {
+    public void onShowError(String error) {
 
     }
 
@@ -78,6 +78,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
 
     @Override
     public void setData(String s) {
-        ToastUtils.showToast(s);
+        ToastUtils.show(s);
     }
+
 }
