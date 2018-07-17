@@ -1,8 +1,10 @@
 package com.xiezhenqi.newmvp;
 
+import android.support.annotation.NonNull;
+
 import com.google.gson.JsonSyntaxException;
+import com.xiezhenqi.base.mvp.ILoadingEntityView;
 import com.xiezhenqi.base.mvp.ILoadingListView;
-import com.xiezhenqi.base.mvp.ILoadingView;
 import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.ToastUtils;
 
@@ -10,7 +12,6 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.List;
 
-import io.reactivex.annotations.NonNull;
 import io.reactivex.observers.ResourceObserver;
 
 /**
@@ -21,13 +22,14 @@ import io.reactivex.observers.ResourceObserver;
 public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entity>> {
 
     private static final int FIRST_PAGE_INDEX = 1;
+    //本地自定义错误码
     public static final int CODE_JSON = -125;
     public static final int CODE_TIMEOUT = -126;
     public static final int CODE_NET_BREAK = -127;
     public static final int CODE_FAILED = -128;
     private static final String DEF_LOADING_MSG = "加载中...";
     private ILoadingListView mLoadingListView;
-    private ILoadingView mLoadingView;
+    private ILoadingEntityView mLoadingView;
     private String mLoadingMessage;
     private int mPage = FIRST_PAGE_INDEX;
 
@@ -39,19 +41,19 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         this(null, loadingMessage);
     }
 
-    public NetCallback(ILoadingView loadingView) {
+    public NetCallback(ILoadingEntityView loadingView) {
         this(loadingView, DEF_LOADING_MSG);
     }
 
-    public NetCallback(ILoadingView loadingView, String loadingMessage) {
+    public NetCallback(ILoadingEntityView loadingView, String loadingMessage) {
         this(loadingView, loadingMessage, FIRST_PAGE_INDEX);
     }
 
-    public NetCallback(ILoadingView loadingView, int page) {
+    public NetCallback(ILoadingEntityView loadingView, int page) {
         this(loadingView, DEF_LOADING_MSG, page);
     }
 
-    public NetCallback(ILoadingView loadingView, String loadingMessage, int page) {
+    public NetCallback(ILoadingEntityView loadingView, String loadingMessage, int page) {
         this.mLoadingView = loadingView;
         this.mLoadingMessage = loadingMessage;
         this.mPage = page;
@@ -61,40 +63,48 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
 
     @Override
     protected void onStart() {
-        //首次加载
-        if (isFirstPage() && mLoadingView != null) {
-            mLoadingView.onShowLoading();
+        if (mLoadingView != null) {
+            mLoadingView.onShowLoading(mLoadingMessage);
+        }
+        if (mLoadingListView != null && isFirstPage()) {
+            mLoadingListView.onFirstLoading();
         }
     }
 
     @Override
     public void onComplete() {
-        if (isFirstPage() && mLoadingView != null) {
+        if (mLoadingView != null) {
             mLoadingView.onHideLoading();
+        }
+        if (mLoadingListView != null && isFirstPage() && !isEmpty) {
+            mLoadingListView.onFirstLoadFinish();
         }
     }
 
     @Override
     public void onNext(@NonNull NetBean<Entity> netResponse) {
-        onComplete();
+        final String msg = netResponse.getMsg();
+        final int code = netResponse.getCode();
         if (netResponse.isOk()) {
             Entity entity = netResponse.getData();
-            onSuccess(entity);
-            boolean isEmpty = entity == null || entity instanceof List && ((List) entity).isEmpty();
+            boolean hasNextPage = netResponse.hasNextPage(mPage);
+            onSuccess(entity, msg, code, mPage, hasNextPage);
+            isEmpty = entity == null ||
+                    entity instanceof List && ((List) entity).isEmpty();
             if (isEmpty) {
+                if (mLoadingView != null) {
+                    mLoadingView.onShowEmpty();
+                }
                 if (mLoadingListView != null) {
                     if (isFirstPage()) {
-                        mLoadingListView.onShowEmpty();
+                        mLoadingListView.onFirstLoadEmpty();
                     } else {
                         mLoadingListView.onShowLoadMoreEmpty();
                     }
-                } else if (mLoadingView != null) {
-                    mLoadingView.onShowEmpty();
                 }
             }
-            mPage++;
         } else {
-            onError(new Exception());
+            onError(new ErrorCodeException(msg, code));
         }
     }
 
@@ -112,22 +122,27 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         } else if (e instanceof UnknownHostException) {
             error = "网络已断开";
             code = CODE_NET_BREAK;
+        } else if (e instanceof ErrorCodeException) {
+            ErrorCodeException ex = (ErrorCodeException) e;
+            error = ex.getMessage();
+            code = ex.errorCode();
         } else {
-            error = "请求失败";
+            error = "未知错误";
             code = CODE_FAILED;
-            LogUtils.debug("NetCallback", e.getMessage());
         }
+
+        LogUtils.debug("NetCallback", e.getMessage());
 
         onError(error, code);
 
+        if (mLoadingView != null) {
+            mLoadingView.onShowError(error, mPage);
+        }
         if (mLoadingListView != null) {
-            if (isFirstPage()) {
-                mLoadingListView.onShowError(error);
-            } else {
-                mLoadingListView.onShowLoadMoreError(error);
-            }
-        } else if (mLoadingView != null) {
-            mLoadingView.onShowError(error);
+            if (isFirstPage())
+                mLoadingListView.onFirstLoadError(mPage, error);
+            else
+                mLoadingListView.onShowLoadMoreError(mPage, error);
         }
     }
 
@@ -135,7 +150,9 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         return mPage == FIRST_PAGE_INDEX;
     }
 
-    protected abstract void onSuccess(Entity data);
+    private boolean isEmpty = false;
+
+    protected abstract void onSuccess(Entity data, String msg, int code, int page, boolean hasNextPage);
 
     protected void onError(String error, int code) {
         ToastUtils.show(error);

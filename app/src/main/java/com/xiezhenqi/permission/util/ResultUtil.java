@@ -54,7 +54,7 @@ public class ResultUtil {
     }
 
     public static String getDeniedPermissionsDefaultMessage(Activity activity, String... permissions) {
-        return getDeniedPermissionsCustomMessage(activity, "需要的", "才能正常使用", permissions);
+        return getDeniedPermissionsCustomMessage(activity, "所需", "才能正常使用", permissions);
     }
 
     public static String getDeniedPermissionsCustomMessage(Activity activity, String name, String description, String... permissions) {

@@ -5,7 +5,7 @@ package com.xiezhenqi.base.mvp;
  * 实体接口
  * Created by Wesley on 2018/6/4.
  */
-public interface IEntityView<Entity> extends ILoadingView {
+public interface IEntityView<Entity> extends ILoadingEntityView {
 
     /**
      * 设置数据

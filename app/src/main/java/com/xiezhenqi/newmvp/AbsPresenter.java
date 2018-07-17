@@ -6,17 +6,20 @@ import com.trello.navi2.Event;
 import com.trello.navi2.Listener;
 import com.trello.navi2.NaviComponent;
 import com.trello.rxlifecycle2.LifecycleProvider;
-import com.xiezhenqi.base.mvp.ILoadingView;
+import com.xiezhenqi.base.mvp.BasePresenter;
+import com.xiezhenqi.base.mvp.ILoadingEntityView;
 import com.xiezhenqi.newmvp.lifecycle.ILifeCycleProviderSupplier;
 
 import io.reactivex.Observable;
 
 
-public abstract class AbsPresenter<V> implements NaviComponent, ILifeCycleProviderSupplier, com.xiezhenqi.base.mvp.BasePresenter {
+/**
+ * 抽象的Presenter类 <br/>
+ */
+public abstract class AbsPresenter<V> implements NaviComponent, ILifeCycleProviderSupplier, BasePresenter {
 
-    protected final V mView;
+    protected V mView;
     protected NaviComponent naviComponent;
-
     protected LifecycleProvider<?> provider;
 
     public AbsPresenter(@NonNull V view) {
@@ -49,21 +52,107 @@ public abstract class AbsPresenter<V> implements NaviComponent, ILifeCycleProvid
         return provider;
     }
 
-    @Override
-    public void onDestroy() {
-
-    }
-
+    /**
+     * 发起请求
+     *
+     * @param callback 回调获取方法
+     * @param <T>      实体类型
+     * @return Observable
+     */
     protected <T> Observable<NetBean<T>> doRequest(ModelService.MethodCallback<T> callback) {
         return ModelService.getData(getLifecycleProvider(), callback);
     }
 
-    public abstract class PagingNetCallback<T> extends NetCallback<T> {
+    /**
+     * 实体加载回调
+     *
+     * @param <T>
+     */
+    public abstract class EntityNetCallback<T> extends NetCallback<T> {
 
-        public PagingNetCallback(int page) {
-            super(mView instanceof ILoadingView ? (ILoadingView) mView : null, page);
+        public EntityNetCallback() {
+            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null);
+        }
+
+        @Override
+        protected void onStart() {
+            if (mView != null)
+                super.onStart();
+        }
+
+        @Override
+        public void onComplete() {
+            if (mView != null)
+                super.onComplete();
+        }
+
+        @Override
+        protected void onError(String error, int code) {
+            if (mView != null)
+                super.onError(error, code);
+        }
+
+        @Override
+        public void onNext(@NonNull NetBean<T> netResponse) {
+            if (mView != null)
+                super.onNext(netResponse);
         }
 
     }
 
+    /**
+     * 分页加载回调
+     *
+     * @param <T>
+     */
+    public abstract class PagingNetCallback<T> extends NetCallback<T> {
+
+        public PagingNetCallback(int page) {
+            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null, page);
+        }
+
+        @Override
+        protected void onStart() {
+            if (mView != null)
+                super.onStart();
+        }
+
+        @Override
+        public void onComplete() {
+            if (mView != null)
+                super.onComplete();
+        }
+
+        @Override
+        protected void onError(String error, int code) {
+            if (mView != null)
+                super.onError(error, code);
+        }
+
+        @Override
+        public void onNext(@NonNull NetBean<T> netResponse) {
+            if (mView != null)
+                super.onNext(netResponse);
+        }
+
+        @Override
+        protected void onSuccess(T data, String msg, int code, int page, boolean hasNextPage) {
+            if (mView != null) {
+                if (isFirstPage()) {
+                    onSetData(data, page, hasNextPage);
+                } else {
+                    onAddData(data, page, hasNextPage);
+                }
+            }
+        }
+
+        protected abstract void onSetData(T data, int page, boolean hasNextPage);
+
+        protected abstract void onAddData(T data, int page, boolean hasNextPage);
+    }
+
+    @Override
+    public void onDestroy() {
+        mView = null;
+    }
 }

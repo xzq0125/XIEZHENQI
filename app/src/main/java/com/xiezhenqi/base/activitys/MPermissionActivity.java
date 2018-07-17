@@ -8,7 +8,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
-import com.xiezhenqi.newmvp.lifecycle.LifecycleActivity;
+import com.xiezhenqi.newmvp.SimpleLoadingActivity;
 import com.xiezhenqi.permission.MPermission;
 import com.xiezhenqi.permission.annotation.OnMPermissionDenied;
 import com.xiezhenqi.permission.annotation.OnMPermissionGranted;
@@ -27,7 +27,7 @@ import java.util.List;
  * Created by Wesley on 2018/6/2.
  */
 @SuppressWarnings("all")
-public abstract class MPermissionActivity extends LifecycleActivity {
+public abstract class MPermissionActivity extends SimpleLoadingActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -127,22 +127,31 @@ public abstract class MPermissionActivity extends LifecycleActivity {
         String msg = null;
         if (requestCode == PermissionRequestCode.CALENDAR) {
             msg = "日历权限申请成功";
+            onCalendarPermissionGot();
         } else if (requestCode == PermissionRequestCode.CAMERA) {
             msg = "相机权限申请成功";
+            onCameraPermissionGot();
         } else if (requestCode == PermissionRequestCode.CONTACTS) {
             msg = "通讯录权限申请成功";
+            onContactsPermissionGot();
         } else if (requestCode == PermissionRequestCode.LOCATION) {
             msg = "定位权限申请成功";
+            onLocationPermissionGot();
         } else if (requestCode == PermissionRequestCode.MICRO) {
             msg = "麦克风权限申请成功";
+            onMicroPermissionGot();
         } else if (requestCode == PermissionRequestCode.PHONE) {
             msg = "电话权限申请成功";
+            onPhonePermissionGot();
         } else if (requestCode == PermissionRequestCode.SENSORS) {
             msg = "身体传感器权限申请成功";
+            onSensorsPermissionGot();
         } else if (requestCode == PermissionRequestCode.SMS) {
             msg = "短信权限申请成功";
+            onSmsPermissionGot();
         } else if (requestCode == PermissionRequestCode.STORAGE) {
             msg = "存储权限申请成功";
+            onSensorsPermissionGot();
         }
         LogUtils.debug("XZQ", msg + "\t请求码 requestCode = " + requestCode);
     }
@@ -155,33 +164,6 @@ public abstract class MPermissionActivity extends LifecycleActivity {
     @OnMPermissionGrantedCustomRequestCode()
     protected void requestPermissionGrantedCustom(final int requestCode) {
         LogUtils.debug("XZQ", "自定义请求码授权成功，请求码 requestCode = " + requestCode);
-    }
-
-    protected void onCalendarPermissionGot() {
-    }
-
-    protected void onCameraPermissionGot() {
-    }
-
-    protected void onContactsPermissionGot() {
-    }
-
-    protected void onLocationPermissionGot() {
-    }
-
-    protected void onMicroPermissionGot() {
-    }
-
-    protected void onPhonePermissionGot() {
-    }
-
-    protected void onSensorsPermissionGot() {
-    }
-
-    protected void onSmsPermissionGot() {
-    }
-
-    protected void onStoragePermissionGot() {
     }
 
     private AlertDialog mPermissionAlertDialog = null;
@@ -217,6 +199,33 @@ public abstract class MPermissionActivity extends LifecycleActivity {
         }
         if (!mPermissionAlertDialog.isShowing())
             mPermissionAlertDialog.show();
+    }
+
+    protected void onCalendarPermissionGot() {
+    }
+
+    protected void onCameraPermissionGot() {
+    }
+
+    protected void onContactsPermissionGot() {
+    }
+
+    protected void onLocationPermissionGot() {
+    }
+
+    protected void onMicroPermissionGot() {
+    }
+
+    protected void onPhonePermissionGot() {
+    }
+
+    protected void onSensorsPermissionGot() {
+    }
+
+    protected void onSmsPermissionGot() {
+    }
+
+    protected void onStoragePermissionGot() {
     }
 
     protected void onPermissionDialogPositiveClick() {

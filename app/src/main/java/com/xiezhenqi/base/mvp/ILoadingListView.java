@@ -5,16 +5,36 @@ package com.xiezhenqi.base.mvp;
  * Created by Wesley on 2017/12/13.
  */
 
-public interface ILoadingListView extends ILoadingView {
+public interface ILoadingListView extends ILoadingEntityView {
 
     /**
-     * 显示加载空数据
+     * 首次网络加载开始时回调
+     */
+    void onFirstLoading();
+
+    /**
+     * 首次网络加载完成回调
+     */
+    void onFirstLoadFinish();
+
+    /**
+     * 首次网络加载数据为空回调
+     */
+    void onFirstLoadEmpty();
+
+    /**
+     * 加载更多数据为空回调
      */
     void onShowLoadMoreEmpty();
 
     /**
-     * 显示加载更多错误
+     * 首次网络加载数据错误回调
      */
-    void onShowLoadMoreError(String error);
+    void onFirstLoadError(int page, String error);
+
+    /**
+     * 加载更多错误回调
+     */
+    void onShowLoadMoreError(int page, String error);
 
 }

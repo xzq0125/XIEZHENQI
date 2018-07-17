@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.xiezhenqi.business.more.fit.CalculateDpiActivity">
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:text="dpi:" />
+
+    <EditText
+        android:id="@+id/edt_size"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:hint="英寸"
+        android:imeOptions="actionNext"
+        android:inputType="numberDecimal"
+        android:text="5.0" />
+
+    <EditText
+        android:id="@+id/edt_width_px"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:hint="宽度像素"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:text="1080" />
+
+    <EditText
+        android:id="@+id/edt_height_px"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:hint="高度像素"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:text="1920" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="calc"
+        android:text="计算" />
+
+
+</LinearLayout>

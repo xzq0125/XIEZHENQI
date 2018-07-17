@@ -52,7 +52,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override
-    public void onShowLoading() {
+    public void onShowLoading(String loadingMessage) {
         progressBar.setVisibility(View.VISIBLE);
     }
 
@@ -67,7 +67,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override
-    public void onShowError(String error) {
+    public void onShowError(String error, int page) {
 
     }
 

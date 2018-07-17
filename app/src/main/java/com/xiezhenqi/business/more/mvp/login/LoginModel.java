@@ -17,7 +17,7 @@ public class LoginModel extends AbstractModel<LoginPresenter> implements LoginCo
 
     @Override
     public void doLogin(String account, String pwd) {
-        presenter.onShowLoading();
+        presenter.onShowLoading(null);
         addRequest(null);
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override

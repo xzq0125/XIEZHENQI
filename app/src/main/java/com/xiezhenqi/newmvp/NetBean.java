@@ -9,6 +9,7 @@ public class NetBean<T> {
     private int code;// 错误code
     private String msg;// 错误code
     private T data;// 返回数据
+    private int count;
 
     public boolean isOk() {
         return code == 0;
@@ -24,5 +25,9 @@ public class NetBean<T> {
 
     public String getMsg() {
         return msg;
+    }
+
+    public boolean hasNextPage(int mPage) {
+        return mPage < count;
     }
 }

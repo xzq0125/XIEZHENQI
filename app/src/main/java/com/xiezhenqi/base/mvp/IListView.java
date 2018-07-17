@@ -15,7 +15,7 @@ public interface IListView<Entity> extends ILoadingListView {
      * @param list        数据列表
      * @param hasNextPage 是否有下一页列表
      */
-    void setData(List<Entity> list, boolean hasNextPage);
+    void setData(List<Entity> list, int page, boolean hasNextPage);
 
     /**
      * 追加数据
@@ -23,5 +23,5 @@ public interface IListView<Entity> extends ILoadingListView {
      * @param list        数据列表
      * @param hasNextPage 是否有下一页列表
      */
-    void addData(List<Entity> list, boolean hasNextPage);
+    void addData(List<Entity> list, int page, boolean hasNextPage);
 }

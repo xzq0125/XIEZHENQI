@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
-import com.xiezhenqi.base.activitys.BasePresenterActivity;
+import com.xiezhenqi.base.activitys.BaseListActivity;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.newmvp.ShopBean;
@@ -24,7 +24,7 @@ import java.util.List;
 import am.widget.stateframelayout.StateFrameLayout;
 import butterknife.BindView;
 
-public class RXMVPActivity extends BasePresenterActivity<RXMVPPresenter> implements RXMVPContract.View,
+public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements RXMVPContract.View,
         BaseLoadMoreAdapter.OnLoadMoreCallback, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(android.R.id.title)
@@ -58,7 +58,7 @@ public class RXMVPActivity extends BasePresenterActivity<RXMVPPresenter> impleme
                 R.drawable.divider_common_horizontal)));
         recyclerView.setAdapter(myAdapter);
 
-        presenter.getData(page);
+        presenter.getList(page);
     }
 
     @Override
@@ -70,26 +70,26 @@ public class RXMVPActivity extends BasePresenterActivity<RXMVPPresenter> impleme
 
     @Override
     public void onAutoLoadMore(StateFrameLayout loadMore, Object lastData) {
-        presenter.getData(++page);
+        presenter.getList(++page);
     }
 
     @Override
     public void onReloadClick(StateFrameLayout loadMore) {
-        presenter.getData(page);
+        presenter.getList(page);
     }
 
     @Override
     protected void loadFirstPage() {
-        presenter.getData(page);
+        presenter.getList(page);
     }
 
     @Override
-    public void setData(List<ShopBean.ListBean> list, boolean hasNextPage) {
+    public void setData(List<ShopBean.ListBean> list, int page, boolean hasNextPage) {
         myAdapter.setData(list, hasNextPage);
     }
 
     @Override
-    public void addData(List<ShopBean.ListBean> list, boolean hasNextPage) {
+    public void addData(List<ShopBean.ListBean> list, int page, boolean hasNextPage) {
         myAdapter.addData(list, hasNextPage);
     }
 
