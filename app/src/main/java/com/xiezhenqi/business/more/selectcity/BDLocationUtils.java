@@ -16,9 +16,9 @@ public class BDLocationUtils {
     public LocationClient mLocationClient = null;    //LocationClient类是定位SDK的核心类
     public BDLocationListener myListener;
 
-    public BDLocationUtils(Context context, MyLocationListener.OnGetBDLocationListener listener) {
+    public BDLocationUtils(Context context, MyBDLocationListener.OnReceiveAddressListener listener) {
         this.context = context;
-        myListener = new MyLocationListener(listener);
+        myListener = new MyBDLocationListener(listener);
     }
 
     public void doLocation() {

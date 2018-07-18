@@ -36,7 +36,7 @@ public class SelectCityActivity extends BaseActivity
         implements SideLetterBar.OnLetterChangedListener,
         CityViewHolder.OnItemClickListener, TextWatcher,
         SearchResultViewHolder.OnResultCityClickListener,
-        MyLocationListener.OnGetBDLocationListener {
+        MyBDLocationListener.OnReceiveAddressListener {
 
     private static final int PERMS_REQUEST_LOCATION = 99;
     @BindView(android.R.id.title)
@@ -108,6 +108,7 @@ public class SelectCityActivity extends BaseActivity
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
@@ -198,7 +199,7 @@ public class SelectCityActivity extends BaseActivity
     }
 
     @Override
-    public void onGetBDLocation(Address address) {
+    public void onReceiveAddress(Address address) {
         myAdapter.setLocation(address.city);
     }
 }

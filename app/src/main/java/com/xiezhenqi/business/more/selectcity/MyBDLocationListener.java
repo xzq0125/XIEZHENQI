@@ -4,31 +4,46 @@ import com.baidu.location.Address;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.Poi;
+import com.xiezhenqi.BuildConfig;
 import com.xiezhenqi.utils.LogUtils;
 
 import java.util.List;
 
 /**
- * MyLocationListener
+ * MyBDLocationListener
  * Created by Tse on 2018/1/13.
  */
 
-public class MyLocationListener implements BDLocationListener {
+public class MyBDLocationListener implements BDLocationListener {
 
-    private OnGetBDLocationListener listener;
+    private static final String TAG = "MyBDLocationListener";
+    private static final boolean DBG = BuildConfig.DEBUG;
 
-    public MyLocationListener(OnGetBDLocationListener listener) {
+    private OnReceiveAddressListener listener;
+
+    public MyBDLocationListener(OnReceiveAddressListener listener) {
         this.listener = listener;
     }
 
-    public interface OnGetBDLocationListener {
-        void onGetBDLocation(Address address);
+    public interface OnReceiveAddressListener {
+        void onReceiveAddress(Address address);
     }
 
     @Override
     public void onReceiveLocation(BDLocation location) {
+
+        if (location == null)
+            return;
+
+        if (listener != null)
+            listener.onReceiveAddress(location.getAddress());
+
+        if (!DBG) {
+            return;
+        }
+
         //获取定位结果
-        StringBuffer sb = new StringBuffer(256);
+        StringBuilder sb = new StringBuilder(256);
 
         sb.append("time : ");
         sb.append(location.getTime());    //获取定位时间
@@ -79,7 +94,7 @@ public class MyLocationListener implements BDLocationListener {
             sb.append("网络定位成功");
 
             if (listener != null)
-                listener.onGetBDLocation(location.getAddress());
+                listener.onReceiveAddress(location.getAddress());
 
         } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {
 
@@ -113,11 +128,15 @@ public class MyLocationListener implements BDLocationListener {
             sb.append(list.size());
             for (Poi p : list) {
                 sb.append("\npoi= : ");
-                sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
+                sb.append(p.getId());
+                sb.append(" ");
+                sb.append(p.getName());
+                sb.append(" ");
+                sb.append(p.getRank());
             }
         }
 
-        LogUtils.debug("XZQ", sb.toString());
+        LogUtils.debug(TAG, sb.toString());
     }
 
 }
