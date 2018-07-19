@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:orientation="vertical"
     tools:context="com.xiezhenqi.business.more.fit.FitActivity">
 
     <include layout="@layout/item_coupon_tip2" />
 
+    <com.xiezhenqi.widget.DrawableTextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/green"
+        android:drawableTop="@drawable/ic_account_coupon"
+        android:gravity="center"
+        android:text="九天"
+        android:textColor="#ff333333" />
+
+    <com.xiezhenqi.widget.DrawableTextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/green"
+        android:gravity="center"
+        android:text="九天"
+        android:textColor="#ff333333"
+        app:drawableBottom="@drawable/zt"
+        app:drawableHeight="15dp"
+        app:drawableTop="@drawable/zt"
+        app:drawableWidth="15dp" />
+
+    <com.xiezhenqi.widget.DrawableTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/green"
+        android:drawablePadding="10dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="九天"
+        android:textColor="#ff333333"
+        app:drawableHeight="15dp"
+        app:drawableLeft="@drawable/zt"
+        app:drawableRight="@drawable/zt"
+        app:drawableWidth="15dp" />
+
+    <com.xiezhenqi.widget.DrawableTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/green"
+        android:gravity="center"
+        android:text="九天"
+        android:textColor="#ff333333"
+        app:drawableBottom="@drawable/zt"
+        app:drawableHeight="15dp"
+        app:drawableLeft="@drawable/zt"
+        app:drawableRight="@drawable/zt"
+        app:drawableTop="@drawable/zt"
+        app:drawableWidth="15dp" />
 
 </LinearLayout>
