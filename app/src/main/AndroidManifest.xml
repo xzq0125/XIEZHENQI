@@ -149,8 +149,9 @@
         <activity android:name=".business.more.mvp.MvpActivity" />
         <activity android:name=".business.more.mvp.login.LoginActivity" />
         <activity android:name=".business.more.fit.FitActivity" />
-        <activity android:name=".newmvp.act.RXMVPActivity"/>
+        <activity android:name=".newmvp.act.RXMVPActivity" />
         <activity android:name=".business.more.fit.CalculateDpiActivity" />
+        <activity android:name=".business.more.inflate.InflateActivity"></activity>
     </application>
 
 </manifest>

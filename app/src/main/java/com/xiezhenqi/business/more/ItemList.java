@@ -10,6 +10,7 @@ import com.xiezhenqi.business.more.dragview.DragViewActivity;
 import com.xiezhenqi.business.more.fit.CalculateDpiActivity;
 import com.xiezhenqi.business.more.fit.FitActivity;
 import com.xiezhenqi.business.more.galleryviewpager.GalleryViewPagerActivity;
+import com.xiezhenqi.business.more.inflate.InflateActivity;
 import com.xiezhenqi.business.more.largedialog.LargeDialogActivity;
 import com.xiezhenqi.business.more.lazyload.LazyLoadingActivity;
 import com.xiezhenqi.business.more.live.phone.PhoneLiveListActivity;
@@ -97,6 +98,7 @@ public class ItemList {
         itemList.add(new Item("FitActivity", FitActivity.class));
         itemList.add(new Item("RXMVPActivity", RXMVPActivity.class));
         itemList.add(new Item("CalculateDpiActivity", CalculateDpiActivity.class));
+        itemList.add(new Item("InflateActivity", InflateActivity.class));
     }
 
 }
