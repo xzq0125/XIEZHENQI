@@ -46,10 +46,9 @@ public class NetManager {
                 .writeTimeout(15L, TimeUnit.SECONDS)
                 .connectTimeout(15L, TimeUnit.SECONDS)
                 .build();
-
         retrofit = new Retrofit.Builder()
                 .client(client)
-                .baseUrl("http://api.vipbendi.com")
+                .baseUrl("http://www.wanandroid.com")
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

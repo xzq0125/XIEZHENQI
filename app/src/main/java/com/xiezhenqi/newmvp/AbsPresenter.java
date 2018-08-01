@@ -70,8 +70,8 @@ public abstract class AbsPresenter<V> implements NaviComponent, ILifeCycleProvid
      */
     public abstract class EntityNetCallback<T> extends NetCallback<T> {
 
-        public EntityNetCallback() {
-            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null);
+        public EntityNetCallback(boolean isRefresh) {
+            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null, 1, isRefresh);
         }
 
         @Override
@@ -107,8 +107,8 @@ public abstract class AbsPresenter<V> implements NaviComponent, ILifeCycleProvid
      */
     public abstract class PagingNetCallback<T> extends NetCallback<T> {
 
-        public PagingNetCallback(int page) {
-            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null, page);
+        public PagingNetCallback(int page, boolean isRefresh) {
+            super(mView instanceof ILoadingEntityView ? (ILoadingEntityView) mView : null, page, isRefresh);
         }
 
         @Override

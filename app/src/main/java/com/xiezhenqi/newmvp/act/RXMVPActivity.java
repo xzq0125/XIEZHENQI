@@ -2,13 +2,8 @@ package com.xiezhenqi.newmvp.act;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -16,25 +11,12 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseListActivity;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
-import com.xiezhenqi.newmvp.ShopBean;
-import com.xiezhenqi.widget.divider.DividerItemDecoration;
+import com.xiezhenqi.business.h5help.H5HelpActivity;
+import com.xiezhenqi.newmvp.HomePageBean;
+import com.xiezhenqi.newmvp.IAdapter;
 
-import java.util.List;
-
-import am.widget.stateframelayout.StateFrameLayout;
-import butterknife.BindView;
-
-public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements RXMVPContract.View,
-        BaseLoadMoreAdapter.OnLoadMoreCallback, SwipeRefreshLayout.OnRefreshListener {
-
-    @BindView(android.R.id.title)
-    TextView title;
-    @BindView(R.id.srl)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @BindView(R.id.sfl)
-    StateFrameLayout sfl;
+public class RXMVPActivity extends BaseListActivity<RXMVPPresenter, HomePageBean.Datas> implements RXMVPContract.View,
+        SwipeRefreshLayout.OnRefreshListener {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, RXMVPActivity.class);
@@ -42,69 +24,21 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements R
     }
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.activity_rxmvp;
-    }
-
-    @Override
-    protected void initViews(@Nullable Bundle savedInstanceState) {
-        setSupportActionBar(R.id.tool_bar);
-        title.setText("RXMVPActivity");
-        getSfl(sfl);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this,
-                R.drawable.divider_common_horizontal)));
-        recyclerView.setAdapter(myAdapter);
-
-        presenter.getList(page);
-    }
-
-    @Override
     protected RXMVPPresenter createPresenter() {
         return new RXMVPPresenter(this);
     }
 
-    private final MyAdapter myAdapter = new MyAdapter(this);
-
     @Override
-    public void onAutoLoadMore(StateFrameLayout loadMore, Object lastData) {
-        presenter.getList(++page);
+    protected String getPageTitle() {
+        return "分页加载";
     }
 
     @Override
-    public void onReloadClick(StateFrameLayout loadMore) {
-        presenter.getList(page);
+    protected IAdapter<HomePageBean.Datas> getPageAdapter() {
+        return new MyAdapter(this);
     }
 
-    @Override
-    protected void loadFirstPage() {
-        presenter.getList(page);
-    }
-
-    @Override
-    public void setData(List<ShopBean.ListBean> list, int page, boolean hasNextPage) {
-        myAdapter.setData(list, hasNextPage);
-    }
-
-    @Override
-    public void addData(List<ShopBean.ListBean> list, int page, boolean hasNextPage) {
-        myAdapter.addData(list, hasNextPage);
-    }
-
-    @Override
-    public void onRefresh() {
-        onErrorClick(null);
-    }
-
-    @Override
-    public void onLoadingHide() {
-        super.onLoadingHide();
-        swipeRefreshLayout.setRefreshing(false);
-    }
-
-    private final class MyAdapter extends BaseLoadMoreAdapter<ShopBean.ListBean, MyViewHolder> {
+    private final class MyAdapter extends BaseLoadMoreAdapter<HomePageBean.Datas, MyViewHolder> {
 
         public MyAdapter(OnLoadMoreCallback loadMoreCallback) {
             super(loadMoreCallback);
@@ -117,7 +51,7 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements R
 
         @Override
         public void onConvert(MyViewHolder holder, int position) {
-            holder.setData(getDataAt(position));
+            holder.setData(getDataAt(position), position);
         }
 
         @Override
@@ -131,7 +65,7 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements R
         }
     }
 
-    private final class MyViewHolder extends BaseLoadMoreViewHolder {
+    private final class MyViewHolder extends BaseLoadMoreViewHolder implements View.OnClickListener {
 
 
         private TextView tv;
@@ -139,10 +73,18 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements R
         public MyViewHolder(View itemView) {
             super(itemView);
             tv = (TextView) itemView;
+            tv.setOnClickListener(this);
         }
 
-        public void setData(ShopBean.ListBean data) {
-            tv.setText(data.name);
+        public void setData(HomePageBean.Datas data, int position) {
+            tv.setTag(data.link);
+            tv.setText(position + "\t" + data.title + "\t" + data.niceDate);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getTag() instanceof String)
+                H5HelpActivity.start(v.getContext(), (String) v.getTag());
         }
     }
 

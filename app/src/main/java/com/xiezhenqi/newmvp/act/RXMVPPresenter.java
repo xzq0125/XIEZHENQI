@@ -6,9 +6,9 @@ import android.support.annotation.NonNull;
 import com.xiezhenqi.base.mvp.BaseListContract;
 import com.xiezhenqi.newmvp.AbsPresenter;
 import com.xiezhenqi.newmvp.ApiService;
+import com.xiezhenqi.newmvp.HomePageBean;
 import com.xiezhenqi.newmvp.ModelService;
 import com.xiezhenqi.newmvp.NetBean;
-import com.xiezhenqi.newmvp.ShopBean;
 
 import io.reactivex.Observable;
 
@@ -24,22 +24,22 @@ public class RXMVPPresenter extends AbsPresenter<RXMVPContract.View> implements 
 
     @SuppressLint("CheckResult")
     @Override
-    public void getList(final int page) {
-        doRequest(new ModelService.MethodCallback<ShopBean>() {
+    public void getList(final int page, boolean isRefresh) {
+        doRequest(new ModelService.MethodCallback<HomePageBean>() {
             @Override
-            public Observable<NetBean<ShopBean>> getApi(ApiService api) {
-                return api.getShopList(page, 2, 7, "number_desc");
+            public Observable<NetBean<HomePageBean>> getApi(ApiService api) {
+                return api.getWangAndroidHomePage(page);
             }
-        }).subscribeWith(new PagingNetCallback<ShopBean>(page) {
+        }).subscribeWith(new PagingNetCallback<HomePageBean>(page, isRefresh) {
 
             @Override
-            protected void onSetData(ShopBean data, int page, boolean hasNextPage) {
-                mView.setData(data.list, page, hasNextPage);
+            protected void onSetData(HomePageBean data, int page, boolean hasNextPage) {
+                mView.setData(data.datas, page, hasNextPage);
             }
 
             @Override
-            protected void onAddData(ShopBean data, int page, boolean hasNextPage) {
-                mView.addData(data.list, page, hasNextPage);
+            protected void onAddData(HomePageBean data, int page, boolean hasNextPage) {
+                mView.addData(data.datas, page, hasNextPage);
             }
         });
     }

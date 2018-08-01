@@ -1,72 +1,149 @@
 package com.xiezhenqi.base.activitys;
 
-import com.xiezhenqi.base.mvp.BasePresenter;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
+
+import com.xiezhenqi.R;
+import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
+import com.xiezhenqi.base.mvp.BaseListContract;
+import com.xiezhenqi.newmvp.IAdapter;
 import com.xiezhenqi.newmvp.mvp.ILoadingListView;
+import com.xiezhenqi.widget.divider.DividerItemDecoration;
+
+import java.util.List;
 
 import am.widget.stateframelayout.StateFrameLayout;
+import butterknife.BindView;
 
 /**
- * BaseListActivity
- * Created by xzq on 2018/7/17.
+ * 列表基类
+ *
+ * @author xzq
  */
 
-public abstract class BaseListActivity<P extends BasePresenter> extends BasePresenterActivity<P>
-        implements ILoadingListView,
-        StateFrameLayout.OnStateClickListener {
+public abstract class BaseListActivity<P extends BaseListContract.Presenter, Entity>
+        extends BasePresenterActivity<P>
+        implements ILoadingListView, BaseListContract.View<Entity>,
+        StateFrameLayout.OnStateClickListener,
+        SwipeRefreshLayout.OnRefreshListener,
+        BaseLoadMoreAdapter.OnLoadMoreCallback {
+
+    @BindView(android.R.id.title)
+    TextView title;
+    @BindView(R.id.sfl)
+    StateFrameLayout sfl;//状态布局
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
+    private IAdapter<Entity> mAdapter;
+
+    protected abstract String getPageTitle();
+
+    protected abstract IAdapter<Entity> getPageAdapter();
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_base_list2;
+    }
+
+    @Override
+    protected void initViews(@Nullable Bundle savedInstanceState) {
+        setSupportActionBar(R.id.toolbar);
+        title.setText(getPageTitle());
+        sfl.setOnStateClickListener(this);
+        refreshLayout.setOnRefreshListener(this);
+        mAdapter = getPageAdapter();
+        if (mAdapter instanceof RecyclerView.Adapter)
+            recyclerView.setAdapter((RecyclerView.Adapter) mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this,
+                R.drawable.divider_common_horizontal)));
+        onErrorClick(null);
+    }
 
     @Override
     public void onErrorClick(StateFrameLayout layout) {
-        onLoadingShow(null);
-        page = 1;
-        loadFirstPage();
+        mPage = 1;
+        presenter.getList(mPage, false);
     }
 
     @Override
-    public void onLoadingShow(String loadingMessage) {
-        if (sfl != null)
+    public void onFirstLoading(boolean isRefresh) {
+        if (!isRefresh) {
             sfl.loading();
-    }
-
-    @Override
-    public void onLoadingHide() {
-        if (sfl != null)
-            sfl.normal();
-    }
-
-    @Override
-    public void onEmpty() {
-        if (sfl != null)
-            sfl.empty();
-    }
-
-    @Override
-    public void onError(String error, int page) {
-        if (sfl != null)
-            sfl.error();
-    }
-
-    @Override
-    public void onLoadMoreEmpty() {
-
-    }
-
-    @Override
-    public void onLoadMoreError(int page, String error) {
-
-    }
-
-    private StateFrameLayout sfl;
-
-    protected void getSfl(StateFrameLayout sfl) {
-        if (sfl != null) {
-            this.sfl = sfl;
-            sfl.setOnStateClickListener(this);
         }
     }
 
-    protected void loadFirstPage() {
-
+    @Override
+    public void onFirstLoadFinish(boolean isRefresh) {
+        if (isRefresh) {
+            refreshLayout.setRefreshing(false);
+        } else {
+            sfl.normal();
+        }
     }
 
-    protected int page = 1;
+    @Override
+    public void onFirstLoadEmpty() {
+        sfl.empty();
+    }
+
+    @Override
+    public void onFirstLoadError(int page, String error) {
+        sfl.error();
+    }
+
+    @Override
+    public void onAutoLoadMore(StateFrameLayout loadMore, Object lastData) {
+        presenter.getList(mPage, false);
+    }
+
+    @Override
+    public void onReloadClick(StateFrameLayout loadMore) {
+        presenter.getList(mPage, false);
+    }
+
+//    @Override
+//    public void onLoadMoreEmpty() {
+//
+//    }
+//
+//    @Override
+//    public void onLoadMoreError(int page, String error) {
+//
+//    }
+
+    protected int mPage = 1;
+
+    @Override
+    public void onRefresh() {
+        mPage = 1;
+        presenter.getList(mPage, true);
+    }
+
+    @Override
+    public void setData(List<Entity> list, int page, boolean hasNextPage) {
+        if (hasNextPage) {
+            mPage++;
+        }
+        if (mAdapter != null) {
+            mAdapter.setData(list, hasNextPage);
+        }
+    }
+
+    @Override
+    public void addData(List<Entity> list, int page, boolean hasNextPage) {
+        if (hasNextPage) {
+            mPage++;
+        }
+        if (mAdapter != null) {
+            mAdapter.addData(list, hasNextPage);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package com.xiezhenqi.newmvp.act;
 
+import com.xiezhenqi.newmvp.HomePageBean;
 import com.xiezhenqi.newmvp.mvp.IListView;
-import com.xiezhenqi.newmvp.ShopBean;
 
 /**
  * RXMVPContract
@@ -9,7 +9,7 @@ import com.xiezhenqi.newmvp.ShopBean;
  */
 public interface RXMVPContract {
 
-    interface View extends IListView<ShopBean.ListBean> {
+    interface View extends IListView<HomePageBean.Datas> {
     }
 
     interface Presenter {

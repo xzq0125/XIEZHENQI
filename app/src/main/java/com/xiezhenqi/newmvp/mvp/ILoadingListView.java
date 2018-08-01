@@ -10,13 +10,17 @@ public interface ILoadingListView extends ILoadingEntityView {
 
     /**
      * 首次网络加载开始时回调
+     *
+     * @param isRefresh 是否是下拉刷新
      */
-    void onFirstLoading();
+    void onFirstLoading(boolean isRefresh);
 
     /**
      * 首次网络加载完成回调
+     *
+     * @param isRefresh 是否是下拉刷新
      */
-    void onFirstLoadFinish();
+    void onFirstLoadFinish(boolean isRefresh);
 
     /**
      * 首次网络加载数据为空回调

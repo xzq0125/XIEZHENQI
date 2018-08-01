@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
+import com.xiezhenqi.newmvp.IAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import am.widget.stateframelayout.StateFrameLayout;
 @SuppressWarnings("all")
 public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreViewHolder>
         extends RecyclerView.Adapter<ViewHolder>
-        implements StateFrameLayout.OnStateClickListener {
+        implements StateFrameLayout.OnStateClickListener, IAdapter<Data> {
 
     public static final int TYPE_NORMAL = 1;
     public static final int TYPE_FOOTER = 2;

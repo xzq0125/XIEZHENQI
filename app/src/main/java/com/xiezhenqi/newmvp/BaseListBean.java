@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName;
 
 public abstract class BaseListBean {
 
-    @SerializedName(value = "snPageCount", alternate = {"count", "listCount"})
+    @SerializedName(value = "snPageCount", alternate = {"count", "listCount", "pageCount"})
     private int snPageCount;
 
     /**

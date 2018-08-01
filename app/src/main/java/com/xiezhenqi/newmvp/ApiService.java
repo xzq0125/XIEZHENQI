@@ -1,10 +1,8 @@
 package com.xiezhenqi.newmvp;
 
 import io.reactivex.Observable;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.Headers;
-import retrofit2.http.POST;
+import retrofit2.http.HTTP;
+import retrofit2.http.Path;
 
 /**
  * ApiService
@@ -12,12 +10,12 @@ import retrofit2.http.POST;
  */
 public interface ApiService {
 
-    @FormUrlEncoded
-    @Headers("moduleName:testshop")
-    @POST("/home/index/shopList")
-    Observable<NetBean<ShopBean>> getShopList(
-            @Field("page") int page,
-            @Field("type") int type,
-            @Field("city_id") int city_id,
-            @Field("order") String number_desc);
+    /**
+     * method：网络请求的方法（区分大小写）
+     * path：网络请求地址路径
+     * hasBody：是否有请求体
+     */
+    @HTTP(method = "GET", path = "/article/list/{page}/json", hasBody = false)
+    Observable<NetBean<HomePageBean>> getWangAndroidHomePage(
+            @Path("page") int page);
 }

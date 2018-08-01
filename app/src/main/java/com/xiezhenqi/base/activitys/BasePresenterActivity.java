@@ -11,7 +11,7 @@ import com.xiezhenqi.base.mvp.BasePresenter;
  * Created by Wesley on 2017/12/13.
  */
 
-public abstract class BasePresenterActivity<Presenter extends BasePresenter>
+public abstract class BasePresenterActivity<Presenter>
         extends BaseActivity {
 
     protected Presenter presenter;
@@ -35,8 +35,8 @@ public abstract class BasePresenterActivity<Presenter extends BasePresenter>
 
     @Override
     protected void onDestroy() {
-        if (presenter != null)
-            presenter.onDestroy();
+        if (presenter instanceof BasePresenter)
+            ((BasePresenter) presenter).onDestroy();
         super.onDestroy();
     }
 

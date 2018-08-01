@@ -18,7 +18,7 @@ import io.reactivex.observers.ResourceObserver;
  * 网络响应基础回调
  * Created by Wesley on 2018/7/9.
  */
-
+@SuppressWarnings("all")
 public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entity>> {
 
     private static final int FIRST_PAGE_INDEX = 1;
@@ -28,35 +28,16 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
     public static final int CODE_NET_BREAK = -127;
     public static final int CODE_FAILED = -128;
     private static final String DEF_LOADING_MSG = "加载中...";
+    private static final String mLoadingMessage = DEF_LOADING_MSG;
     private ILoadingListView mLoadingListView;
     private ILoadingEntityView mLoadingView;
-    private String mLoadingMessage;
     private int mPage = FIRST_PAGE_INDEX;
+    private boolean isRefresh;
 
-    public NetCallback() {
-        this(null, DEF_LOADING_MSG);
-    }
-
-    public NetCallback(String loadingMessage) {
-        this(null, loadingMessage);
-    }
-
-    public NetCallback(ILoadingEntityView loadingView) {
-        this(loadingView, DEF_LOADING_MSG);
-    }
-
-    public NetCallback(ILoadingEntityView loadingView, String loadingMessage) {
-        this(loadingView, loadingMessage, FIRST_PAGE_INDEX);
-    }
-
-    public NetCallback(ILoadingEntityView loadingView, int page) {
-        this(loadingView, DEF_LOADING_MSG, page);
-    }
-
-    public NetCallback(ILoadingEntityView loadingView, String loadingMessage, int page) {
+    public NetCallback(ILoadingEntityView loadingView, int page, boolean isRefresh) {
         this.mLoadingView = loadingView;
-        this.mLoadingMessage = loadingMessage;
         this.mPage = page;
+        this.isRefresh = isRefresh;
         if (loadingView instanceof ILoadingListView)
             this.mLoadingListView = (ILoadingListView) loadingView;
     }
@@ -67,7 +48,7 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
             mLoadingView.onLoadingShow(mLoadingMessage);
         }
         if (mLoadingListView != null && isFirstPage()) {
-            mLoadingListView.onFirstLoading();
+            mLoadingListView.onFirstLoading(isRefresh);
         }
     }
 
@@ -77,7 +58,7 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
             mLoadingView.onLoadingHide();
         }
         if (mLoadingListView != null && isFirstPage() && !isEmpty) {
-            mLoadingListView.onFirstLoadFinish();
+            mLoadingListView.onFirstLoadFinish(isRefresh);
         }
     }
 

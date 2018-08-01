@@ -16,8 +16,9 @@ public interface BaseListContract {
         /**
          * 加载列表
          *
-         * @param page 页码
+         * @param page      页码
+         * @param isRefresh 是否是下拉刷新
          */
-        void getList(final int page);
+        void getList(final int page, boolean isRefresh);
     }
 }

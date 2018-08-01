@@ -15,12 +15,12 @@ public abstract class SimpleLoadingActivity extends LifecycleActivity implements
     private static final String TAG = "SimpleLoadingActivity";
 
     @Override
-    public void onFirstLoading() {
+    public void onFirstLoading(boolean isRefresh) {
         LogUtils.debug(TAG, "onFirstLoading");
     }
 
     @Override
-    public void onFirstLoadFinish() {
+    public void onFirstLoadFinish(boolean isRefresh) {
         LogUtils.debug(TAG, "onFirstLoadFinish");
     }
 

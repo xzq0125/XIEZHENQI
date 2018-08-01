@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="item_click_support" type="id"></item>
-    <item name="tool_bar" type="id"></item>
+    <item name="item_click_support" type="id"/>
+    <item name="tool_bar" type="id"/>
+
+    <!--分页列表-->
+    <item name="refreshLayout" type="id" />
+    <item name="sfl" type="id" />
+    <item name="recyclerView" type="id" />
+
 </resources>
