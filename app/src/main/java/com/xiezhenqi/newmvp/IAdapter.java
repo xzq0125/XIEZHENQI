@@ -14,4 +14,7 @@ public interface IAdapter<T> {
     void setData(List<T> data, boolean hasNext);
 
     void addData(List<T> data, boolean hasNext);
+
+    void onError();
+
 }

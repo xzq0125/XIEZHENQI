@@ -179,6 +179,11 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
     }
 
     @Override
+    public void onError() {
+        sflLoadMore.error();
+    }
+
+    @Override
     public void onErrorClick(StateFrameLayout layout) {
         if (layout != null)
             layout.loading();

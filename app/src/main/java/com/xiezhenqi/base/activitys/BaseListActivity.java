@@ -54,7 +54,7 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
 
     @Override
     protected void initViews(@Nullable Bundle savedInstanceState) {
-        setSupportActionBar(R.id.toolbar);
+        setSupportActionBar(R.id.tool_bar);
         title.setText(getPageTitle());
         sfl.setOnStateClickListener(this);
         refreshLayout.setOnRefreshListener(this);
@@ -109,15 +109,12 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
         presenter.getList(mPage, false);
     }
 
-//    @Override
-//    public void onLoadMoreEmpty() {
-//
-//    }
-//
-//    @Override
-//    public void onLoadMoreError(int page, String error) {
-//
-//    }
+    @Override
+    public void onLoadMoreError(int page, String error) {
+        if (mAdapter != null) {
+            mAdapter.onError();
+        }
+    }
 
     protected int mPage = 1;
 
