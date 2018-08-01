@@ -17,12 +17,12 @@ public class LoginModel extends AbstractModel<LoginPresenter> implements LoginCo
 
     @Override
     public void doLogin(String account, String pwd) {
-        presenter.onShowLoading(null);
+        presenter.onLoadingShow(null);
         addRequest(null);
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                presenter.onHideLoading();
+                presenter.onLoadingHide();
                 presenter.setData("登录实体");
                 presenter.onFinishActivity();
             }

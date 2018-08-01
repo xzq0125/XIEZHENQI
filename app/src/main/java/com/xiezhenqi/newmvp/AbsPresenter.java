@@ -7,7 +7,7 @@ import com.trello.navi2.Listener;
 import com.trello.navi2.NaviComponent;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.xiezhenqi.base.mvp.BasePresenter;
-import com.xiezhenqi.base.mvp.ILoadingEntityView;
+import com.xiezhenqi.newmvp.mvp.ILoadingEntityView;
 import com.xiezhenqi.newmvp.lifecycle.ILifeCycleProviderSupplier;
 
 import io.reactivex.Observable;

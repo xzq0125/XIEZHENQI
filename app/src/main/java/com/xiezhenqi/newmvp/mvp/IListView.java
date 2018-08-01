@@ -1,11 +1,12 @@
-package com.xiezhenqi.base.mvp;
+package com.xiezhenqi.newmvp.mvp;
 
 import java.util.List;
 
 /**
- * 网络响应以列表形式返回
  * 列表接口
- * Created by Wesley on 2018/7/11.
+ * 网络响应以列表形式返回
+ *
+ * @author xzq
  */
 public interface IListView<Entity> extends ILoadingListView {
 
@@ -13,7 +14,8 @@ public interface IListView<Entity> extends ILoadingListView {
      * 设置数据
      *
      * @param list        数据列表
-     * @param hasNextPage 是否有下一页列表
+     * @param page        当前页码
+     * @param hasNextPage 是否有下一页
      */
     void setData(List<Entity> list, int page, boolean hasNextPage);
 
@@ -21,7 +23,8 @@ public interface IListView<Entity> extends ILoadingListView {
      * 追加数据
      *
      * @param list        数据列表
-     * @param hasNextPage 是否有下一页列表
+     * @param page        当前页码
+     * @param hasNextPage 是否有下一页
      */
     void addData(List<Entity> list, int page, boolean hasNextPage);
 }

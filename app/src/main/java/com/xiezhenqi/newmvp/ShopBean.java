@@ -6,7 +6,7 @@ import java.util.List;
  * ShopBean
  * Created by Wesley on 2018/7/10.
  */
-public class ShopBean {
+public class ShopBean extends BaseListBean{
 
     /**
      * listCount : 4
@@ -14,7 +14,6 @@ public class ShopBean {
      * ad : {"adListCount":3,"adList":[{"id":"217","image_url":"http://file.vipbendi.com/attachs/2017/03/24/58d4c44c3b61b.jpg","title":"商家分类广告图","link_url":"http://www.vipbendi.com/mshop/detail/shop_id/1886.html","app_param":{"module":"shop","value":"1886","account_type":2},"adListVersion":"1"},{"id":"218","image_url":"http://file.vipbendi.com/attachs/2017/10/30/59f6ddbf79abb.jpg","title":"只要你会写字-1部手机于疯互联网","link_url":"#","app_param":null,"adListVersion":"1"},{"id":"1117","image_url":"http://file.vipbendi.com/attachs/2017/10/30/59f6ddfd17d1b.jpg","title":"2分钟注册和认证，拥有互关网","link_url":"http://www.vipbendi.com/mindex/downloadpage.html","app_param":null,"adListVersion":"1"}]}
      */
 
-    public int listCount;
     public AdBean ad;
     public List<ListBean> list;
 

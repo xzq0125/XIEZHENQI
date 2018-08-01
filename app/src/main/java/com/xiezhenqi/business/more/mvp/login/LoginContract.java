@@ -1,7 +1,7 @@
 package com.xiezhenqi.business.more.mvp.login;
 
 
-import com.xiezhenqi.base.mvp.IEntityView;
+import com.xiezhenqi.newmvp.mvp.IEntityView;
 import com.xiezhenqi.base.mvp.FinishView;
 
 /**

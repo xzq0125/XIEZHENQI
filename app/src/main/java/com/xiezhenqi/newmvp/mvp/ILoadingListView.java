@@ -1,8 +1,9 @@
-package com.xiezhenqi.base.mvp;
+package com.xiezhenqi.newmvp.mvp;
 
 /**
  * 通用加载列表/更多列表的接口
- * Created by Wesley on 2017/12/13.
+ *
+ * @author xzq
  */
 
 public interface ILoadingListView extends ILoadingEntityView {
@@ -25,16 +26,22 @@ public interface ILoadingListView extends ILoadingEntityView {
     /**
      * 加载更多数据为空回调
      */
-    void onShowLoadMoreEmpty();
+    void onLoadMoreEmpty();
 
     /**
      * 首次网络加载数据错误回调
+     *
+     * @param page  当前页码
+     * @param error 错误信息
      */
     void onFirstLoadError(int page, String error);
 
     /**
      * 加载更多错误回调
+     *
+     * @param page  当前页码
+     * @param error 错误信息
      */
-    void onShowLoadMoreError(int page, String error);
+    void onLoadMoreError(int page, String error);
 
 }

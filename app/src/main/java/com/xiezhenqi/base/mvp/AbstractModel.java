@@ -1,5 +1,7 @@
 package com.xiezhenqi.base.mvp;
 
+import com.xiezhenqi.newmvp.mvp.ILoadingEntityView;
+
 import java.util.ArrayList;
 import java.util.List;
 

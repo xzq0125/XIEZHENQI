@@ -52,22 +52,22 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     }
 
     @Override
-    public void onShowLoading(String loadingMessage) {
+    public void onLoadingShow(String loadingMessage) {
         progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onHideLoading() {
+    public void onLoadingHide() {
         progressBar.setVisibility(View.GONE);
     }
 
     @Override
-    public void onShowEmpty() {
+    public void onEmpty() {
 
     }
 
     @Override
-    public void onShowError(String error, int page) {
+    public void onError(String error, int page) {
 
     }
 

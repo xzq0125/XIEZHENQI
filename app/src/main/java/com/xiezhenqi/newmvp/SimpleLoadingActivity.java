@@ -1,7 +1,7 @@
 package com.xiezhenqi.newmvp;
 
 
-import com.xiezhenqi.base.mvp.ILoadingListView;
+import com.xiezhenqi.newmvp.mvp.ILoadingListView;
 import com.xiezhenqi.newmvp.lifecycle.LifecycleActivity;
 import com.xiezhenqi.utils.LogUtils;
 
@@ -35,32 +35,32 @@ public abstract class SimpleLoadingActivity extends LifecycleActivity implements
     }
 
     @Override
-    public void onShowLoading(String loadingMessage) {
-        LogUtils.debug(TAG, "onShowLoading");
+    public void onLoadingShow(String loadingMessage) {
+        LogUtils.debug(TAG, "onLoadingShow");
     }
 
     @Override
-    public void onHideLoading() {
-        LogUtils.debug(TAG, "onHideLoading");
+    public void onLoadingHide() {
+        LogUtils.debug(TAG, "onLoadingHide");
     }
 
     @Override
-    public void onShowEmpty() {
-        LogUtils.debug(TAG, "onShowEmpty");
+    public void onEmpty() {
+        LogUtils.debug(TAG, "onEmpty");
     }
 
     @Override
-    public void onShowError(String error, int page) {
-        LogUtils.debug(TAG, "onShowError");
+    public void onError(String error, int page) {
+        LogUtils.debug(TAG, "onError");
     }
 
     @Override
-    public void onShowLoadMoreEmpty() {
-        LogUtils.debug(TAG, "onShowLoadMoreEmpty");
+    public void onLoadMoreEmpty() {
+        LogUtils.debug(TAG, "onLoadMoreEmpty");
     }
 
     @Override
-    public void onShowLoadMoreError(int page, String error) {
-        LogUtils.debug(TAG, "onShowLoadMoreError");
+    public void onLoadMoreError(int page, String error) {
+        LogUtils.debug(TAG, "onLoadMoreError");
     }
 }

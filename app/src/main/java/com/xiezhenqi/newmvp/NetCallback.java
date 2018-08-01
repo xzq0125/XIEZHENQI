@@ -3,8 +3,8 @@ package com.xiezhenqi.newmvp;
 import android.support.annotation.NonNull;
 
 import com.google.gson.JsonSyntaxException;
-import com.xiezhenqi.base.mvp.ILoadingEntityView;
-import com.xiezhenqi.base.mvp.ILoadingListView;
+import com.xiezhenqi.newmvp.mvp.ILoadingEntityView;
+import com.xiezhenqi.newmvp.mvp.ILoadingListView;
 import com.xiezhenqi.utils.LogUtils;
 import com.xiezhenqi.utils.ToastUtils;
 
@@ -64,7 +64,7 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
     @Override
     protected void onStart() {
         if (mLoadingView != null) {
-            mLoadingView.onShowLoading(mLoadingMessage);
+            mLoadingView.onLoadingShow(mLoadingMessage);
         }
         if (mLoadingListView != null && isFirstPage()) {
             mLoadingListView.onFirstLoading();
@@ -74,7 +74,7 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
     @Override
     public void onComplete() {
         if (mLoadingView != null) {
-            mLoadingView.onHideLoading();
+            mLoadingView.onLoadingHide();
         }
         if (mLoadingListView != null && isFirstPage() && !isEmpty) {
             mLoadingListView.onFirstLoadFinish();
@@ -88,18 +88,21 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         if (netResponse.isOk()) {
             Entity entity = netResponse.getData();
             boolean hasNextPage = netResponse.hasNextPage(mPage);
+            if (entity instanceof BaseListBean) {
+                hasNextPage = ((BaseListBean) entity).hasNextPage(mPage);
+            }
             onSuccess(entity, msg, code, mPage, hasNextPage);
             isEmpty = entity == null ||
                     entity instanceof List && ((List) entity).isEmpty();
             if (isEmpty) {
                 if (mLoadingView != null) {
-                    mLoadingView.onShowEmpty();
+                    mLoadingView.onEmpty();
                 }
                 if (mLoadingListView != null) {
                     if (isFirstPage()) {
                         mLoadingListView.onFirstLoadEmpty();
                     } else {
-                        mLoadingListView.onShowLoadMoreEmpty();
+                        mLoadingListView.onLoadMoreEmpty();
                     }
                 }
             }
@@ -136,13 +139,13 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         onError(error, code);
 
         if (mLoadingView != null) {
-            mLoadingView.onShowError(error, mPage);
+            mLoadingView.onError(error, mPage);
         }
         if (mLoadingListView != null) {
             if (isFirstPage())
                 mLoadingListView.onFirstLoadError(mPage, error);
             else
-                mLoadingListView.onShowLoadMoreError(mPage, error);
+                mLoadingListView.onLoadMoreError(mPage, error);
         }
     }
 

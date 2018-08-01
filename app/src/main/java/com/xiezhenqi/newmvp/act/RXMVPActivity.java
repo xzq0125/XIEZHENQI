@@ -99,8 +99,8 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter> implements R
     }
 
     @Override
-    public void onHideLoading() {
-        super.onHideLoading();
+    public void onLoadingHide() {
+        super.onLoadingHide();
         swipeRefreshLayout.setRefreshing(false);
     }
 

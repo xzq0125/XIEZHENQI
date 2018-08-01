@@ -1,9 +1,10 @@
-package com.xiezhenqi.base.mvp;
+package com.xiezhenqi.newmvp.mvp;
 
 /**
- * 网络响应以实体形式返回
  * 实体接口
- * Created by Wesley on 2018/6/4.
+ * 网络响应以实体形式返回
+ *
+ * @author xzq
  */
 public interface IEntityView<Entity> extends ILoadingEntityView {
 

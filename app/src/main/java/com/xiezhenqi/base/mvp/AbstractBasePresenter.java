@@ -1,5 +1,7 @@
 package com.xiezhenqi.base.mvp;
 
+import com.xiezhenqi.newmvp.mvp.ILoadingEntityView;
+
 /**
  * AbstractBasePresenter
  * Created by Wesley on 2017/12/13.
@@ -34,27 +36,27 @@ public abstract class AbstractBasePresenter<Model extends BaseModel, View extend
     }
 
     @Override
-    public void onShowLoading(String loadingMessage) {
+    public void onLoadingShow(String loadingMessage) {
         if (mView != null)
-            mView.onShowLoading(loadingMessage);
+            mView.onLoadingShow(loadingMessage);
     }
 
     @Override
-    public void onHideLoading() {
+    public void onLoadingHide() {
         if (mView != null)
-            mView.onHideLoading();
+            mView.onLoadingHide();
     }
 
     @Override
-    public void onShowEmpty() {
+    public void onEmpty() {
         if (mView != null)
-            mView.onShowEmpty();
+            mView.onEmpty();
     }
 
     @Override
-    public void onShowError(String error, int page) {
+    public void onError(String error, int page) {
         if (mView != null)
-            mView.onShowError(error, page);
+            mView.onError(error, page);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.xiezhenqi.newmvp.act;
 
-import com.xiezhenqi.base.mvp.IListView;
+import com.xiezhenqi.newmvp.mvp.IListView;
 import com.xiezhenqi.newmvp.ShopBean;
 
 /**

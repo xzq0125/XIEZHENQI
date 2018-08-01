@@ -9,7 +9,7 @@ public class NetBean<T> {
     private int code;// 错误code
     private String msg;// 错误code
     private T data;// 返回数据
-    private int count;
+    private int count;//服务端定义数组返回形式总页数
 
     public boolean isOk() {
         return code == 0;

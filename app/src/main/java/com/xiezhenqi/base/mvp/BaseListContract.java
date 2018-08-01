@@ -1,5 +1,7 @@
 package com.xiezhenqi.base.mvp;
 
+import com.xiezhenqi.newmvp.mvp.IListView;
+
 /**
  * 通用列表基类约束
  * Created by xzq on 2018/7/12.

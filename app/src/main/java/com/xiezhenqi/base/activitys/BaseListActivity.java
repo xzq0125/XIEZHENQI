@@ -1,7 +1,7 @@
 package com.xiezhenqi.base.activitys;
 
 import com.xiezhenqi.base.mvp.BasePresenter;
-import com.xiezhenqi.base.mvp.ILoadingListView;
+import com.xiezhenqi.newmvp.mvp.ILoadingListView;
 
 import am.widget.stateframelayout.StateFrameLayout;
 
@@ -16,42 +16,42 @@ public abstract class BaseListActivity<P extends BasePresenter> extends BasePres
 
     @Override
     public void onErrorClick(StateFrameLayout layout) {
-        onShowLoading(null);
+        onLoadingShow(null);
         page = 1;
         loadFirstPage();
     }
 
     @Override
-    public void onShowLoading(String loadingMessage) {
+    public void onLoadingShow(String loadingMessage) {
         if (sfl != null)
             sfl.loading();
     }
 
     @Override
-    public void onHideLoading() {
+    public void onLoadingHide() {
         if (sfl != null)
             sfl.normal();
     }
 
     @Override
-    public void onShowEmpty() {
+    public void onEmpty() {
         if (sfl != null)
             sfl.empty();
     }
 
     @Override
-    public void onShowError(String error, int page) {
+    public void onError(String error, int page) {
         if (sfl != null)
             sfl.error();
     }
 
     @Override
-    public void onShowLoadMoreEmpty() {
+    public void onLoadMoreEmpty() {
 
     }
 
     @Override
-    public void onShowLoadMoreError(int page, String error) {
+    public void onLoadMoreError(int page, String error) {
 
     }
 
