@@ -59,6 +59,20 @@ public class DFragment extends BaseFragment {
                 break;
             case R.id.account_llyt_order:
                 ToastUtils.showToast(getActivity(), "我的订单");
+//
+//                Intent intent = getActivity().getPackageManager()
+//                        .getLaunchIntentForPackage("com.uumhome.yymw");
+//                if (intent != null) {
+//                    intent.putExtra("type", "110");
+//                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    startActivity(intent);
+//                }
+
+                Intent intent = new Intent();
+                intent.setData(Uri.parse("uumhome://yy.dadazu.com?type=111"));
+                intent.putExtra("type", "110");
+                startActivity(intent);
+
                 break;
             case R.id.account_llyt_coupon:
                 ToastUtils.showToast(getActivity(), "米星券");
