@@ -16,7 +16,8 @@ import io.reactivex.observers.ResourceObserver;
 
 /**
  * 网络响应基础回调
- * Created by Wesley on 2018/7/9.
+ *
+ * @author xzq
  */
 @SuppressWarnings("all")
 public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entity>> {

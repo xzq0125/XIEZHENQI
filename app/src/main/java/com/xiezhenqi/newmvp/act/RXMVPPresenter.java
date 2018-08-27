@@ -18,7 +18,7 @@ import io.reactivex.Observable;
  */
 public class RXMVPPresenter extends AbsPresenter<RXMVPContract.View> implements BaseListContract.Presenter {
 
-    public RXMVPPresenter(@NonNull RXMVPContract.View view) {
+    RXMVPPresenter(@NonNull RXMVPContract.View view) {
         super(view);
     }
 

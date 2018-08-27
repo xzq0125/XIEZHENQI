@@ -7,7 +7,8 @@ import com.xiezhenqi.utils.LogUtils;
 
 /**
  * 简单的加载基类，各方法的回调已空实现，按需重写实现自己的逻辑
- * Created by xzq on 2018/7/13.
+ *
+ * @author xzq
  */
 
 public abstract class SimpleLoadingActivity extends LifecycleActivity implements ILoadingListView {

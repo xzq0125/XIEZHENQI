@@ -11,7 +11,7 @@ import com.trello.rxlifecycle2.navi.NaviLifecycle;
  */
 
 @SuppressWarnings("all")
-public class LifecycleActivity extends NaviAppCompatActivity implements ILifeCycleProviderSupplier<ActivityEvent> {
+public abstract class LifecycleActivity extends NaviAppCompatActivity implements ILifeCycleProviderSupplier<ActivityEvent> {
     // TODO: 2017/1/9 实现Activity生命周期的对外回调
 
     protected final LifecycleProvider<ActivityEvent> provider

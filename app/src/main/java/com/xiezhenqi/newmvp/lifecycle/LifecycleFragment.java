@@ -9,7 +9,7 @@ import com.trello.rxlifecycle2.navi.NaviLifecycle;
  * 生命周期Fragment，提供对外的生命周期监听器
  */
 
-public class LifecycleFragment extends NaviFragment implements ILifeCycleProviderSupplier<FragmentEvent>{
+public abstract class LifecycleFragment extends NaviFragment implements ILifeCycleProviderSupplier<FragmentEvent> {
 
     protected final LifecycleProvider<FragmentEvent> provider
             = NaviLifecycle.createFragmentLifecycleProvider(this);

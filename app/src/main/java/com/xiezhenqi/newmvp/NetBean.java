@@ -3,7 +3,7 @@ package com.xiezhenqi.newmvp;
 /**
  * 请求返回实体
  *
- * @author Alex
+ * @author xzq
  */
 public class NetBean<T> {
     private int code;// 错误code

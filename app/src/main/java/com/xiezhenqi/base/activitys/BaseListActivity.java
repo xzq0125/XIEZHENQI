@@ -12,7 +12,6 @@ import com.xiezhenqi.R;
 import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.mvp.BaseListContract;
 import com.xiezhenqi.newmvp.IAdapter;
-import com.xiezhenqi.newmvp.mvp.ILoadingListView;
 import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
 import java.util.List;
@@ -28,7 +27,7 @@ import butterknife.BindView;
 
 public abstract class BaseListActivity<P extends BaseListContract.Presenter, Entity>
         extends BasePresenterActivity<P>
-        implements ILoadingListView, BaseListContract.View<Entity>,
+        implements BaseListContract.View<Entity>,
         StateFrameLayout.OnStateClickListener,
         SwipeRefreshLayout.OnRefreshListener,
         BaseLoadMoreAdapter.OnLoadMoreCallback {

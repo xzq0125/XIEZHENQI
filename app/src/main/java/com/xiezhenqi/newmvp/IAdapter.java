@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * IAdapter
- * Created by xzq on 2018/7/13.
+ * @author xzq
  */
 
 public interface IAdapter<T> {
