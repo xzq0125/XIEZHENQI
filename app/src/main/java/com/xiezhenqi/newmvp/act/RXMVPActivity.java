@@ -3,20 +3,22 @@ package com.xiezhenqi.newmvp.act;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiezhenqi.R;
 import com.xiezhenqi.base.activitys.BaseListActivity;
-import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
-import com.xiezhenqi.base.list.viewholder.BaseLoadMoreViewHolder;
 import com.xiezhenqi.business.h5help.H5HelpActivity;
+import com.xiezhenqi.newmvp.BaseRecyclerAdapter;
+import com.xiezhenqi.newmvp.BaseRecyclerViewHolder;
 import com.xiezhenqi.newmvp.HomePageBean;
 import com.xiezhenqi.newmvp.IAdapter;
 
-public class RXMVPActivity extends BaseListActivity<RXMVPPresenter, HomePageBean.Datas> implements RXMVPContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+import java.util.List;
+
+public class RXMVPActivity extends BaseListActivity<RXMVPPresenter, HomePageBean.Datas> implements RXMVPContract.View {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, RXMVPActivity.class);
@@ -35,38 +37,31 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter, HomePageBean
 
     @Override
     protected IAdapter<HomePageBean.Datas> getPageAdapter() {
-        return new MyAdapter(this);
+        return new MyAdapter();
     }
 
-    private final class MyAdapter extends BaseLoadMoreAdapter<HomePageBean.Datas, MyViewHolder> {
+    private final class MyAdapter extends BaseRecyclerAdapter<HomePageBean.Datas, MyViewHolder> {
 
-        public MyAdapter(OnLoadMoreCallback loadMoreCallback) {
-            super(loadMoreCallback);
-        }
-
+        @NonNull
         @Override
-        public MyViewHolder onCreateNormalViewHolder(View itemView) {
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, @Nullable View itemView, int viewType) {
             return new MyViewHolder(itemView);
         }
 
         @Override
-        public void onConvert(MyViewHolder holder, int position) {
-            holder.setData(getDataAt(position), position);
-        }
-
-        @Override
-        protected int getItemLayoutId() {
+        protected int getItemLayoutId(int viewType) {
             return R.layout.item_song_list;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
+        public void onConvert(@NonNull MyViewHolder holder, HomePageBean.Datas data,
+                              int position, @NonNull List<Object> payload) {
+            holder.setData(data);
         }
+
     }
 
-    private final class MyViewHolder extends BaseLoadMoreViewHolder implements View.OnClickListener {
-
+    private final class MyViewHolder extends BaseRecyclerViewHolder<HomePageBean.Datas> implements View.OnClickListener {
 
         private TextView tv;
 
@@ -76,7 +71,8 @@ public class RXMVPActivity extends BaseListActivity<RXMVPPresenter, HomePageBean
             tv.setOnClickListener(this);
         }
 
-        public void setData(HomePageBean.Datas data, int position) {
+        @Override
+        public void setData(HomePageBean.Datas data) {
             tv.setTag(data.link);
             tv.setText(position + "\t" + data.title + "\t" + data.niceDate);
         }

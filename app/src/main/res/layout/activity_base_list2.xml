@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ll_activity"
     android:layout_width="match_parent"
@@ -10,7 +11,7 @@
 
     <include layout="@layout/merge_toolbar" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@id/refreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,7 +20,8 @@
             android:id="@id/sfl"
             style="@style/StateFrameLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:sflLoadingLayout="@null">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@id/recyclerView"
@@ -28,6 +30,6 @@
 
         </am.widget.stateframelayout.StateFrameLayout>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

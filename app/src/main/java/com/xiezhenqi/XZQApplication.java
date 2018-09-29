@@ -10,6 +10,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+import com.xiezhenqi.newmvp.RefreshLayoutInitializer;
 import com.xiezhenqi.utils.Constant;
 import com.xiezhenqi.utils.StringUtils;
 
@@ -38,6 +39,7 @@ public class XZQApplication extends Application {
         mLocalBroadcastManager = LocalBroadcastManager.getInstance(mContext);
         IntentFilter filter = new IntentFilter();
         mLocalBroadcastManager.registerReceiver(mLocalReceiver, filter);
+        RefreshLayoutInitializer.initHeader();
     }
 
     public static Context getContext() {

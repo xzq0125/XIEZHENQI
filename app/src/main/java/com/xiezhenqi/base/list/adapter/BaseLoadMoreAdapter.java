@@ -33,8 +33,15 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
     protected List<Data> mData;
     protected boolean hasNext = false;
     private StateFrameLayout sflLoadMore;
-    protected final OnLoadMoreCallback loadMoreCallback;
+    protected  OnLoadMoreCallback loadMoreCallback;
     private LayoutInflater inflater;
+
+    public void setLoadMoreCallback(OnLoadMoreCallback loadMoreCallback) {
+        this.loadMoreCallback = loadMoreCallback;
+    }
+
+    public BaseLoadMoreAdapter() {
+    }
 
     public BaseLoadMoreAdapter(OnLoadMoreCallback loadMoreCallback) {
         this.loadMoreCallback = loadMoreCallback;
@@ -62,7 +69,7 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
 
             case TYPE_FOOTER:
                 itemView = inflater.inflate(getFooterLayoutId(), parent, false);
-                sflLoadMore = (StateFrameLayout) ((ViewGroup) itemView).getChildAt(0);
+                sflLoadMore = (StateFrameLayout) itemView;
                 sflLoadMore.setStateDrawables(new MaterialLoadingProgressDrawable(sflLoadMore),
                         ContextCompat.getDrawable(parent.getContext(), R.drawable.ic_loading_error), null);
                 sflLoadMore.setOnStateClickListener(this);
@@ -309,4 +316,9 @@ public abstract class BaseLoadMoreAdapter<Data, ViewHolder extends BaseLoadMoreV
         void onItemLongClick(Object dto, int position);
     }
 
+    @Override
+    public void clear() {
+        mData.clear();
+        notifyDataSetChanged();
+    }
 }

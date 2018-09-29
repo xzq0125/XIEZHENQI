@@ -119,6 +119,7 @@ public abstract class NetCallback<Entity> extends ResourceObserver<NetBean<Entit
         LogUtils.debug("NetCallback", e.getMessage());
 
         onError(error, code);
+        onComplete();
 
         if (mLoadingView != null) {
             mLoadingView.onError(error, mPage);

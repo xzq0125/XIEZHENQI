@@ -1,18 +1,19 @@
 package com.xiezhenqi.base.activitys;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.xiezhenqi.R;
-import com.xiezhenqi.base.list.adapter.BaseLoadMoreAdapter;
 import com.xiezhenqi.base.mvp.BaseListContract;
+import com.xiezhenqi.newmvp.BaseRecyclerAdapter;
+import com.xiezhenqi.newmvp.DecorationHelper;
 import com.xiezhenqi.newmvp.IAdapter;
-import com.xiezhenqi.widget.divider.DividerItemDecoration;
 
 import java.util.List;
 
@@ -29,8 +30,8 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
         extends BasePresenterActivity<P>
         implements BaseListContract.View<Entity>,
         StateFrameLayout.OnStateClickListener,
-        SwipeRefreshLayout.OnRefreshListener,
-        BaseLoadMoreAdapter.OnLoadMoreCallback {
+        com.scwang.smartrefresh.layout.listener.OnRefreshListener,
+        BaseRecyclerAdapter.OnLoadMoreCallback {
 
     @BindView(android.R.id.title)
     TextView title;
@@ -39,7 +40,7 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout refreshLayout;
+    SmartRefreshLayout refreshLayout;
     private IAdapter<Entity> mAdapter;
 
     protected abstract String getPageTitle();
@@ -58,53 +59,56 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
         sfl.setOnStateClickListener(this);
         refreshLayout.setOnRefreshListener(this);
         mAdapter = getPageAdapter();
-        if (mAdapter instanceof RecyclerView.Adapter)
+        if (mAdapter instanceof BaseRecyclerAdapter) {
+            ((BaseRecyclerAdapter) mAdapter).setLoadMoreCallback(this);
+        }
+        if (mAdapter instanceof RecyclerView.Adapter) {
             recyclerView.setAdapter((RecyclerView.Adapter) mAdapter);
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(ContextCompat.getDrawable(this,
-                R.drawable.divider_common_horizontal)));
+        recyclerView.addItemDecoration(DecorationHelper.VERTICAL);
         onErrorClick(null);
     }
 
     @Override
     public void onErrorClick(StateFrameLayout layout) {
-        mPage = 1;
-        presenter.getList(mPage, false);
+        refreshLayout.autoRefresh(50);
     }
 
     @Override
     public void onFirstLoading(boolean isRefresh) {
-        if (!isRefresh) {
-            sfl.loading();
-        }
+        //empty
     }
 
     @Override
     public void onFirstLoadFinish(boolean isRefresh) {
-        if (isRefresh) {
-            refreshLayout.setRefreshing(false);
-        } else {
-            sfl.normal();
-        }
+        sfl.normal();
+        refreshLayout.finishRefresh();
     }
 
     @Override
     public void onFirstLoadEmpty() {
         sfl.empty();
+        if (mAdapter != null) {
+            mAdapter.clear();
+        }
     }
 
     @Override
     public void onFirstLoadError(int page, String error) {
         sfl.error();
+        if (mAdapter != null) {
+            mAdapter.clear();
+        }
     }
 
     @Override
-    public void onAutoLoadMore(StateFrameLayout loadMore, Object lastData) {
+    public void onAutoLoadMore(StateFrameLayout loadMore) {
         presenter.getList(mPage, false);
     }
 
     @Override
-    public void onReloadClick(StateFrameLayout loadMore) {
+    public void onReloadMore(StateFrameLayout loadMore) {
         presenter.getList(mPage, false);
     }
 
@@ -118,7 +122,7 @@ public abstract class BaseListActivity<P extends BaseListContract.Presenter, Ent
     protected int mPage = 1;
 
     @Override
-    public void onRefresh() {
+    public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         mPage = 1;
         presenter.getList(mPage, true);
     }

@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * IAdapter
+ *
  * @author xzq
  */
 
@@ -16,5 +17,7 @@ public interface IAdapter<T> {
     void addData(List<T> data, boolean hasNext);
 
     void onError();
+
+    void clear();
 
 }
