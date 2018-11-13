@@ -152,6 +152,8 @@
         <activity android:name=".newmvp.act.RXMVPActivity" />
         <activity android:name=".business.more.fit.CalculateDpiActivity" />
         <activity android:name=".business.more.inflate.InflateActivity"></activity>
+        <activity android:name=".business.more.cling2.suspensionbar.MultiActivity" />
+        <activity android:name=".business.more.cling2.suspensionbar.MainActivity" />
     </application>
 
 </manifest>

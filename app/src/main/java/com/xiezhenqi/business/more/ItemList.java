@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.xiezhenqi.business.more.cling.ClingBarActivity;
+import com.xiezhenqi.business.more.cling2.suspensionbar.MainActivity;
+import com.xiezhenqi.business.more.cling2.suspensionbar.MultiActivity;
 import com.xiezhenqi.business.more.contextlist.ContextMenuRecyclerViewActivity;
 import com.xiezhenqi.business.more.drag.DragActivity;
 import com.xiezhenqi.business.more.dragview.DragViewActivity;
@@ -88,6 +90,8 @@ public class ItemList {
         itemList.add(new Item("DragViewActivity", DragViewActivity.class));
         itemList.add(new Item("RichTextActivity", RichTextActivity.class));
         itemList.add(new Item("ClingBarActivity", ClingBarActivity.class));
+        itemList.add(new Item("RecyclerView吸附栏1", MainActivity.class));
+        itemList.add(new Item("RecyclerView吸附栏2", MultiActivity.class));
         itemList.add(new Item("RecordActivity", RecordActivity.class));
         itemList.add(new Item("LargeDialogActivity", LargeDialogActivity.class));
         itemList.add(new Item("PullDownRefreshActivity", PullDownRefreshActivity.class));
