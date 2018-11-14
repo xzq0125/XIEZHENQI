@@ -15,97 +15,105 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xiezhenqi.R;
+import com.xiezhenqi.utils.ToastUtils;
 
 public class MainActivity extends AppCompatActivity {
-  private RecyclerView mFeedList;
-  private RelativeLayout mSuspensionBar;
-  private TextView mSuspensionTv;
-  private ImageView mSuspensionIv;
-  private int mCurrentPosition = 0;
+    private RecyclerView mFeedList;
+    private RelativeLayout mSuspensionBar;
+    private TextView mSuspensionTv;
+    private ImageView mSuspensionIv;
+    private int mCurrentPosition = 0;
 
-  private int mSuspensionHeight;
+    private int mSuspensionHeight;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        setSupportActionBar(findViewById(R.id.tool_bar));
 
-    mSuspensionBar = (RelativeLayout) findViewById(R.id.suspension_bar);
-    mSuspensionTv = (TextView) findViewById(R.id.tv_nickname);
-    mSuspensionIv = (ImageView) findViewById(R.id.iv_avatar);
+        mSuspensionBar = (RelativeLayout) findViewById(R.id.suspension_bar);
+        mSuspensionBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show(v.<TextView>findViewById(R.id.tv_nickname).getText());
+            }
+        });
 
-    Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
-    toolbar.inflateMenu(R.menu.menu_main);
-    toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-      @Override
-      public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId() == R.id.item_jump) {
-          Intent intent = new Intent(MainActivity.this, MultiActivity.class);
-          startActivity(intent);
-        }
-        return false;
-      }
-    });
+        mSuspensionTv = (TextView) findViewById(R.id.tv_nickname);
+        mSuspensionIv = (ImageView) findViewById(R.id.iv_avatar);
 
-    final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-    final FeedAdapter adapter = new FeedAdapter();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.inflateMenu(R.menu.menu_main);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.item_jump) {
+                    Intent intent = new Intent(MainActivity.this, MultiActivity.class);
+                    startActivity(intent);
+                }
+                return false;
+            }
+        });
 
-    mFeedList = (RecyclerView) findViewById(R.id.feed_list);
-    mFeedList.setLayoutManager(linearLayoutManager);
-    mFeedList.setAdapter(adapter);
-    mFeedList.setHasFixedSize(true);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final FeedAdapter adapter = new FeedAdapter();
 
-    mFeedList.addOnScrollListener(new RecyclerView.OnScrollListener() {
-      @Override
-      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-        super.onScrollStateChanged(recyclerView, newState);
-        mSuspensionHeight = mSuspensionBar.getHeight();
-      }
+        mFeedList = (RecyclerView) findViewById(R.id.feed_list);
+        mFeedList.setLayoutManager(linearLayoutManager);
+        mFeedList.setAdapter(adapter);
+        mFeedList.setHasFixedSize(true);
 
-      @Override
-      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-        super.onScrolled(recyclerView, dx, dy);
-        View view = linearLayoutManager.findViewByPosition(mCurrentPosition + 1);
-        if (view != null) {
-          if (view.getTop() <= mSuspensionHeight) {
-            mSuspensionBar.setY(-(mSuspensionHeight - view.getTop()));
-          } else {
-            mSuspensionBar.setY(0);
-          }
-        }
+        mFeedList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                mSuspensionHeight = mSuspensionBar.getHeight();
+            }
 
-        if (mCurrentPosition != linearLayoutManager.findFirstVisibleItemPosition()) {
-          mCurrentPosition = linearLayoutManager.findFirstVisibleItemPosition();
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                View view = linearLayoutManager.findViewByPosition(mCurrentPosition + 1);
+                if (view != null) {
+                    if (view.getTop() <= mSuspensionHeight) {
+                        mSuspensionBar.setY(-(mSuspensionHeight - view.getTop()));
+                    } else {
+                        mSuspensionBar.setY(0);
+                    }
 
-          updateSuspensionBar();
-          mSuspensionBar.setY(0);
-        }
-      }
-    });
+                }
 
-    updateSuspensionBar();
-  }
+                if (mCurrentPosition != linearLayoutManager.findFirstVisibleItemPosition()) {
+                    mCurrentPosition = linearLayoutManager.findFirstVisibleItemPosition();
+                    updateSuspensionBar();
+                    mSuspensionBar.setY(0);
+                }
+            }
+        });
 
-  private void updateSuspensionBar() {
-    Log.d("HHHH", "updateSuspensionBar: " + mCurrentPosition);
-    Glide.with(MainActivity.this)
-        .load(getAvatarResId(mCurrentPosition))
-        .into(mSuspensionIv);
-
-    mSuspensionTv.setText("Taeyeon " + mCurrentPosition);
-  }
-
-  private int getAvatarResId(int position) {
-    switch (position % 4) {
-      case 0:
-        return R.drawable.avatar1;
-      case 1:
-        return R.drawable.avatar2;
-      case 2:
-        return R.drawable.avatar3;
-      case 3:
-        return R.drawable.avatar4;
+        updateSuspensionBar();
     }
-    return 0;
-  }
+
+    private void updateSuspensionBar() {
+        Log.d("HHHH", "updateSuspensionBar: " + mCurrentPosition);
+        Glide.with(MainActivity.this)
+                .load(getAvatarResId(mCurrentPosition))
+                .into(mSuspensionIv);
+        mSuspensionTv.setText("Taeyeon " + mCurrentPosition);
+    }
+
+    private int getAvatarResId(int position) {
+        switch (position % 4) {
+            case 0:
+                return R.drawable.avatar1;
+            case 1:
+                return R.drawable.avatar2;
+            case 2:
+                return R.drawable.avatar3;
+            case 3:
+                return R.drawable.avatar4;
+        }
+        return 0;
+    }
 }

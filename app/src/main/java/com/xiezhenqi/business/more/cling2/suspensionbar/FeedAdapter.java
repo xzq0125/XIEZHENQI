@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.xiezhenqi.R;
+import com.xiezhenqi.utils.ToastUtils;
 
 /**
  * Created by snowbean on 16-11-4.
@@ -69,16 +70,22 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.FeedHolder> {
         return 100;
     }
 
-    public static class FeedHolder extends RecyclerView.ViewHolder {
+    public static class FeedHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView mIvAvatar;
         ImageView mIvContent;
         TextView mTvNickname;
 
         public FeedHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mIvAvatar = (ImageView) itemView.findViewById(R.id.iv_avatar);
             mIvContent = (ImageView) itemView.findViewById(R.id.iv_content);
             mTvNickname = (TextView) itemView.findViewById(R.id.tv_nickname);
+        }
+
+        @Override
+        public void onClick(View v) {
+            ToastUtils.show(mTvNickname.getText());
         }
     }
 }

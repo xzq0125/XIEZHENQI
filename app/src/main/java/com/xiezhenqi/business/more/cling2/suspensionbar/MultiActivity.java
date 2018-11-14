@@ -21,7 +21,7 @@ public class MultiActivity extends AppCompatActivity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_multi);
-
+    setSupportActionBar(findViewById(R.id.tool_bar));
     mSuspensionBar = (RelativeLayout) findViewById(R.id.suspension_bar);
     mSuspensionTv = (TextView) findViewById(R.id.tv_time);
 

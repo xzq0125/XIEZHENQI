@@ -10,6 +10,7 @@
     <color name="white">#ffffffff</color>
     <color name="black">#ff000000</color>
     <color name="transparent">#00000000</color>
+    <color name="translucence">#80000000</color>
 
     <color name="textColor_toolbar_title">#ffffffff</color>
     <color name="lineColor_toolbar">#ffcccccc</color>
@@ -53,4 +54,5 @@
     <!--直播结束-->
 
     <color name="textColor_999999">#ff999999</color><!--提示性文案-->
+    <color name="textColor_cccccc">#ffcccccc</color><!--提示性文案-->
 </resources>
